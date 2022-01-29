@@ -38,6 +38,16 @@
                     </a>
                 </li>
                 <!-- End Jabatan ---!>
+                <!-- User ---!>
+                <li class="{{ Request::segment(1) == 'user' ? 'active' : '' }}">
+                    <a href="{{ route('user.index') }}" class="waves-effect waves-dark">
+                        <span class="pcoded-micon">
+                            <i class="fa fa-user"></i>
+                        </span>
+                        <span class="pcoded-mtext">User</span>
+                    </a>
+                </li>
+                <!-- End User ---!>
             </ul>
         </div>
     </div>
