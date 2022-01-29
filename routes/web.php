@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\JenisSuratController;
 use App\Http\Controllers\GolonganController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('golongan', GolonganController::class);
     Route::resource('jabatan', JabatanController::class);
     Route::resource('user', UserController::class);
+    Route::resource('jenis_surat', JenisSuratController::class);
 });
 
 require __DIR__.'/auth.php';
