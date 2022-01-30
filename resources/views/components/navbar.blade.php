@@ -2,7 +2,8 @@
   <div class="navbar-wrapper">
       <div class="navbar-logo">
           <a href="{{ route('dashboard') }}">
-              {{--  <img class="img-fluid" src="{{ asset('') }}png/jatim-logo.png" alt="Theme-Logo" />  --}}
+            <br>
+            <img class="img-fluid" src="{{ asset('') }}png/satpol-pp.png" alt="Theme-Logo" width="70px" style="margin-top:30px"/> 
               <h3>DISPOSISI</h3>
           </a>
           <a class="mobile-menu" id="mobile-collapse" href="#!">

@@ -2,7 +2,7 @@
     <div class="nav-list">
         <div class="pcoded-inner-navbar main-menu">
             {{-- master --}}
-            <div class="pcoded-navigation-label">Master</div>
+            <div class="pcoded-navigation-label">Dashboard</div>
             <ul class="pcoded-item pcoded-left-item">
                 <li class="{{ Request::segment(1) == 'dashboard' ? 'active' : '' }}">
                     <a href="{{ url('dashboard') }}" class="waves-effect waves-dark">
@@ -21,7 +21,7 @@
                 <li class="{{ Request::segment(1) == 'surat_masuk' ? 'active' : '' }}">
                     <a href="{{ route('surat_masuk.index') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
-                            <i class="fa fa-envelope"></i>
+                            <i class="fa fa-download"></i>
                         </span>
                         <span class="pcoded-mtext">Surat Masuk</span>
                     </a>
@@ -31,7 +31,7 @@
                 <li class="{{ Request::segment(1) == 'surat_keluar' ? 'active' : '' }}">
                     <a href="{{ route('surat_keluar.index') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
-                            <i class="fa fa-envelope"></i>
+                            <i class="fa fa-upload"></i>
                         </span>
                         <span class="pcoded-mtext">Surat Keluar</span>
                     </a>
@@ -59,7 +59,7 @@
                 <li class="{{ Request::segment(1) == 'jenis_surat' ? 'active' : '' }}">
                     <a href="{{ route('jenis_surat.index') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
-                            <i class="fa fa-envelope"></i>
+                            <i class="ti-envelope"></i>
                         </span>
                         <span class="pcoded-mtext">Jenis Surat</span>
                     </a>

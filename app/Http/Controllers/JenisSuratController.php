@@ -13,7 +13,7 @@ class JenisSuratController extends Controller
         public function __construct()
     {
         $this->param['pageTitle'] = 'Jenis Surat';
-        $this->param['pageIcon'] = 'fa fa-envelope';
+        $this->param['pageIcon'] = 'ti-envelope';
         $this->param['parentMenu'] = '/jenis_surat';
         $this->param['current'] = 'Jenis Surat';
     }

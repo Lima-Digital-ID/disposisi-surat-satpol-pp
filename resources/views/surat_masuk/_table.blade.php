@@ -3,11 +3,13 @@
       <thead>
           <tr class="table-primary">
               <th class="text-center">#</th>
-              <th>Sifat Surat</th>
-              <th>Pengirim</th>
-              <th>Penerima</th>
-              <th>Tanggal Disposisi</th>
-              <th>Catatan</th>
+              <th>No Surat</th>
+              <th>Jenis Surat</th>
+              <th>Pengirim Surat</th>
+              <th>Penerima Surat</th>
+              <th>Tanggal Terima Surat</th>
+              <th>Tanggal Kirim Surat</th>
+              <th>Perihal Surat</th>
               <th>Aksi</th>
           </tr>
       </thead>
@@ -19,15 +21,21 @@
           @foreach ($data as $item)
               <tr class="border-bottom-primary">
                 <td class="text-center text-muted">{{ $no }}</td>
-                <td></td>
+                <td>{{ $item->no_surat }}</td>
+                <td>{{ $item->id_jenis_surat }}</td>
+                <td>{{ $item->id_pengirim }}</td>
+                <td>{{ $item->id_penerima }}</td>
+                <td>{{ $item->tgl_pengirim }}</td>
+                <td>{{ $item->tgl_penerima }}</td>
+                <td>{{ $item->perihal }}</td>
                 <td>
                     <div class="form-inline">
-                        <a href="{{ route('jenis_surat.edit', $item->id) }}" class="mr-2">
+                        <a href="{{ route('surat_masuk.edit', $item->id) }}" class="mr-2">
                             <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm"
                                 data-toggle="tooltip" title="Edit" data-placement="top"><span
                                     class="feather icon-edit"></span></button>
                         </a>
-                        <form action="{{ route('jenis_surat.destroy', $item->id) }}" method="post">
+                        <form action="{{ route('surat_masuk.destroy', $item->id) }}" method="post">
                             @csrf
                             @method('delete')
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip"

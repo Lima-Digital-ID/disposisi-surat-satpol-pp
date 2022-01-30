@@ -4,10 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\DisposisiRequest;
 use App\Models\Disposisi;
+use App\Models\User;
+use App\Models\JenisSurat;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Database\QueryException;
-
 class DisposisiController extends Controller
 {
     private $param;
@@ -34,7 +35,7 @@ class DisposisiController extends Controller
             $getDisposisi = Disposisi::orderBy('id');
 
             if ($keyword) {
-                $getDisposisi->where('jabatan', 'LIKE', "%{$keyword}%");
+                $getDisposisi->where('disposisi', 'LIKE', "%{$keyword}%");
             }
 
             $this->param['data'] = $getDisposisi->paginate(10);

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class SuratMasukRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class SuratMasukRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return Auth::check();
     }
 
     /**
@@ -24,7 +25,29 @@ class SuratMasukRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'no_surat' => 'required|max:191',
+            'id_jenis_surat' => 'required',
+            'id_pengirim' => 'required',
+            'id_penerima' => 'required',
+            'tgl_pengirim' => 'required',
+            'tgl_penerima' => 'required',
+            'perihal' => 'required',
+            'file_surat' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'no_surat.required' => 'No surat harus diisi.',
+            'no_surat.max' => 'Maksimal jumlah karakter 191.',
+            'id_jenis_surat.required' => 'Jenis surat harus diisi.',
+            'id_pengirim.required' => 'Pengirim harus diisi.',
+            'id_penerima.required' => 'Penerima harus diisi.',
+            'tgl_pengirim.required' => 'Tanggal Pengirim harus diisi.',
+            'tgl_penerima.required' => 'Tanggal Penerima harus diisi.',
+            'perihal.required' => 'Perihal harus diisi.',
+            'file_surat.required' => 'File surat harus diunggah.',
         ];
     }
 }
