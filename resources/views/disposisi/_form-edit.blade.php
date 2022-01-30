@@ -1,4 +1,4 @@
-<form action="{{ route('jenis_surat.update', $data->id) }}" method="POST">
+<form action="{{ route('golongan.update', $data->id) }}" method="POST">
   @csrf
   @method('PUT')
   <div class="form-group row">

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use \App\Http\Requests\StoreRequest;
 use \App\Models\User;
+use \App\Models\Golongan;
+use \App\Models\Jabatan;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -31,8 +33,8 @@ class UserController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            // $getUsers = User::with('golongan', 'jabatan')->orderBy('name', 'ASC');
-            $getUsers = User::orderBy('id');
+            $getUsers = User::with('golongan')->orderBy('id', 'ASC');
+            // $getUsers = User::orderBy('id');
 
             if ($keyword) {
                 $getUsers->where('name', 'LIKE', "%{$keyword}%")->orWhere('email', 'LIKE', "%{$keyword}%");
@@ -58,6 +60,8 @@ class UserController extends Controller
     {
         $this->param['btnText'] = 'List User';
         $this->param['btnLink'] = route('user.index');
+        $this->param['allGol'] = Golongan::get();
+        $this->param['allJab'] = Jabatan::get();
 
         return \view('user.create', $this->param);
     }
@@ -77,6 +81,8 @@ class UserController extends Controller
             $user->email = $validated['email'];
             $user->username = $validated['username'];
             $user->password = Hash::make('password');
+            $user->id_golongan = $request->get('id_golongan');
+            $user->id_jabatan = $request->get('id_jabatan');
             $user->jenis_pegawai = $request->get('jenis_pegawai');
             $user->jenis_kelamin = $request->get('jenis_kelamin');
             $user->nip = $request->get('nip');

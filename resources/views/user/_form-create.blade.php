@@ -39,6 +39,40 @@
         </div>
     </div>
 
+        <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Golongan</label>
+        <div class="col-sm-10">
+            <select name="id_golongan" id="id_golongan" class="form-control" style="width: 100%;" required>
+                <option value="">Pilih Golongan</option>
+                @foreach ($allGol as $gol)
+                    <option value="{{ $gol->id }}">{{ $gol->pangkat }}</option>
+                @endforeach
+            </select>
+            @error('id_golongan')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+    </div>
+
+        <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Jabatan</label>
+        <div class="col-sm-10">
+            <select name="id_golongan" id="id_golongan" class="form-control" style="width: 100%;" required>
+                <option value="">Pilih Jabatan</option>
+                @foreach ($allJab as $jab)
+                    <option value="{{ $jab->id }}">{{ $jab->jabatan }}</option>
+                @endforeach
+            </select>
+            @error('id_golongan')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+    </div>
+
 
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Jenis Pegawai</label>

@@ -18,8 +18,8 @@
             <div class="pcoded-navigation-label">Surat</div>
             <ul class="pcoded-item pcoded-left-item">
                 <!-- Surat Masuk ---!>
-                <li class="{{ Request::segment(1) == 'jenis_surat' ? 'active' : '' }}">
-                    <a href="{{ route('jenis_surat.index') }}" class="waves-effect waves-dark">
+                <li class="{{ Request::segment(1) == 'surat_masuk' ? 'active' : '' }}">
+                    <a href="{{ route('surat_masuk.index') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="fa fa-envelope"></i>
                         </span>
@@ -28,8 +28,8 @@
                 </li>
                 <!-- End Surat Masuk ---!>
                 <!-- Surat Keluar ---!>
-                <li class="{{ Request::segment(1) == 'jenis_surat' ? 'active' : '' }}">
-                    <a href="{{ route('jenis_surat.index') }}" class="waves-effect waves-dark">
+                <li class="{{ Request::segment(1) == 'surat_keluar' ? 'active' : '' }}">
+                    <a href="{{ route('surat_keluar.index') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="fa fa-envelope"></i>
                         </span>
@@ -42,8 +42,8 @@
             <div class="pcoded-navigation-label">Disposisi</div>
             <ul class="pcoded-item pcoded-left-item">
                 <!-- Disposisi---!>
-                <li class="{{ Request::segment(1) == 'jenis_surat' ? 'active' : '' }}">
-                    <a href="{{ route('jenis_surat.index') }}" class="waves-effect waves-dark">
+                <li class="{{ Request::segment(1) == 'disposisi' ? 'active' : '' }}">
+                    <a href="{{ route('disposisi.index') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="fa fa-envelope"></i>
                         </span>

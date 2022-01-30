@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\SuratMasukController;
+use App\Http\Controllers\SuratKeluarController;
+use App\Http\Controllers\DisposisiController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\JenisSuratController;
 use App\Http\Controllers\GolonganController;
@@ -29,6 +32,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('jabatan', JabatanController::class);
     Route::resource('user', UserController::class);
     Route::resource('jenis_surat', JenisSuratController::class);
+    Route::resource('surat_masuk', SuratMasukController::class);
+    Route::resource('surat_keluar', SuratKeluarController::class);
+    Route::resource('disposisi', DisposisiController::class);
 });
 
 require __DIR__.'/auth.php';

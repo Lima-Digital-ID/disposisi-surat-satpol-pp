@@ -5,6 +5,8 @@
                 <th class="text-center">#</th>
                 <th>Nama</th>
                 <th>Email</th>
+                <th>Golongan</th>
+                <th>Jabatan</th>
                 <th>Jenis Pegawai</th>
                 <th>Jenis Kelamin</th>
                 <th>NIP</th>
@@ -22,6 +24,8 @@
                     <td class="text-center text-muted">{{ $no }}</td>
                     <td>{{ $item->nama }}</td>
                     <td>{{ $item->email }}</td>
+                    <td></td>
+                    <td></td>
                     <td>{{ $item->jenis_pegawai }}</td>
                     <td>{{ $item->jenis_kelamin }}</td>
                     <td>{{ $item->nip }}</td>

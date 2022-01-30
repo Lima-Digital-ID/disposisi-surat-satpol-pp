@@ -10,6 +10,17 @@ use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
+
+    public function golongan()
+    {
+        return $this->belongsTo('\App\Models\Golongan', 'id');
+    }
+
+    public function jabatan()
+    {
+        return $this->belongsTo('\App\Models\Jabatan', 'id');
+    }
+
     use HasApiTokens, HasFactory, Notifiable;
 
     /**

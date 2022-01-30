@@ -1,4 +1,4 @@
-<form action="{{ route('jenis_surat.store') }}" method="POST">
+<form action="{{ route('golongan.store') }}" method="POST">
     @csrf
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Jenis Surat</label>

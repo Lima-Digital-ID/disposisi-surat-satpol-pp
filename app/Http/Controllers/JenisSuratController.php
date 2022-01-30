@@ -72,17 +72,16 @@ class JenisSuratController extends Controller
                 'jenis_surat' => 'required|max:191|unique:jenis_surat,jenis_surat',
             ],
             [
-                'jenis_surat.required' => 'jenis_surat harus diisi.', 
+                'jenis_surat.required' => 'Jenis Surat harus diisi.', 
                 'jenis_surat.max' => 'Maksimal jumlah karakter 191.', 
                 'jenis_surat.unique' => 'Nama telah digunakan.', 
             ]
         );
         $validated = $request;
         try {
-            $jenis = new JenisSurat;
-            $jenis->jenis_surat = $validated['jenis_surat'];
-            // print_r($jenis);
-            $jenis->save();
+            $jenis_surat = new JenisSurat;
+            $jenis_surat->jenis_surat = $validated['jenis_surat'];
+            $jenis_surat->save();
         } catch (Exception $e) {
             return back()->withError('Terjadi kesalahan.');
         } catch (QueryException $e) {
@@ -111,7 +110,11 @@ class JenisSuratController extends Controller
      */
     public function edit($id)
     {
-        //
+        $this->param['data'] = JenisSurat::find($id);
+        $this->param['btnText'] = 'List Jenis Surat';
+        $this->param['btnLink'] = route('jenis_surat.index');
+
+        return view('jenis_surat.edit', $this->param);
     }
 
     /**
@@ -121,9 +124,36 @@ class JenisSuratController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(JenisSuratRequest $request, $id)
     {
-        //
+        $data = JenisSurat::findOrFail($id);
+
+        $jenisUnique = $request['jenis_surat'] != null && $request['jenis_surat'] != $data->jenis_surat ? '|unique:jenis_surat,jenis_surat' : '';
+
+        $request = $request->validate(
+            [
+                'jenis_surat' => 'required|max:191'.$jenisUnique,
+            ],
+            [
+                'jenis_surat.required' => 'Jenis Surat harus diisi.', 
+                'jenis_surat.max' => 'Maksimal jumlah karakter 191.', 
+                'jenis_surat.unique' => 'Nama telah digunakan.', 
+            ]
+        );
+
+        $validated = $request;
+
+        try {
+            $data->jenis_surat = $validated['jenis_surat'];
+
+            $data->save();
+        } catch (\Exception $e) {
+            return redirect()->back()->withError('Terjadi kesalahan.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withError('Terjadi kesalahan pada database.');
+        }
+
+        return redirect()->route('jenis_surat.index')->withStatus('Data berhasil diperbarui.');
     }
 
     /**
@@ -134,6 +164,15 @@ class JenisSuratController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $jenis = JenisSurat::findOrFail($id);
+            $jenis->delete();
+        } catch (Exception $e) {
+            return back()->withError('Terjadi kesalahan.');
+        } catch (QueryException $e) {
+            return back()->withError('Terjadi kesalahan pada database.');
+        }
+
+        return redirect()->route('jenis_surat.index')->withStatus('Data berhasil dihapus.');
     }
 }
