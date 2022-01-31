@@ -75,7 +75,7 @@ class SuratKeluarController extends Controller
         try {
             $surat = new SuratKeluar;
 
-            $uploadPath = 'upload/surat_keluar/'.$request->get('file_surat');
+            $uploadPath = 'upload/surat_keluar/';
             $scanSurat = $request->file('file_surat');
             $newScanSurat = time().'_'.$scanSurat->getClientOriginalName();  
 
@@ -85,8 +85,7 @@ class SuratKeluarController extends Controller
             $surat->id_pengirim = $validated['id_pengirim'];
             $surat->tgl_kirim = $validated['tgl_kirim'];
             $surat->perihal = $validated['perihal'];
-            $surat->file_surat = $scanSurat;
-            // $surat->file_surat = $validated['file_surat'];
+            $surat->file_surat = $newScanSurat;
             if($surat->save()){
                 $scanSurat->move($uploadPath,$newScanSurat);
                 return redirect()->route('surat_keluar.index')->withStatus('Data berhasil disimpan.');

@@ -15,7 +15,7 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Jenis Surat</label>
         <div class="col-sm-10">
-            <select name="id_jenis_surat" id="id_jenis_surat" class="form-control" style="width: 100%;" required>
+            <select name="id_jenis_surat" id="id_jenis_surat" class="js-example-basic-single" style="width: 100%;" required>
                 <option value="">Pilih Jenis Surat</option>
                 @foreach ($allJen as $jen)
                     <option value="{{ $jen->id }}">{{ $jen->jenis_surat }}</option>
@@ -32,10 +32,10 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Penerima</label>
         <div class="col-sm-10">
-            <select name="id_penerima" id="id_penerima" class="form-control" style="width: 100%;" required>
+            <select name="id_penerima" id="id_penerima" class="js-example-basic-single" style="width: 100%;" required>
                 <option value="">Pilih Penerima</option>
                 @foreach ($allUsr as $usr)
-                    <option value="{{ $usr->id }}">{{ $usr->nama }}</option>
+                    <option value="{{ $usr->id }}">{{ $usr->nama." || ".$usr->jabatan->jabatan }}</option>
                 @endforeach
             </select>
             @error('id_penerima')

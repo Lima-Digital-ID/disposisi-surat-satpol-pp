@@ -19,7 +19,7 @@
           @foreach ($data as $item)
               <tr class="border-bottom-primary">
                 <td class="text-center text-muted">{{ $no }}</td>
-                <td></td>
+                <td>{{ $item->sifat_surat }}</td>
                 <td>
                     <div class="form-inline">
                         <a href="{{ route('jenis_surat.edit', $item->id) }}" class="mr-2">

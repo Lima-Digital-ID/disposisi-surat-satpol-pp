@@ -86,6 +86,16 @@
                     </a>
                 </li>
                 <!-- End Jabatan ---!>
+                <!-- Unit Kerja ---!>
+                {{-- <li class="{{ Request::segment(1) == 'unit_kerja' ? 'active' : '' }}">
+                    <a href="{{ route('unit_kerja.index') }}" class="waves-effect waves-dark">
+                        <span class="pcoded-micon">
+                            <i class="fa fa-database"></i>
+                        </span>
+                        <span class="pcoded-mtext">Unit Kerja</span>
+                    </a>
+                </li> --}}
+                <!-- End Unit Kerja ---!>
                 <!-- User ---!>
                 <li class="{{ Request::segment(1) == 'user' ? 'active' : '' }}">
                     <a href="{{ route('user.index') }}" class="waves-effect waves-dark">
