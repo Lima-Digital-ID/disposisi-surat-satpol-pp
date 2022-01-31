@@ -20,7 +20,7 @@
               $no = !$page || $page == 1 ? 1 : ($page - 1) * 10 + 1;
           @endphp
           @foreach ($data as $item)
-          @if (auth()->user()->id == $item->id_pengirim || auth()->user()->level == 'Administrator' || auth()->user()->level == 'Admin' || auth()->user()->level == 'Kasat')
+          {{-- @if (auth()->user()->id == $item->id_pengirim || auth()->user()->level == 'Administrator' || auth()->user()->level == 'Admin' || auth()->user()->level == 'Kasat') --}}
               <tr class="border-bottom-primary">
                 <td class="text-center text-muted">{{ $no }}</td>
                 <td>{{ $item->no_surat }}</td>
@@ -53,7 +53,7 @@
               @php
                   $no++;
               @endphp
-            @endif
+            {{-- @endif --}}
           @endforeach
       </tbody>
   </table>

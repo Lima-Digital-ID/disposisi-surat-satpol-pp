@@ -17,9 +17,14 @@
               $no = !$page || $page == 1 ? 1 : ($page - 1) * 10 + 1;
           @endphp
           @foreach ($data as $item)
+          {{-- @if (auth()->user()->id == $item->id_pengirim || auth()->user()->level == 'Administrator' || auth()->user()->level == 'Admin' || auth()->user()->id == $item->id_penerima ) --}}
               <tr class="border-bottom-primary">
                 <td class="text-center text-muted">{{ $no }}</td>
                 <td>{{ $item->sifat_surat }}</td>
+                <td>{{ $item->penerima->nama }}</td>
+                <td>{{ $item->pengirim->nama }}</td>
+                <td>{{ $item->tgl_disposisi }}</td>
+                <td>{{ $item->catatan }}</td>
                 <td>
                     <div class="form-inline">
                         <a href="{{ route('jenis_surat.edit', $item->id) }}" class="mr-2">
@@ -42,6 +47,7 @@
               @php
                   $no++;
               @endphp
+            {{-- @endif --}}
           @endforeach
       </tbody>
   </table>

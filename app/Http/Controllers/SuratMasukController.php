@@ -31,7 +31,7 @@ class SuratMasukController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            $getSuratMasuk = SuratMasuk::with('jenis_surat','penerima_masuk','pengirim_masuk')->orderBy('id','ASC');
+            $getSuratMasuk = SuratMasuk::with('jenis_surat','penerima_masuk','pengirim_masuk')->where('id_penerima',auth()->user()->id)->orderBy('id','ASC');
             // $getSuratMasuk = SuratMasuk::orderBy('id');
 
             if ($keyword) {

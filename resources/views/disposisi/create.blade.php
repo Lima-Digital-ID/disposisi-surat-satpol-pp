@@ -23,7 +23,7 @@
                 </div>
                 <div class="card-block">
                     {{-- <h4 class="sub-title">Basic Inputs</h4> --}}
-                    @include('jenis_surat._form-create')
+                    @include('disposisi._form-create')
                 </div>
             </div>
         </div>

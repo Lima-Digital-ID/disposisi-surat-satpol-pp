@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\DisposisiRequest;
 use App\Models\Disposisi;
 use App\Models\User;
-use App\Models\JenisSurat;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -32,7 +31,8 @@ class DisposisiController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            $getDisposisi = Disposisi::orderBy('id');
+            // $getDisposisi = Disposisi::orderBy('id');
+            $getDisposisi = Disposisi::with('penerima','pengirim')->where('id_pengirim',auth()->user()->id)->orwhere('id_pengirim',auth()->user()->id)->orderBy('id','ASC');
 
             if ($keyword) {
                 $getDisposisi->where('disposisi', 'LIKE', "%{$keyword}%");
@@ -56,7 +56,11 @@ class DisposisiController extends Controller
      */
     public function create()
     {
-        //
+        $this->param['btnText'] = 'List Disposisi';
+        $this->param['btnLink'] = route('disposisi.index');
+        $this->param['allUsr'] = User::get();
+
+        return \view('disposisi.create', $this->param);
     }
 
     /**
@@ -65,9 +69,26 @@ class DisposisiController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(DisposisiRequest $request)
     {
-        //
+        $validated = $request->validated();
+        try {
+            $disposisi = new Disposisi;
+            // $disposisi->id_surat_masuk = $validated['id_surat_masuk'];
+            $disposisi->sifat_surat = $validated['sifat_surat'];
+            // $disposisi->id_surat_keluar = $validated['id_surat_keluar'];
+            $disposisi->id_pengirim = $validated['id_pengirim'];
+            $disposisi->id_penerima = $validated['id_penerima'];
+            $disposisi->tgl_disposisi = $validated['tgl_disposisi'];
+            $disposisi->catatan = $validated['catatan'];
+            $disposisi->save();
+        } catch (Exception $e) {
+            return back()->withError('Terjadi kesalahan.'.$e);
+        } catch (QueryException $e) {
+            return back()->withError('Terjadi kesalahan pada database.');
+        }
+
+        return redirect()->route('disposisi.index')->withStatus('Data berhasil disimpan.');
     }
 
     /**
