@@ -9,6 +9,7 @@
               <th>Penerima Surat</th>
               <th>Tanggal Kirim Surat</th>
               <th>Perihal Surat</th>
+              <th>Lampiran Surat</th>
               <th>Aksi</th>
           </tr>
       </thead>
@@ -21,11 +22,12 @@
               <tr class="border-bottom-primary">
                 <td class="text-center text-muted">{{ $no }}</td>
                 <td>{{ $item->no_surat }}</td>
-                <td>{{ $item->id_jenis_surat }}</td>
-                <td>{{ $item->id_pengirim }}</td>
-                <td>{{ $item->id_penerima }}</td>
+                <td>{{ $item->jenis_surat->jenis_surat }}</td>
+                <td>{{ $item->pengirim_keluar->nama }}</td>
+                <td>{{ $item->penerima }}</td>
                 <td>{{ $item->tgl_kirim }}</td>
                 <td>{{ $item->perihal }}</td>
+                <td><a href="{{ "upload/surat_keluar/".$item->file_surat }}" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
                 <td>
                     <div class="form-inline">
                         <a href="{{ route('surat_keluar.edit', $item->id) }}" class="mr-2">

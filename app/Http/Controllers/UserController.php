@@ -33,8 +33,7 @@ class UserController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            $getUsers = User::with('golongan')->orderBy('id', 'ASC');
-            // $getUsers = User::orderBy('id');
+            $getUsers = User::with('golongan', 'jabatan')->orderBy('id', 'ASC');
 
             if ($keyword) {
                 $getUsers->where('name', 'LIKE', "%{$keyword}%")->orWhere('email', 'LIKE', "%{$keyword}%");
@@ -47,7 +46,6 @@ class UserController extends Controller
         catch (Exception $e) {
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
         }
-
         return \view('user.index', $this->param);
     }
 
@@ -139,6 +137,15 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $user = User::findOrFail($id);
+            $user->delete();
+        } catch (Exception $e) {
+            return back()->withError('Terjadi kesalahan.');
+        } catch (QueryException $e) {
+            return back()->withError('Terjadi kesalahan pada database.');
+        }
+
+        return redirect()->route('user.index')->withStatus('Data berhasil dihapus.');
     }
 }

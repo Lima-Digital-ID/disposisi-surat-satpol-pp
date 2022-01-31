@@ -1,4 +1,4 @@
-<form action="{{ route('surat_masuk.store') }}" method="POST">
+<form action="{{ route('surat_masuk.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">No Surat</label>
@@ -49,13 +49,8 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Pengirim</label>
         <div class="col-sm-10">
-            <select name="id_pengirim" id="id_pengirim" class="form-control" style="width: 100%;" required>
-                <option value="">Pilih Pengirim</option>
-                @foreach ($allUsr as $usr)
-                    <option value="{{ $usr->id }}">{{ $usr->nama }}</option>
-                @endforeach
-            </select>
-            @error('id_pengirim')
+            <input type="text" name="pengirim" class="form-control @error('pengirim') is-invalid @enderror" placeholder="Nama Pengirim" value="{{old('pengirim')}}">
+            @error('pengirim')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
@@ -66,7 +61,7 @@
         <div class="form-group row">
         <label class="col-sm-2 col-form-label">Tanggal Kirim</label>
         <div class="col-sm-10">
-            <input type="date" name="tgl_pengirim" class="form-control @error('tgl_pengirim') is-invalid @enderror" placeholder="Tanggal Kirim" value="{{old('tgl_pengirim')}}">
+            <input type="datetime-local" name="tgl_pengirim" class="form-control @error('tgl_pengirim') is-invalid @enderror" placeholder="Tanggal Kirim" value="{{old('tgl_pengirim')}}">
             @error('tgl_pengirim')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -78,7 +73,7 @@
         <div class="form-group row">
         <label class="col-sm-2 col-form-label">Tanggal Terima</label>
         <div class="col-sm-10">
-            <input type="date" name="tgl_penerima" class="form-control @error('tgl_penerima') is-invalid @enderror" placeholder="Tanggal Kirim" value="{{old('tgl_penerima')}}">
+            <input type="datetime-local" name="tgl_penerima" class="form-control @error('tgl_penerima') is-invalid @enderror" placeholder="Tanggal Kirim" value="{{old('tgl_penerima')}}">
             @error('tgl_penerima')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -99,10 +94,10 @@
         </div>
     </div>
 
-        <div class="form-group row">
+    <div class="form-group row">
         <label class="col-sm-2 col-form-label">File Surat</label>
         <div class="col-sm-10">
-            <input type="text" name="file_surat" class="form-control @error('file_surat') is-invalid @enderror" placeholder="File Surat" value="{{old('file_surat')}}">
+            <input type="file" name="file_surat" class="form-control" id="file_surat"/>
             @error('file_surat')
                 <div class="invalid-feedback">
                     {{ $message }}

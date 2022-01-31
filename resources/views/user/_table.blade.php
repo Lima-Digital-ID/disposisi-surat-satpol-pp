@@ -24,8 +24,8 @@
                     <td class="text-center text-muted">{{ $no }}</td>
                     <td>{{ $item->nama }}</td>
                     <td>{{ $item->email }}</td>
-                    <td></td>
-                    <td></td>
+                    <td>{{ $item->golongan->pangkat }}</td>
+                    <td>{{ $item->jabatan->jabatan }}</td>
                     <td>{{ $item->jenis_pegawai }}</td>
                     <td>{{ $item->jenis_kelamin }}</td>
                     <td>{{ $item->nip }}</td>

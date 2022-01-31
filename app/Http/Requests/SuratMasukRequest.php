@@ -27,7 +27,7 @@ class SuratMasukRequest extends FormRequest
         return [
             'no_surat' => 'required|max:191',
             'id_jenis_surat' => 'required',
-            'id_pengirim' => 'required',
+            'pengirim' => 'required',
             'id_penerima' => 'required',
             'tgl_pengirim' => 'required',
             'tgl_penerima' => 'required',
@@ -42,7 +42,7 @@ class SuratMasukRequest extends FormRequest
             'no_surat.required' => 'No surat harus diisi.',
             'no_surat.max' => 'Maksimal jumlah karakter 191.',
             'id_jenis_surat.required' => 'Jenis surat harus diisi.',
-            'id_pengirim.required' => 'Pengirim harus diisi.',
+            'pengirim.required' => 'Pengirim harus diisi.',
             'id_penerima.required' => 'Penerima harus diisi.',
             'tgl_pengirim.required' => 'Tanggal Pengirim harus diisi.',
             'tgl_penerima.required' => 'Tanggal Penerima harus diisi.',

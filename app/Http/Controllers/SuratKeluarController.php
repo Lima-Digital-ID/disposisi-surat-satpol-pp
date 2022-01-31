@@ -31,7 +31,7 @@ class SuratKeluarController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            $getSuratKeluar = SuratKeluar::orderBy('id');
+            $getSuratKeluar = SuratKeluar::with('jenis_surat','penerima_keluar','pengirim_keluar')->orderBy('id','ASC');
 
             if ($keyword) {
                 $getSuratKeluar->where('surat_keluar', 'LIKE', "%{$keyword}%");
@@ -74,14 +74,23 @@ class SuratKeluarController extends Controller
         $validated = $request->validated();
         try {
             $surat = new SuratKeluar;
+
+            $uploadPath = 'upload/surat_keluar/'.$request->get('file_surat');
+            $scanSurat = $request->file('file_surat');
+            $newScanSurat = time().'_'.$scanSurat->getClientOriginalName();  
+
             $surat->no_surat = $validated['no_surat'];
             $surat->id_jenis_surat = $validated['id_jenis_surat'];
-            $surat->id_penerima = $validated['id_penerima'];
+            $surat->penerima = $validated['penerima'];
             $surat->id_pengirim = $validated['id_pengirim'];
             $surat->tgl_kirim = $validated['tgl_kirim'];
             $surat->perihal = $validated['perihal'];
-            $surat->file_surat = $validated['file_surat'];
-            $surat->save();
+            $surat->file_surat = $scanSurat;
+            // $surat->file_surat = $validated['file_surat'];
+            if($surat->save()){
+                $scanSurat->move($uploadPath,$newScanSurat);
+                return redirect()->route('surat_keluar.index')->withStatus('Data berhasil disimpan.');
+            }
         } catch (Exception $e) {
             return back()->withError('Terjadi kesalahan.' . $e->getMessage());
         } catch (QueryException $e) {
@@ -153,8 +162,19 @@ class SuratKeluarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        try {
+            $surat = SuratKeluar::find($request->id);
+            unlink("upload/surat/".$surat->file_surat);
+            // $surat->delete();
+            SuratKeluar::where("id", $surat->id)->delete();
+        } catch (Exception $e) {
+            return back()->withError('Terjadi kesalahan.');
+        } catch (QueryException $e) {
+            return back()->withError('Terjadi kesalahan pada database.');
+        }
+
+        return redirect()->route('surat_keluar.index')->withStatus('Data berhasil dihapus.');
     }
 }

@@ -53,6 +53,7 @@
                 <!-- End Disposisi---!>
             </ul>
 
+            @if (auth()->user()->level == 'Administrator' || auth()->user()->level == 'Admin')
             <div class="pcoded-navigation-label">Data Master</div>
             <ul class="pcoded-item pcoded-left-item">
                 <!-- Jenis Surat ---!>
@@ -95,6 +96,7 @@
                     </a>
                 </li>
                 <!-- End User ---!>
+                @endif
             </ul>
         </div>
     </div>

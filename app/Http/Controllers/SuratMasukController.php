@@ -31,7 +31,8 @@ class SuratMasukController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            $getSuratMasuk = SuratMasuk::orderBy('id');
+            $getSuratMasuk = SuratMasuk::with('jenis_surat','penerima_masuk','pengirim_masuk')->orderBy('id','ASC');
+            // $getSuratMasuk = SuratMasuk::orderBy('id');
 
             if ($keyword) {
                 $getSuratMasuk->where('surat_masuk', 'LIKE', "%{$keyword}%");
@@ -44,6 +45,7 @@ class SuratMasukController extends Controller
         catch (Exception $e) {
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
         }
+        // return $this->param['data'];
 
         return \view('surat_masuk.index', $this->param);
     }
@@ -74,21 +76,29 @@ class SuratMasukController extends Controller
         $validated = $request->validated();
         try {
             $surat = new SuratMasuk;
+
+            $uploadPath = 'upload/surat_masuk/'.$validated['file_surat'];
+            $scanSurat = $validated['file_surat'];
+            $newScanSurat = time().'_'.$scanSurat->getClientOriginalName();
+
             $surat->no_surat = $validated['no_surat'];
             $surat->id_jenis_surat = $validated['id_jenis_surat'];
             $surat->id_penerima = $validated['id_penerima'];
-            $surat->id_pengirim = $validated['id_pengirim'];
+            $surat->pengirim = $validated['pengirim'];
             $surat->tgl_pengirim = $validated['tgl_pengirim'];
             $surat->tgl_penerima = $validated['tgl_penerima'];
             $surat->perihal = $validated['perihal'];
-            $surat->file_surat = $validated['file_surat'];
-            $surat->save();
+            $surat->file_surat = $scanSurat;
+            // $surat->save();
+            if($surat->save()){
+                $scanSurat->move($uploadPath,$newScanSurat);
+                return redirect()->route('surat_masuk.index')->withStatus('Data berhasil disimpan.');
+            }
         } catch (Exception $e) {
             return back()->withError('Terjadi kesalahan.' . $e->getMessage());
         } catch (QueryException $e) {
             return back()->withError('Terjadi kesalahan.' . $e->getMessage());
         }
-
         return redirect()->route('surat_masuk.index')->withStatus('Data berhasil disimpan.');
     }
 
