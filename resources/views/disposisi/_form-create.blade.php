@@ -22,6 +22,40 @@
     </div>
 
     <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Pilih Surat Masuk</label>
+        <div class="col-sm-10">
+            <select name="id_surat_masuk" id="id_surat_masuk" class="js-example-basic-single" style="width: 100%;">
+                <option value="">Pilih Surat Masuk</option>
+                @foreach ($allMsk as $msk)
+                    <option value="{{ $msk->id }}">{{ $msk->no_surat ." || ". $msk->perihal }}</option>
+                @endforeach
+            </select>
+            @error('id_penerima')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Pilih Surat Keluar</label>
+        <div class="col-sm-10">
+            <select name="id_surat_keluar" id="id_surat_keluar" class="js-example-basic-single" style="width: 100%;">
+                <option value="">Pilih Surat Keluar</option>
+                @foreach ($allKlr as $klr)
+                    <option value="{{ $klr->id }}">{{ $klr->no_surat ." || ". $klr->perihal }}</option>
+                @endforeach
+            </select>
+            @error('id_penerima')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="form-group row">
         <label class="col-sm-2 col-form-label">Pengirim</label>
         <div class="col-sm-10">
             <select name="id_pengirim" id="id_pengirim" class="js-example-basic-single" style="width: 100%;" required>
