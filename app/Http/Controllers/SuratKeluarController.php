@@ -161,19 +161,20 @@ class SuratKeluarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $request)
+    public function destroy($id)
     {
         try {
-            $surat = SuratKeluar::find($request->id);
-            unlink("upload/surat/".$surat->file_surat);
-            // $surat->delete();
-            SuratKeluar::where("id", $surat->id)->delete();
+            $data = SuratKeluar::findOrFail($id);
+            $file = 'upload/surat_keluar/'.$data->file_surat;
+            if($data->file_surat != '' && $data->file_surat != null){
+                unlink($file);
+                $data->delete();
+            }
         } catch (Exception $e) {
-            return back()->withError('Terjadi kesalahan.');
+            return back()->withError('Terjadi kesalahan.'.$e);
         } catch (QueryException $e) {
             return back()->withError('Terjadi kesalahan pada database.');
         }
-
         return redirect()->route('surat_keluar.index')->withStatus('Data berhasil dihapus.');
     }
 }

@@ -143,6 +143,19 @@ class SuratMasukController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $data = SuratMasuk::findOrFail($id);
+            $file = 'upload/surat_masuk/'.$data->file_surat;
+            if($data->file_surat != '' && $data->file_surat != null){
+                unlink($file);
+                $data->delete();
+            }
+        } catch (Exception $e) {
+            return back()->withError('Terjadi kesalahan.'.$e);
+        } catch (QueryException $e) {
+            return back()->withError('Terjadi kesalahan pada database.');
+        }
+
+        return redirect()->route('surat_masuk.index')->withStatus('Data berhasil dihapus.');
     }
 }
