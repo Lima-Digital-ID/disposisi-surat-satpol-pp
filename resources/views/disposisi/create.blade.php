@@ -29,3 +29,24 @@
         </div>
     </div>
 @endsection
+@push('custom-scripts')
+    <script>
+        $(document).ready(function() {
+            $('#masuk').hide();
+            $('#keluar').hide();
+
+            $('#jenis').change(function() {
+                if ($(this).val() == '0') {
+                    $('#masuk').show();
+                    $('#keluar').hide();
+                    console.log('0');
+                }
+                else{
+                    $('#keluar').show();
+                    $('#masuk').hide();
+                    console.log('1');
+                }
+            })
+        })
+    </script>
+@endpush

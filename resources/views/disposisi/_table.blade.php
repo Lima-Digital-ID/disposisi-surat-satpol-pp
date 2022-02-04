@@ -24,8 +24,8 @@
               <tr class="border-bottom-primary">
                 <td class="text-center text-muted">{{ $no }}</td>
                 <td>{{ $item->sifat_surat }}</td>
-                <td>{{ $item->masuk->id }}</td>
-                <td>{{ $item->keluar->id }}</td>
+                <td>{{ $item->masuk->perihal }}</td>
+                <td>{{ $item->keluar->perihal }}</td>
                 <td>{{ $item->pengirim->nama }}</td>
                 <td>{{ $item->penerima->nama }}</td>
                 <td>{{ $item->tgl_disposisi }}</td>
@@ -37,11 +37,11 @@
                 @endif
                 <td>
                     <div class="form-inline">
-                        <a href="{{ route('jenis_surat.edit', $item->id) }}" class="mr-2">
+                        {{-- <a href="{{ route('jenis_surat.edit', $item->id) }}" class="mr-2">
                             <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm"
                                 data-toggle="tooltip" title="Edit" data-placement="top"><span
                                     class="feather icon-edit"></span></button>
-                        </a>
+                        </a> --}}
                         <form action="{{ route('jenis_surat.destroy', $item->id) }}" method="post">
                             @csrf
                             @method('delete')

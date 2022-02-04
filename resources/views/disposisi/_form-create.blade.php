@@ -22,6 +22,17 @@
     </div>
 
     <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Pilih Jenis Surat</label>
+        <div class="col-sm-10">
+            <select name="jenis" id="jenis" class="js-example-basic-single" style="width: 100%;">
+                <option value="">Pilih Jenis Surat</option>
+                <option value="0">Pilih Surat Masuk</option>
+                <option value="1">Pilih Surat Keluar</option>
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group row" id="masuk">
         <label class="col-sm-2 col-form-label">Pilih Surat Masuk</label>
         <div class="col-sm-10">
             <select name="id_surat_masuk" id="id_surat_masuk" class="js-example-basic-single" style="width: 100%;">
@@ -38,7 +49,7 @@
         </div>
     </div>
 
-    <div class="form-group row">
+    <div class="form-group row" id="keluar">
         <label class="col-sm-2 col-form-label">Pilih Surat Keluar</label>
         <div class="col-sm-10">
             <select name="id_surat_keluar" id="id_surat_keluar" class="js-example-basic-single" style="width: 100%;">

@@ -16,6 +16,8 @@ class AlterSuratMasukTable extends Migration
         Schema::table('surat_masuk', function (Blueprint $table) {
             $table->dropColumn('id_pengirim');
             $table->string('pengirim')->after('id_jenis_surat');
+            $table->date('tgl_pengirim')->change();
+            $table->date('tgl_penerima')->change();
         });
     }
 
@@ -29,6 +31,8 @@ class AlterSuratMasukTable extends Migration
         Schema::table('surat_masuk', function (Blueprint $table) {
             $table->integer('id_pengirim');
             $table->dropColumn('pengirim');
+            $table->dateTime('tgl_pengirim')->change();
+            $table->dateTime('tgl_penerima')->change();
         });
     }
 }
