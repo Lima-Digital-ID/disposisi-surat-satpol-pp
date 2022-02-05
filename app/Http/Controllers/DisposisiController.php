@@ -34,8 +34,8 @@ class DisposisiController extends Controller
         try {
             $keyword = $request->get('keyword');
             // $getDisposisi = Disposisi::orderBy('id');
-            // $getDisposisi = Disposisi::with('penerima','pengirim')->where('id_pengirim',auth()->user()->id)->orwhere('id_pengirim',auth()->user()->id)->orderBy('id','ASC');
-            $getDisposisi = Disposisi::with('penerima','pengirim')->orderBy('id','ASC');
+            $getDisposisi = Disposisi::with('penerima','pengirim')->where('id_pengirim',auth()->user()->id)->orwhere('id_pengirim',auth()->user()->id)->orderBy('id','ASC');
+            // $getDisposisi = Disposisi::with('penerima','pengirim')->orderBy('id','ASC');
 
             if ($keyword) {
                 $getDisposisi->where('disposisi', 'LIKE', "%{$keyword}%");
@@ -80,6 +80,7 @@ class DisposisiController extends Controller
         try {
             $disposisi = new Disposisi;
             $disposisi->id_surat_masuk = $request->get('id_surat_masuk');
+            // $disposisi->id_surat_masuk = auth()->user()->id;
             $disposisi->sifat_surat = $validated['sifat_surat'];
             $disposisi->id_surat_keluar = $request->get('id_surat_keluar');
             $disposisi->id_pengirim = $validated['id_pengirim'];
@@ -139,6 +140,15 @@ class DisposisiController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $data = Disposisi::findOrFail($id);
+            $data->delete();
+        } catch (Exception $e) {
+            return back()->withError('Terjadi kesalahan.'.$e);
+        } catch (QueryException $e) {
+            return back()->withError('Terjadi kesalahan pada database.');
+        }
+
+        return redirect()->route('disposisi.index')->withStatus('Data berhasil dihapus.');
     }
 }

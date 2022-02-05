@@ -104,10 +104,13 @@
 
                     <form class="md-float-material form-material" method="post" class="" action="{{ route('login') }}">
                         <div class="text-center">
-                            <img src="{{ asset('') }}png/satpol-pp.png" alt="logo.png" style="height:120px">
+                            <img src="{{ asset('') }}png/satpol-pp.png" alt="logo.png" style="height:100px;margin-left:0px" class="mb-2">
+                            <img src="{{ asset('') }}png/jatim.png" alt="logo.png" style="height:100px;margin-right:28px" class="mb-2">
                             <br>
-                            <br> 
-                            <h3><strong>DISPOSISI</strong></h3>
+                            {{-- <br>  --}}
+                            <h3><strong>SATUAN POLISI PAMONG PRAJA</strong></h3>
+                            <h3><strong>JAWA TIMUR</strong></h3>
+                            <h4><strong>SISTEM INFORMASI DISPOSISI SURAT</strong></h4>
                         </div>
                         <div class="auth-box card">
                             <div class="card-block">

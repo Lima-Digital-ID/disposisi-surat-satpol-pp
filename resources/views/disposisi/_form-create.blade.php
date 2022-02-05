@@ -66,7 +66,9 @@
         </div>
     </div>
 
-    <div class="form-group row">
+    
+    <input type="hidden" name="id_pengirim" value="{{ auth()->user()->id }}">
+    {{-- <div class="form-group row">
         <label class="col-sm-2 col-form-label">Pengirim</label>
         <div class="col-sm-10">
             <select name="id_pengirim" id="id_pengirim" class="js-example-basic-single" style="width: 100%;" required>
@@ -81,7 +83,7 @@
                 </div>
             @enderror
         </div>
-    </div>
+    </div> --}}
 
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Penerima</label>

@@ -30,10 +30,10 @@
                 <td>{{ $item->penerima->nama }}</td>
                 <td>{{ $item->tgl_disposisi }}</td>
                 <td>{{ $item->catatan }}</td>
-                @if ($item->id_surat_masuk == $item->id_surat_masuk)
-                <td>asd</td>
-                @elseif($item->id_surat_keluar == $item->id_surat_keluar)
-                <td>123</td>
+                @if ($item->id_surat_masuk != null || $item->id_surat_masuk != '')
+                <td align="center"><a href="{{ "upload/surat_masuk/".$item->masuk->file_surat }}" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
+                @elseif($item->id_surat_keluar != null || $item->id_surat_keluar != '')
+                <td align="center"><a href="{{ "upload/surat_keluar/".$item->keluar->file_surat }}" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
                 @endif
                 <td>
                     <div class="form-inline">
