@@ -61,7 +61,7 @@ class DisposisiController extends Controller
     {
         $this->param['btnText'] = 'List Disposisi';
         $this->param['btnLink'] = route('disposisi.index');
-        $this->param['allUsr'] = User::get();
+        $this->param['allUsr'] = User::where('id', '!=' , auth()->user()->id)->get();
         $this->param['allMsk'] = SuratMasuk::get();
         $this->param['allKlr'] = SuratKeluar::get();
 
