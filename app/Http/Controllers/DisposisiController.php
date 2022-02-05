@@ -144,7 +144,7 @@ class DisposisiController extends Controller
             $data = Disposisi::findOrFail($id);
             $data->delete();
         } catch (Exception $e) {
-            return back()->withError('Terjadi kesalahan.'.$e);
+            return back()->withError('Terjadi kesalahan.');
         } catch (QueryException $e) {
             return back()->withError('Terjadi kesalahan pada database.');
         }

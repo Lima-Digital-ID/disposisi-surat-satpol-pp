@@ -37,12 +37,12 @@
                 @endif
                 <td>
                     <div class="form-inline">
-                        {{-- <a href="{{ route('jenis_surat.edit', $item->id) }}" class="mr-2">
+                        {{-- <a href="{{ route('disposisi.edit', $item->id) }}" class="mr-2">
                             <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm"
                                 data-toggle="tooltip" title="Edit" data-placement="top"><span
                                     class="feather icon-edit"></span></button>
                         </a> --}}
-                        <form action="{{ route('jenis_surat.destroy', $item->id) }}" method="post">
+                        <form action="{{ route('disposisi.destroy', $item->id) }}" method="post">
                             @csrf
                             @method('delete')
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip"
