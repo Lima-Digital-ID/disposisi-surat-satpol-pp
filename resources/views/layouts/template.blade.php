@@ -52,6 +52,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/bootstrap-multiselect.css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/multi-select.css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/custom.css">
 
     @stack('custom-styles')
 </head>
@@ -143,10 +144,37 @@
     @include('components.logout-modal')
     @include('components.js')
     @stack('custom-scripts')
-</body>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.9.0/firebase-database.js"></script>
 
-</body>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyALUNb1D7VFKLFtLoINWyqKgl10adbUG1Q",
+            authDomain: "disposisi-6c4af.firebaseapp.com",
+            projectId: "disposisi-6c4af",
+            storageBucket: "disposisi-6c4af.appspot.com",
+            messagingSenderId: "1069243139166",
+            appId: "1:1069243139166:web:b3fb5643218f769a6ba0cf",
+            measurementId: "G-0JZ2VY7L9X"
+        };
+        firebase.initializeApp(firebaseConfig);
+        let database = firebase.database();
 
+        let data = {
+                msg : "Surat Masuk dari David",
+                id_user : '1'
+        }
+        // database.ref('disposisi').push(data)
+
+        database.ref().child('disposisi').orderByChild('id_user').equalTo('1').on('value',function(res){
+            let countNotif = 0
+            res.forEach((data) => {
+                countNotif++
+            })
+            document.getElementById("count-notif").innerHTML = countNotif
+        })
+    </script>
+    
 </body>
 
 <!-- Mirrored from colorlib.com/polygon/admindek/default/sample-page.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 12 Dec 2019 16:10:10 GMT -->

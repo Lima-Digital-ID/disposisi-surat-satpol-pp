@@ -1,10 +1,9 @@
 <nav class="navbar header-navbar pcoded-header">
   <div class="navbar-wrapper">
       <div class="navbar-logo">
-          <a href="{{ route('dashboard') }}">
-            <br>
-            <img class="img-fluid" src="{{ asset('') }}png/satpol-pp.png" alt="Theme-Logo" width="70px" style="margin-top:30px"/> 
-              <h3>DISPOSISI</h3>
+          <a href="{{ route('dashboard') }}" class="nav-logo">
+            <img class="img-fluid" src="{{ asset('') }}png/satpol-pp.png" alt="Theme-Logo" width="70px"/> 
+              <h3 class="mb-0">DISPOSISI</h3>
           </a>
           <a class="mobile-menu" id="mobile-collapse" href="#!">
               <i class="feather icon-menu icon-toggle-right"></i>
@@ -39,9 +38,9 @@
           <ul class="nav-right">
               <li class="header-notification">
                   <div class="dropdown-primary dropdown">
-                      {{-- <div class="dropdown-toggle" data-toggle="dropdown">
+                      <div class="dropdown-toggle" data-toggle="dropdown">
                           <i class="feather icon-bell"></i>
-                          <span class="badge bg-c-red">5</span>
+                          <span class="badge bg-c-red" id="count-notif"></span>
                       </div>
                       <ul class="show-notification notification-view dropdown-menu"
                           data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
@@ -85,7 +84,7 @@
                                   </div>
                               </div>
                           </li>
-                      </ul> --}}
+                      </ul>
                   </div>
               </li>
               {{-- <li class="header-notification">

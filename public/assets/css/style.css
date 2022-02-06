@@ -3088,7 +3088,9 @@ table thead .border-bottom-info th {
 }
 
 .header-navbar .navbar-wrapper .navbar-logo a {
-    margin: 0 auto;
+/*     margin: 0 auto;
+ */
+    margin-right : auto;
     color: #fff
 }
 
@@ -3105,10 +3107,10 @@ table thead .border-bottom-info th {
 }
 
 .header-navbar .navbar-wrapper .navbar-logo .mobile-menu {
-    position: absolute;
+/*     position: absolute;
     right: 0;
     top: 0;
-    font-size: 16px;
+ */    font-size: 16px;
     line-height: 4.4;
     width: 40px
 }
@@ -12278,13 +12280,13 @@ table.dataTable.dtr-inline.collapsed>tbody>tr>th:first-child:before {
     .card h5 {
         font-size: 16px
     }
-    .header-navbar .navbar-wrapper .navbar-logo {
+/*     .header-navbar .navbar-wrapper .navbar-logo {
         display: inherit
     }
-    .header-navbar .navbar-wrapper .navbar-logo a {
+ *//*     .header-navbar .navbar-wrapper .navbar-logo a {
         display: inline-block
     }
-    body.horizontal-icon .page-header,
+ */    body.horizontal-icon .page-header,
     body.horizontal-icon-fixed .page-header {
         margin-top: 0
     }
