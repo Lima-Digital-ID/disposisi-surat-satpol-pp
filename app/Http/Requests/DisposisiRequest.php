@@ -26,7 +26,22 @@ class DisposisiRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'sifat_surat' => 'required',
+            'id_pengirim' => 'required',
+            'id_penerima' => 'required',
+            'tgl_disposisi' => 'required',
+            'catatan' => 'required',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'sifat_surat.required' => 'Sifat Surat harus diisi.',
+            'id_pengirim.required' => 'Pengirim harus diisi.',
+            'id_penerima.required' => 'Penerima harus diisi.',
+            'tgl_disposisi.required' => 'Tanggal Disposisi harus diisi.',
+            'catatan.required' => 'Catatan harus diisi.',
         ];
     }
 }

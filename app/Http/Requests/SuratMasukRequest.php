@@ -32,7 +32,8 @@ class SuratMasukRequest extends FormRequest
             'tgl_pengirim' => 'required',
             'tgl_penerima' => 'required',
             'perihal' => 'required',
-            'file_surat' => 'required',
+            'file_surat' => 'required|max:2048',
+            // 'file_surat' => 'required|jpg,png,jpeg,pdf|max:2048',
         ];
     }
 

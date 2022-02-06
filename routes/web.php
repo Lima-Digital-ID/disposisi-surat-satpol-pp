@@ -4,6 +4,7 @@ use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\DisposisiController;
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\UnitKerjaController;
 use App\Http\Controllers\JenisSuratController;
 use App\Http\Controllers\GolonganController;
 use App\Http\Controllers\UserController;
@@ -30,6 +31,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('golongan', GolonganController::class);
     Route::resource('jabatan', JabatanController::class);
+    Route::resource('unit_kerja', UnitKerjaController::class);
     Route::resource('user', UserController::class);
     Route::resource('jenis_surat', JenisSuratController::class);
     Route::resource('surat_masuk', SuratMasukController::class);

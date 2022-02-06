@@ -23,7 +23,7 @@
         content="bootstrap, bootstrap admin template, admin theme, admin dashboard, dashboard template, admin template, responsive" />
     <meta name="author" content="colorlib" />
 
-    <link rel="icon" href="{{ asset('') }}png/jatim.png" type="image/x-icon">
+    <link rel="icon" href="{{ asset('') }}png/satpol-pp.png" type="image/x-icon">
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet">
@@ -104,10 +104,13 @@
 
                     <form class="md-float-material form-material" method="post" class="" action="{{ route('login') }}">
                         <div class="text-center">
-                            <img src="{{ asset('') }}png/satpol-pp.png" alt="logo.png" style="height:120px">
+                            <img src="{{ asset('') }}png/satpol-pp.png" alt="logo.png" style="height:100px;margin-left:0px" class="mb-2">
+                            <img src="{{ asset('') }}png/jatim.png" alt="logo.png" style="height:100px;margin-right:28px" class="mb-2">
                             <br>
-                            <br> 
-                            <h3><strong>DISPOSISI</strong></h3>
+                            {{-- <br>  --}}
+                            <h3><strong>SATUAN POLISI PAMONG PRAJA</strong></h3>
+                            <h3><strong>JAWA TIMUR</strong></h3>
+                            <h4><strong>SISTEM INFORMASI DISPOSISI SURAT</strong></h4>
                         </div>
                         <div class="auth-box card">
                             <div class="card-block">

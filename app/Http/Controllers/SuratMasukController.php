@@ -31,7 +31,7 @@ class SuratMasukController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            $getSuratMasuk = SuratMasuk::with('jenis_surat','penerima_masuk','pengirim_masuk')->orderBy('id','ASC');
+            $getSuratMasuk = SuratMasuk::with('jenis_surat','penerima_masuk','pengirim_masuk')->where('id_penerima',auth()->user()->id)->orderBy('id','ASC');
             // $getSuratMasuk = SuratMasuk::orderBy('id');
 
             if ($keyword) {
@@ -77,7 +77,7 @@ class SuratMasukController extends Controller
         try {
             $surat = new SuratMasuk;
 
-            $uploadPath = 'upload/surat_masuk/'.$validated['file_surat'];
+            $uploadPath = 'upload/surat_masuk/';
             $scanSurat = $validated['file_surat'];
             $newScanSurat = time().'_'.$scanSurat->getClientOriginalName();
 
@@ -88,8 +88,7 @@ class SuratMasukController extends Controller
             $surat->tgl_pengirim = $validated['tgl_pengirim'];
             $surat->tgl_penerima = $validated['tgl_penerima'];
             $surat->perihal = $validated['perihal'];
-            $surat->file_surat = $scanSurat;
-            // $surat->save();
+            $surat->file_surat = $newScanSurat;
             if($surat->save()){
                 $scanSurat->move($uploadPath,$newScanSurat);
                 return redirect()->route('surat_masuk.index')->withStatus('Data berhasil disimpan.');
@@ -144,6 +143,19 @@ class SuratMasukController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $data = SuratMasuk::findOrFail($id);
+            $file = 'upload/surat_masuk/'.$data->file_surat;
+            if($data->file_surat != '' && $data->file_surat != null){
+                unlink($file);
+                $data->delete();
+            }
+        } catch (Exception $e) {
+            return back()->withError('Terjadi kesalahan.'.$e);
+        } catch (QueryException $e) {
+            return back()->withError('Terjadi kesalahan pada database.');
+        }
+
+        return redirect()->route('surat_masuk.index')->withStatus('Data berhasil dihapus.');
     }
 }

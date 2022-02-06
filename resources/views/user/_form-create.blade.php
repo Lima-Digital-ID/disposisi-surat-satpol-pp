@@ -59,13 +59,13 @@
         <div class="form-group row">
         <label class="col-sm-2 col-form-label">Jabatan</label>
         <div class="col-sm-10">
-            <select name="id_golongan" id="id_golongan" class="form-control" style="width: 100%;" required>
+            <select name="id_jabatan" id="id_jabatan" class="form-control" style="width: 100%;" required>
                 <option value="">Pilih Jabatan</option>
                 @foreach ($allJab as $jab)
                     <option value="{{ $jab->id }}">{{ $jab->jabatan }}</option>
                 @endforeach
             </select>
-            @error('id_golongan')
+            @error('id_jabatan')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
