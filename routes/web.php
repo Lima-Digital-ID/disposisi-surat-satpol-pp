@@ -7,6 +7,7 @@ use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\UnitKerjaController;
 use App\Http\Controllers\JenisSuratController;
 use App\Http\Controllers\GolonganController;
+use App\Http\Controllers\LokasiSuratController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -37,6 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('surat_masuk', SuratMasukController::class);
     Route::resource('surat_keluar', SuratKeluarController::class);
     Route::resource('disposisi', DisposisiController::class);
+    Route::resource('lokasi-surat', LokasiSuratController::class);
 });
 
 require __DIR__.'/auth.php';

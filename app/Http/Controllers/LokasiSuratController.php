@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\JenisSuratRequest;
-use App\Models\JenisSurat;
+use App\Http\Requests\LokasiSuratRequest;
+use App\Models\LokasiSurat;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Database\QueryException;
 
-class JenisSuratController extends Controller
+class LokasiSuratController extends Controller
 {
     public function __construct()
     {
-        $this->param['pageTitle'] = 'Jenis Surat';
+        $this->param['pageTitle'] = 'Lokasi Surat';
         $this->param['pageIcon'] = 'ti-envelope';
-        $this->param['parentMenu'] = '/jenis_surat';
-        $this->param['current'] = 'Jenis Surat';
+        $this->param['parentMenu'] = '/lokasi-surat';
+        $this->param['current'] = 'Lokasi Surat';
     }
     /**
      * Display a listing of the resource.
@@ -25,17 +25,17 @@ class JenisSuratController extends Controller
     public function index(Request $request)
     {
         $this->param['btnText'] = 'Tambah';
-        $this->param['btnLink'] = route('jenis_surat.create');
+        $this->param['btnLink'] = route('lokasi-surat.create');
 
         try {
             $keyword = $request->get('keyword');
-            $getjenis_surat = JenisSurat::orderBy('id');
+            $get = LokasiSurat::orderBy('id');
 
             if ($keyword) {
-                $getjenis_surat->where('jenis_surat', 'LIKE', "%{$keyword}%");
+                $get->where('lokasi', 'LIKE', "%{$keyword}%");
             }
 
-            $this->param['data'] = $getjenis_surat->paginate(10);
+            $this->param['data'] = $get->paginate(10);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
         }
@@ -43,7 +43,7 @@ class JenisSuratController extends Controller
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
         }
 
-        return \view('jenis_surat.index', $this->param);
+        return \view('lokasi_surat.index', $this->param);
     }
 
     /**
@@ -53,10 +53,10 @@ class JenisSuratController extends Controller
      */
     public function create()
     {
-        $this->param['btnText'] = 'List Jenis Surat';
-        $this->param['btnLink'] = route('jenis_surat.index');
+        $this->param['btnText'] = 'List Lokasi Surat';
+        $this->param['btnLink'] = route('lokasi-surat.index');
 
-        return \view('jenis_surat.create', $this->param);
+        return \view('lokasi_surat.create', $this->param);
     }
 
     /**
@@ -65,30 +65,30 @@ class JenisSuratController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(JenisSuratRequest $request)
+    public function store(LokasiSuratRequest $request)
     {
         $request = $request->validate(
             [
-                'jenis_surat' => 'required|max:191|unique:jenis_surat,jenis_surat',
+                'lokasi' => 'required|max:191|unique:lokasi_surat,lokasi',
             ],
             [
-                'jenis_surat.required' => 'Jenis Surat harus diisi.', 
-                'jenis_surat.max' => 'Maksimal jumlah karakter 191.', 
-                'jenis_surat.unique' => 'Nama telah digunakan.', 
+                'lokasi.required' => 'Lokasi Surat harus diisi.', 
+                'lokasi.max' => 'Maksimal jumlah karakter 191.', 
+                'lokasi.unique' => 'Nama telah digunakan.', 
             ]
         );
         $validated = $request;
         try {
-            $jenis_surat = new JenisSurat;
-            $jenis_surat->jenis_surat = $validated['jenis_surat'];
-            $jenis_surat->save();
+            $lokasi = new LokasiSurat;
+            $lokasi->lokasi = $validated['lokasi'];
+            $lokasi->save();
         } catch (Exception $e) {
             return back()->withError('Terjadi kesalahan.');
         } catch (QueryException $e) {
             return back()->withError('Terjadi kesalahan pada database.');
         }
 
-        return redirect()->route('jenis_surat.index')->withStatus('Data berhasil disimpan.');
+        return redirect()->route('lokasi-surat.index')->withStatus('Data berhasil disimpan.');
     }
 
     /**
@@ -110,11 +110,11 @@ class JenisSuratController extends Controller
      */
     public function edit($id)
     {
-        $this->param['data'] = JenisSurat::find($id);
-        $this->param['btnText'] = 'List Jenis Surat';
-        $this->param['btnLink'] = route('jenis_surat.index');
+        $this->param['data'] = LokasiSurat::find($id);
+        $this->param['btnText'] = 'List Lokasi Surat';
+        $this->param['btnLink'] = route('lokasi-surat.index');
 
-        return view('jenis_surat.edit', $this->param);
+        return view('lokasi_surat.edit', $this->param);
     }
 
     /**
@@ -124,27 +124,27 @@ class JenisSuratController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(JenisSuratRequest $request, $id)
+    public function update(LokasiSuratRequest $request, $id)
     {
-        $data = JenisSurat::findOrFail($id);
+        $data = LokasiSurat::findOrFail($id);
 
-        $jenisUnique = $request['jenis_surat'] != null && $request['jenis_surat'] != $data->jenis_surat ? '|unique:jenis_surat,jenis_surat' : '';
+        $lokasiUnique = $request['lokasi'] != null && $request['lokasi'] != $data->lokasi ? '|unique:lokasi_surat,lokasi' : '';
 
         $request = $request->validate(
             [
-                'jenis_surat' => 'required|max:191'.$jenisUnique,
+                'lokasi' => 'required|max:191'.$lokasiUnique,
             ],
             [
-                'jenis_surat.required' => 'Jenis Surat harus diisi.', 
-                'jenis_surat.max' => 'Maksimal jumlah karakter 191.', 
-                'jenis_surat.unique' => 'Nama telah digunakan.', 
+                'lokasi.required' => 'Lokasi Surat harus diisi.', 
+                'lokasi.max' => 'Maksimal jumlah karakter 191.', 
+                'lokasi.unique' => 'Nama telah digunakan.', 
             ]
         );
 
         $validated = $request;
 
         try {
-            $data->jenis_surat = $validated['jenis_surat'];
+            $data->lokasi = $validated['lokasi'];
 
             $data->save();
         } catch (\Exception $e) {
@@ -153,7 +153,7 @@ class JenisSuratController extends Controller
             return redirect()->back()->withError('Terjadi kesalahan pada database.');
         }
 
-        return redirect()->route('jenis_surat.index')->withStatus('Data berhasil diperbarui.');
+        return redirect()->route('lokasi-surat.index')->withStatus('Data berhasil diperbarui.');
     }
 
     /**
@@ -165,7 +165,7 @@ class JenisSuratController extends Controller
     public function destroy($id)
     {
         try {
-            $jenis = JenisSurat::findOrFail($id);
+            $jenis = LokasiSurat::findOrFail($id);
             $jenis->delete();
         } catch (Exception $e) {
             return back()->withError('Terjadi kesalahan.');
@@ -173,6 +173,6 @@ class JenisSuratController extends Controller
             return back()->withError('Terjadi kesalahan pada database.');
         }
 
-        return redirect()->route('jenis_surat.index')->withStatus('Data berhasil dihapus.');
+        return redirect()->route('lokasi-surat.index')->withStatus('Data berhasil dihapus.');
     }
 }

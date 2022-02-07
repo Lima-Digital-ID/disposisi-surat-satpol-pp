@@ -66,6 +66,16 @@
                     </a>
                 </li>
                 <!-- End Jenis Surat ---!>
+                <!-- Jenis Surat ---!>
+                <li class="{{ Request::segment(1) == 'lokasi-surat' ? 'active' : '' }}">
+                    <a href="{{ route('lokasi-surat.index') }}" class="waves-effect waves-dark">
+                        <span class="pcoded-micon">
+                            <i class="ti-folder"></i>
+                        </span>
+                        <span class="pcoded-mtext">Lokasi Surat</span>
+                    </a>
+                </li>
+                <!-- End Jenis Surat ---!>
                 <!-- Golongan ---!>
                 <li class="{{ Request::segment(1) == 'golongan' ? 'active' : '' }}">
                     <a href="{{ route('golongan.index') }}" class="waves-effect waves-dark">
