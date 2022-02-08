@@ -56,6 +56,16 @@
             @if (auth()->user()->level == 'Administrator' || auth()->user()->level == 'Admin')
             <div class="pcoded-navigation-label">Data Master</div>
             <ul class="pcoded-item pcoded-left-item">
+                <!-- Rekap Laporan Surat ---!>
+                <li class="{{ Request::segment(1) == 'laporan_surat' ? 'active' : '' }}">
+                    <a href="{{ route('laporan_surat.index') }}" class="waves-effect waves-dark">
+                        <span class="pcoded-micon">
+                            <i class="ti-agenda"></i>
+                        </span>
+                        <span class="pcoded-mtext">Rekap Laporan Surat</span>
+                    </a>
+                </li>
+                <!-- End Rekap Laporan Surat ---!>
                 <!-- Jenis Surat ---!>
                 <li class="{{ Request::segment(1) == 'jenis_surat' ? 'active' : '' }}">
                     <a href="{{ route('jenis_surat.index') }}" class="waves-effect waves-dark">
