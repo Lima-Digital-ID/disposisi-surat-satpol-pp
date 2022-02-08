@@ -62,18 +62,18 @@ class LaporanSuratController extends Controller
 
     public function getLaporan(Request $request)
     {
-        if($request->get('tipe') == '0'){
-            $dari = $request->get('dari');
-            $sampai = $request->get('sampai');
-            $tipe = $request->get('tipe');
-            $getSuratKeluar = SuratKeluar::with('jenis_surat','pengirim_keluar')->whereBetween('tgl_kirim', [$dari,$sampai])->orderBy('id','ASC')->get();
+        $dari = $request->get('dari');
+        $sampai = $request->get('sampai');
+        $tipe = $request->get('tipe');
+
+        if($tipe == 0){    
+            $getSuratKeluar = SuratKeluar::with('jenis_surat','pengirim_keluar')->whereBetween('tgl_kirim', [$dari,$sampai,$tipe])->orderBy('id','ASC')->get();
+            // ddd($tipe);
             return $getSuratKeluar;
             // echo json_encode($getSuratKeluar);
-        }else{
-            $dari = $request->get('dari');
-            $sampai = $request->get('sampai');
-            $tipe = $request->get('tipe');
-            $getSuratMasuk = $getSuratMasuk = SuratMasuk::with('jenis_surat','penerima_masuk','pengirim_masuk')->where('tgl_penerima',[$dari,$sampai])->orderBy('id','ASC')->get();
+        }
+        else{
+            $getSuratMasuk = SuratMasuk::with('jenis_surat','penerima_masuk')->whereBetween('tgl_penerima',[$dari,$sampai,$tipe])->orderBy('id','ASC')->get();
             return $getSuratMasuk;
             // echo json_encode($getSuratMasuk);
         }

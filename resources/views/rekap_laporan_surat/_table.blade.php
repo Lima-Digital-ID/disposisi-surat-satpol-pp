@@ -12,13 +12,13 @@
     <div class="" style="margin-left:15px;margin-top:5px;">
         <span>Dari : </span>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <input type="date" class="form-control" name="dari" id="dari">
     </div>
     <div class="" style="margin-left:15px;margin-top:5px;">
         <span>Sampai : </span>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
         <input type="date" class="form-control" name="sampai" id="sampai">
     </div>
     <button class="btn btn-sm btn-primary" onclick="getRekap()"><i class="feather icon-search"></i></button>
@@ -45,14 +45,6 @@
               $no = !$page || $page == 1 ? 1 : ($page - 1) * 10 + 1;
           @endphp
               <tr class="border-bottom-primary">
-                <td class="text-center text-muted">{{ $no }}</td>
-                <td>tes</td>
-                <td>tes</td>
-                <td>tes</td>
-                <td>tes</td>
-                <td>tes</td>
-                <td>tes</td>
-                <td>tes</td>
               </tr>
               @php
                   $no++;

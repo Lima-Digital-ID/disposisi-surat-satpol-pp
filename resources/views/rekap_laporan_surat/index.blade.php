@@ -45,19 +45,30 @@
             var dari = $('#dari').val();
             var sampai = $('#sampai').val();
             var tipe = $('#tipe').val();
-            console.log(dari);
-            console.log(sampai);
-            console.log(tipe);
-            // if(tipe == 0 ){
-            //     $.ajax({
-            //         type: "GET",
-            //         url:"{{ url('laporan_surat/get_laporan') }}",
-            //         dataType : "json",
-            //         success : function(response){
-            //             log
-            //         }
-            //     })
-            // }
+            // console.log(dari);
+            // console.log(sampai);
+            // console.log(tipe);
+            // console.log("{{ url('laporan_surat/get_laporan') }}?tipe="+tipe+"&dari="+dari+"&sampai="+sampai);
+            if(tipe == 0){
+                $.ajax({
+                    type: "GET",
+                    url:"{{ url('laporan_surat/get_laporan') }}?tipe="+tipe+"&dari="+dari+"&sampai="+sampai,
+                    dataType : "json",
+                    success : function(response){
+                        console.log(response);
+                    }
+                })
+            }else{
+                $.ajax({
+                    type: "GET",
+                    url:"{{ url('laporan_surat/get_laporan') }}?tipe="+tipe+"&dari="+dari+"&sampai="+sampai,
+                    dataType : "json",
+                    success : function(response){
+                        // console.log('asd');
+                        console.log(response);
+                    }
+                })
+            }
         }
     </script>
 @endpush
