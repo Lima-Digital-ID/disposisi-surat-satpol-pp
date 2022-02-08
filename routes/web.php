@@ -42,7 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('lokasi-surat', LokasiSuratController::class);
     Route::prefix('laporan_surat')->group(function () {
         Route::resource('laporan_surat', LaporanSuratController::class);
-        Route::get('get-laporan', [LaporanSuratController::class, 'getLaporan']);
+        Route::get('get_laporan', [LaporanSuratController::class, 'getLaporan']);
     });
     Route::resource('laporan_surat', LaporanSuratController::class);
 });
