@@ -69,13 +69,13 @@ class LaporanSuratController extends Controller
         if($tipe == 0){    
             $getSuratKeluar = SuratKeluar::with('jenis_surat','pengirim_keluar')->whereBetween('tgl_kirim', [$dari,$sampai,$tipe])->orderBy('id','ASC')->get();
             // ddd($tipe);
-            return $getSuratKeluar;
-            // echo json_encode($getSuratKeluar);
+            // return $getSuratKeluar;
+            echo json_encode($getSuratKeluar);
         }
         else{
             $getSuratMasuk = SuratMasuk::with('jenis_surat','penerima_masuk')->whereBetween('tgl_penerima',[$dari,$sampai,$tipe])->orderBy('id','ASC')->get();
-            return $getSuratMasuk;
-            // echo json_encode($getSuratMasuk);
+            // return $getSuratMasuk;
+            echo json_encode($getSuratMasuk);
         }
     }
 

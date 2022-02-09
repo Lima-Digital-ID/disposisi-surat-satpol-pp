@@ -26,19 +26,7 @@
 </div>
 <br>
 <div class="table-responsive">
-  <table class="table table-styling table-de">
-      <thead>
-          <tr class="table-primary">
-              <th class="text-center">#</th>
-              <th>No Surat</th>
-              <th>Jenis Surat</th>
-              <th>Pengirim Surat</th>
-              <th>Penerima Surat</th>
-              <th>Tanggal Kirim Surat</th>
-              <th>Perihal Surat</th>
-              <th>Lampiran Surat</th>
-          </tr>
-      </thead>
+  <table class="table table-styling table-de" id="myTable">      
       <tbody>
           @php
               $page = Request::get('page');

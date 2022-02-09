@@ -56,6 +56,34 @@
                     dataType : "json",
                     success : function(response){
                         console.log(response);
+                        $.each(response,function(key,val){
+                            $('#myTable').append(`
+                            <thead>
+                                <tr class="table-primary">
+                                    <th class="text-center">#</th>
+                                    <th>No Surat</th>
+                                    <th>Jenis Surat</th>
+                                    <th>Pengirim Surat</th>
+                                    <th>Penerima Surat</th>
+                                    <th>Tanggal Kirim Surat</th>
+                                    <th>Perihal Surat</th>
+                                    <th>Lampiran Surat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-bottom-primary">
+                                    <td class="text-center text-muted">1</td>
+                                    <td>${val.no_surat}</td>
+                                    <td>${val.jenis_surat.jenis_surat}</td>
+                                    <td>${val.pengirim_keluar.nama}</td>
+                                    <td>${val.penerima}</td>
+                                    <td>${val.tgl_kirim}</td>
+                                    <td>${val.perihal}</td>
+                                    <td align="center"><a href="{{ "upload/surat_keluar/" }}${val.file_surat}" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
+                                </tr>
+                            </tbody>
+                            `)
+                        })
                     }
                 })
             }else{
@@ -64,8 +92,38 @@
                     url:"{{ url('laporan_surat/get_laporan') }}?tipe="+tipe+"&dari="+dari+"&sampai="+sampai,
                     dataType : "json",
                     success : function(response){
-                        // console.log('asd');
                         console.log(response);
+                        // $('#myTable').remove()
+                        $.each(response,function(key,val){
+                        $('#myTable').append(`
+                            <thead>
+                                <tr class="table-primary">
+                                    <th class="text-center">#</th>
+                                    <th>No Surat</th>
+                                    <th>Jenis Surat</th>
+                                    <th>Pengirim Surat</th>
+                                    <th>Penerima Surat</th>
+                                    <th>Tanggal Terima Surat</th>
+                                    <th>Tanggal Kirim Surat</th>
+                                    <th>Perihal Surat</th>
+                                    <th>Lampiran</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-bottom-primary">
+                                    <td class="text-center text-muted">1</td>
+                                    <td>${val.no_surat}</td>
+                                    <td>${val.jenis_surat.jenis_surat}</td>
+                                    <td>${val.pengirim}</td>
+                                    <td>${val.penerima_masuk.nama}</td>
+                                    <td>${val.tgl_penerima}</td>
+                                    <td>${val.tgl_pengirim}</td>
+                                    <td>${val.perihal}</td>
+                                    <td align="center"><a href="{{ "upload/surat_masuk/" }}${val.file_surat}" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
+                                </tr>
+                            </tbody>
+                            `)
+                        })
                     }
                 })
             }
