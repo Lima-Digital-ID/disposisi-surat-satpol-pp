@@ -26,8 +26,11 @@
 </div>
 <br>
 <div class="table-responsive">
-  <table class="table table-styling table-de" id="myTable">      
-      <tbody>
+  <table class="table table-styling table-de" id="myTable">
+    <thead id="myHead">
+
+    </thead>      
+      <tbody id="myBody">
           @php
               $page = Request::get('page');
               $no = !$page || $page == 1 ? 1 : ($page - 1) * 10 + 1;

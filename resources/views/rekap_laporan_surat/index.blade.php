@@ -45,10 +45,7 @@
             var dari = $('#dari').val();
             var sampai = $('#sampai').val();
             var tipe = $('#tipe').val();
-            // console.log(dari);
-            // console.log(sampai);
-            // console.log(tipe);
-            // console.log("{{ url('laporan_surat/get_laporan') }}?tipe="+tipe+"&dari="+dari+"&sampai="+sampai);
+            var no = 1
             if(tipe == 0){
                 $.ajax({
                     type: "GET",
@@ -56,9 +53,7 @@
                     dataType : "json",
                     success : function(response){
                         console.log(response);
-                        $.each(response,function(key,val){
-                            $('#myTable').append(`
-                            <thead>
+                        $('#myHead').append(`
                                 <tr class="table-primary">
                                     <th class="text-center">#</th>
                                     <th>No Surat</th>
@@ -69,19 +64,19 @@
                                     <th>Perihal Surat</th>
                                     <th>Lampiran Surat</th>
                                 </tr>
-                            </thead>
-                            <tbody>
+                        `)
+                        $.each(response,function(k,v){
+                            $('#myBody').append(`
                                 <tr class="border-bottom-primary">
-                                    <td class="text-center text-muted">1</td>
-                                    <td>${val.no_surat}</td>
-                                    <td>${val.jenis_surat.jenis_surat}</td>
-                                    <td>${val.pengirim_keluar.nama}</td>
-                                    <td>${val.penerima}</td>
-                                    <td>${val.tgl_kirim}</td>
-                                    <td>${val.perihal}</td>
-                                    <td align="center"><a href="{{ "upload/surat_keluar/" }}${val.file_surat}" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
+                                    <td class="text-center text-muted">${no++}</td>
+                                    <td>${v.no_surat}</td>
+                                    <td>${v.jenis_surat.jenis_surat}</td>
+                                    <td>${v.pengirim_keluar.nama}</td>
+                                    <td>${v.penerima}</td>
+                                    <td>${v.tgl_kirim}</td>
+                                    <td>${v.perihal}</td>
+                                    <td align="center"><a href="{{ "upload/surat_keluar/" }}${v.file_surat}" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
                                 </tr>
-                            </tbody>
                             `)
                         })
                     }
@@ -94,34 +89,32 @@
                     success : function(response){
                         console.log(response);
                         // $('#myTable').remove()
-                        $.each(response,function(key,val){
-                        $('#myTable').append(`
-                            <thead>
-                                <tr class="table-primary">
-                                    <th class="text-center">#</th>
-                                    <th>No Surat</th>
-                                    <th>Jenis Surat</th>
-                                    <th>Pengirim Surat</th>
-                                    <th>Penerima Surat</th>
-                                    <th>Tanggal Terima Surat</th>
-                                    <th>Tanggal Kirim Surat</th>
-                                    <th>Perihal Surat</th>
-                                    <th>Lampiran</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                        $('#myHead').append(`
+                            <tr class="table-primary">
+                                <th class="text-center">#</th>
+                                <th>No Surat</th>
+                                <th>Jenis Surat</th>
+                                <th>Pengirim Surat</th>
+                                <th>Penerima Surat</th>
+                                <th>Tanggal Terima Surat</th>
+                                <th>Tanggal Kirim Surat</th>
+                                <th>Perihal Surat</th>
+                                <th>Lampiran</th>
+                            </tr>
+                        `)
+                        $.each(response,function(k,v){
+                        $('#myBody').append(`
                                 <tr class="border-bottom-primary">
-                                    <td class="text-center text-muted">1</td>
-                                    <td>${val.no_surat}</td>
-                                    <td>${val.jenis_surat.jenis_surat}</td>
-                                    <td>${val.pengirim}</td>
-                                    <td>${val.penerima_masuk.nama}</td>
-                                    <td>${val.tgl_penerima}</td>
-                                    <td>${val.tgl_pengirim}</td>
-                                    <td>${val.perihal}</td>
-                                    <td align="center"><a href="{{ "upload/surat_masuk/" }}${val.file_surat}" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
+                                    <td class="text-center text-muted">${no++}</td>
+                                    <td>${v.no_surat}</td>
+                                    <td>${v.jenis_surat.jenis_surat}</td>
+                                    <td>${v.pengirim}</td>
+                                    <td>${v.penerima_masuk.nama}</td>
+                                    <td>${v.tgl_penerima}</td>
+                                    <td>${v.tgl_pengirim}</td>
+                                    <td>${v.perihal}</td>
+                                    <td align="center"><a href="{{ "upload/surat_masuk/" }}${v.file_surat}" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
                                 </tr>
-                            </tbody>
                             `)
                         })
                     }
