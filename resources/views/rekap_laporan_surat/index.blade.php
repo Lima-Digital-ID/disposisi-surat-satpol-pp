@@ -52,7 +52,8 @@
                     url:"{{ url('laporan_surat/get_laporan') }}?tipe="+tipe+"&dari="+dari+"&sampai="+sampai,
                     dataType : "json",
                     success : function(response){
-                        console.log(response);
+                        $('#myHead').empty()
+                        $('#myBody').empty()
                         $('#myHead').append(`
                                 <tr class="table-primary">
                                     <th class="text-center">#</th>
@@ -87,8 +88,8 @@
                     url:"{{ url('laporan_surat/get_laporan') }}?tipe="+tipe+"&dari="+dari+"&sampai="+sampai,
                     dataType : "json",
                     success : function(response){
-                        console.log(response);
-                        // $('#myTable').remove()
+                        $('#myHead').empty()
+                        $('#myBody').empty()
                         $('#myHead').append(`
                             <tr class="table-primary">
                                 <th class="text-center">#</th>
