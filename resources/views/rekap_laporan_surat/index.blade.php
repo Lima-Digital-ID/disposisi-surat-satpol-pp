@@ -46,14 +46,14 @@
             var sampai = $('#sampai').val();
             var tipe = $('#tipe').val();
             var no = 1
-            if(tipe == 0){
-                $.ajax({
+            $.ajax({
                     type: "GET",
                     url:"{{ url('laporan_surat/get_laporan') }}?tipe="+tipe+"&dari="+dari+"&sampai="+sampai,
                     dataType : "json",
                     success : function(response){
-                        $('#myHead').empty()
-                        $('#myBody').empty()
+                        $('#myHead tr').remove()
+                        $('#myBody tr').remove()
+                        if(tipe==0){
                         $('#myHead').append(`
                                 <tr class="table-primary">
                                     <th class="text-center">#</th>
@@ -80,17 +80,9 @@
                                 </tr>
                             `)
                         })
-                    }
-                })
-            }else{
-                $.ajax({
-                    type: "GET",
-                    url:"{{ url('laporan_surat/get_laporan') }}?tipe="+tipe+"&dari="+dari+"&sampai="+sampai,
-                    dataType : "json",
-                    success : function(response){
-                        $('#myHead').empty()
-                        $('#myBody').empty()
-                        $('#myHead').append(`
+                        }
+                        else if(tipe==1){
+                            $('#myHead').append(`
                             <tr class="table-primary">
                                 <th class="text-center">#</th>
                                 <th>No Surat</th>
@@ -118,9 +110,10 @@
                                 </tr>
                             `)
                         })
+
+                        }
                     }
                 })
-            }
         }
     </script>
 @endpush
