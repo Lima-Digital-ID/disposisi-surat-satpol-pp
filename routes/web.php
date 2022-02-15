@@ -9,6 +9,7 @@ use App\Http\Controllers\UnitKerjaController;
 use App\Http\Controllers\JenisSuratController;
 use App\Http\Controllers\GolonganController;
 use App\Http\Controllers\LokasiSuratController;
+use App\Http\Controllers\LaporanSuratController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,9 +41,17 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('surat_keluar', SuratKeluarController::class);
     Route::resource('disposisi', DisposisiController::class);
     Route::resource('lokasi-surat', LokasiSuratController::class);
+<<<<<<< HEAD
     Route::resource('arsip', ArsipSuratController::class);
     Route::get('get-surat-masuk', [SuratMasukController::class, 'getSuratMasukJson'])->name('get_surat_masuk');
     Route::get('get-surat-keluar', [SuratKeluarController::class, 'getSuratKeluarJson'])->name('get_surat_keluar');
+=======
+    Route::prefix('laporan_surat')->group(function () {
+        Route::resource('laporan_surat', LaporanSuratController::class);
+        Route::get('get_laporan', [LaporanSuratController::class, 'getLaporan']);
+    });
+    Route::resource('laporan_surat', LaporanSuratController::class);
+>>>>>>> origin/main
 });
 
 require __DIR__.'/auth.php';
