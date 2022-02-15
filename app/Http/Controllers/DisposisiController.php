@@ -171,7 +171,7 @@ class DisposisiController extends Controller
         $getAnggota = $getAnggota->whereNotIn('u.id',function($query){
             $query->select('dis.id_pengirim')
                     ->from('disposisi as dis')
-                    ->where('dis.id_surat_masuk', '3');
+                    ->where('dis.id_surat_masuk', '2');
         })->get();
         // $getAnggota = $getAnggota->get();
         return $getAnggota;

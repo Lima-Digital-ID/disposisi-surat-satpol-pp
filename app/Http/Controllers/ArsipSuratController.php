@@ -215,7 +215,7 @@ class ArsipSuratController extends Controller
             return back()->withError('Terjadi kesalahan pada database.');
         }
 
-        return redirect()->route('arsip.index')->withStatus('Data berhasil dihapus.');
+        return redirect()->route('arsip.index')->withStatus('Data berhasil dibatalkan.');
     }
 
     public function restoreArchive(Request $request)

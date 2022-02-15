@@ -36,7 +36,7 @@
                                 data-toggle="tooltip" title="Edit" data-placement="top"><span
                                     class="feather icon-edit"></span></button>
                         </a> --}}
-                        <form action="{{ route('arsip.destroy', $item->id) }}" method="post">
+                        {{-- <form action="{{ route('arsip.destroy', $item->id) }}" method="post">
                             @csrf
                             @method('delete')
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip"
@@ -44,7 +44,7 @@
                                 onclick="confirm('{{ __('Apakah anda yakin ingin menghapus?') }}') ? this.parentElement.submit() : ''">
                                 <span class="feather icon-trash"></span>
                             </button>
-                        </form>
+                        </form> --}}
                     </div>
                 </td>
               </tr>
