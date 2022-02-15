@@ -39,19 +39,24 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('jenis_surat', JenisSuratController::class);
     Route::resource('surat_masuk', SuratMasukController::class);
     Route::resource('surat_keluar', SuratKeluarController::class);
+    Route::prefix('disposisi')->group(function(){
+        Route::resource('disposisi', DisposisiController::class);        
+        Route::get('get_disposisi', [DisposisiController::class, 'getDisposisi']);        
+    });
     Route::resource('disposisi', DisposisiController::class);
     Route::resource('lokasi-surat', LokasiSuratController::class);
-<<<<<<< HEAD
+    // Route::prefix('arsip')->group(function(){
+    //     Route::resource('arsip', ArsipSuratController::class);        
+    //     Route::get('restore_archive', [ArsipSuratController::class, 'restoreArchive']);        
+    // });
     Route::resource('arsip', ArsipSuratController::class);
     Route::get('get-surat-masuk', [SuratMasukController::class, 'getSuratMasukJson'])->name('get_surat_masuk');
     Route::get('get-surat-keluar', [SuratKeluarController::class, 'getSuratKeluarJson'])->name('get_surat_keluar');
-=======
     Route::prefix('laporan_surat')->group(function () {
         Route::resource('laporan_surat', LaporanSuratController::class);
         Route::get('get_laporan', [LaporanSuratController::class, 'getLaporan']);
     });
     Route::resource('laporan_surat', LaporanSuratController::class);
->>>>>>> origin/main
 });
 
 require __DIR__.'/auth.php';

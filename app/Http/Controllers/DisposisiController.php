@@ -34,7 +34,7 @@ class DisposisiController extends Controller
         try {
             $keyword = $request->get('keyword');
             // $getDisposisi = Disposisi::orderBy('id');
-            $getDisposisi = Disposisi::with('penerima','pengirim')->where('id_pengirim',auth()->user()->id)->orwhere('id_pengirim',auth()->user()->id)->orderBy('id','ASC');
+            $getDisposisi = Disposisi::with('penerima','pengirim')->where('id_pengirim',auth()->user()->id)->orwhere('id_penerima',auth()->user()->id)->orderBy('id','ASC');
             // $getDisposisi = Disposisi::with('penerima','pengirim')->orderBy('id','ASC');
 
             if ($keyword) {
@@ -61,7 +61,17 @@ class DisposisiController extends Controller
     {
         $this->param['btnText'] = 'List Disposisi';
         $this->param['btnLink'] = route('disposisi.index');
-        $this->param['allUsr'] = User::where('id', '!=' , auth()->user()->id)->get();
+        // $this->param['allUsr'] = User::where('id', '!=' , auth()->user()->id)->get();
+        $getAnggota = User::from('users as u')
+                            ->select(
+                                'u.*',
+                            )
+                            ->where('id', '!=' , auth()->user()->id);
+                    $getAnggota = $getAnggota->whereNotIn('u.id',function($query){
+                    $query->select('dis.id_penerima')
+                    ->from('disposisi as dis');
+                    })->get();
+        $this->param['allUsr'] = $getAnggota;
         $this->param['allMsk'] = SuratMasuk::get();
         $this->param['allKlr'] = SuratKeluar::get();
 
@@ -78,17 +88,17 @@ class DisposisiController extends Controller
     {
         $validated = $request->validated();
         try {
-            $disposisi = new Disposisi;
-            $disposisi->id_surat_masuk = $request->get('id_surat_masuk');
-            // $disposisi->id_surat_masuk = auth()->user()->id;
-            $disposisi->sifat_surat = $validated['sifat_surat'];
-            $disposisi->id_surat_keluar = $request->get('id_surat_keluar');
-            $disposisi->id_pengirim = $validated['id_pengirim'];
-            $disposisi->id_penerima = $validated['id_penerima'];
-            $disposisi->tgl_disposisi = $validated['tgl_disposisi'];
-            $disposisi->catatan = $validated['catatan'];
-            // ddd($disposisi);
-            $disposisi->save();
+            foreach ($validated['id_penerima'] as $key => $value) {
+                $disposisi = new Disposisi;
+                $disposisi->id_surat_masuk = $request->get('id_surat_masuk');
+                $disposisi->sifat_surat = $validated['sifat_surat'];
+                $disposisi->id_surat_keluar = $request->get('id_surat_keluar');
+                $disposisi->id_pengirim = $request->get('id_pengirim');
+                $disposisi->id_penerima = $value;
+                $disposisi->tgl_disposisi = $validated['tgl_disposisi'];
+                $disposisi->catatan = $validated['catatan'];
+                $disposisi->save();
+            }
         } catch (Exception $e) {
             return back()->withError('Terjadi kesalahan.'.$e);
         } catch (QueryException $e) {
@@ -151,4 +161,23 @@ class DisposisiController extends Controller
 
         return redirect()->route('disposisi.index')->withStatus('Data berhasil dihapus.');
     }
+
+    public function getDisposisi(){
+        $getAnggota = User::from('users as u')
+                            ->select(
+                                'u.*',
+                            );
+                            // ->where('id_surat_masuk',$tipe);
+        $getAnggota = $getAnggota->whereNotIn('u.id',function($query){
+            $query->select('dis.id_pengirim')
+                    ->from('disposisi as dis')
+                    ->where('dis.id_surat_masuk', '3');
+        })->get();
+        // $getAnggota = $getAnggota->get();
+        return $getAnggota;
+    }
+
+    // public function getDisposisi(){
+    //     echo "halo";
+    // }
 }

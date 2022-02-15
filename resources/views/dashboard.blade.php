@@ -111,7 +111,7 @@
     @php
     $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 
-    $disposisi = \App\Models\Disposisi::with('penerima','pengirim')->where('id_pengirim',auth()->user()->id)->orwhere('id_pengirim',auth()->user()->id)->orderBy('id','ASC');
+    $disposisi = \App\Models\Disposisi::with('penerima','pengirim')->where('id_pengirim',auth()->user()->id)->orwhere('id_penerima',auth()->user()->id)->orderBy('id','ASC');
 
     if ($keyword) {
         $disposisi->where('disposisi', 'LIKE', "%{$keyword}%");

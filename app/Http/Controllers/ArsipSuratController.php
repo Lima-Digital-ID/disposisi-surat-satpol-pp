@@ -56,7 +56,7 @@ class ArsipSuratController extends Controller
             }
 
             $this->param['data'] = $get->paginate(10);
-            return $this->param['data'];
+            // return $this->param['data'];
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
         }
@@ -198,6 +198,16 @@ class ArsipSuratController extends Controller
     public function destroy($id)
     {
         try {
+            $arsip = ArsipSurat::findOrFail($id);
+            if($arsip->id_surat_keluar != '' || $arsip->id_surat_keluar != null){
+                $keluar = SuratKeluar::findOrFail($arsip->id_surat_keluar);
+                $keluar->diarsipkan = false;
+                $keluar->save();
+            }else if($arsip->id_surat_masuk != '' || $arsip->id_surat_masuk != null){
+                $masuk = SuratMasuk::findOrFail($arsip->id_surat_masuk);
+                $masuk->diarsipkan = false;
+                $masuk->save();
+            }
             ArsipSurat::findOrFail($id)->delete();
         } catch (Exception $e) {
             return back()->withError('Terjadi kesalahan.');
@@ -206,5 +216,17 @@ class ArsipSuratController extends Controller
         }
 
         return redirect()->route('arsip.index')->withStatus('Data berhasil dihapus.');
+    }
+
+    public function restoreArchive(Request $request)
+    {
+        $masuk = SuratMasuk::get();
+        $keluar = SuratKeluar::get();
+        ddd($masuk);
+        if($masuk != ''){
+            echo '$masuk';
+        }elseif($keluar != ''){
+            echo '$keluar';
+        }            
     }
 }

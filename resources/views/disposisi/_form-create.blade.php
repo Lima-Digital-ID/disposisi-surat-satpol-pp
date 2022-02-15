@@ -88,7 +88,7 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Penerima</label>
         <div class="col-sm-10">
-            <select name="id_penerima" id="id_penerima" class="js-example-basic-single" style="width: 100%;" required>
+            <select name="id_penerima[]" id="id_penerima" multiple class="js-example-basic-single" style="width: 100%;" required>
                 <option value="">Pilih Penerima</option>
                 @foreach ($allUsr as $usr)
                     <option value="{{ $usr->id }}">{{ $usr->nama." || ".$usr->jabatan->jabatan }}</option>
