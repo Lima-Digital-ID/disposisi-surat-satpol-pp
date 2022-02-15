@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArsipSuratController;
 use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\SuratKeluarController;
 use App\Http\Controllers\DisposisiController;
@@ -39,6 +40,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('surat_keluar', SuratKeluarController::class);
     Route::resource('disposisi', DisposisiController::class);
     Route::resource('lokasi-surat', LokasiSuratController::class);
+    Route::resource('arsip', ArsipSuratController::class);
+    Route::get('get-surat-masuk', [SuratMasukController::class, 'getSuratMasukJson'])->name('get_surat_masuk');
+    Route::get('get-surat-keluar', [SuratKeluarController::class, 'getSuratKeluarJson'])->name('get_surat_keluar');
 });
 
 require __DIR__.'/auth.php';

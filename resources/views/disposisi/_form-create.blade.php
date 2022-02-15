@@ -4,7 +4,7 @@
         <label class="col-sm-2 col-form-label">Sifat Surat</label>
         <div class="col-sm-10">
             <select name="sifat_surat" id="sifat_surat" class="form-control @error('sifat_surat') is-invalid @enderror">
-                <option value="">Pilih sifat_surat</option>
+                <option value="">Pilih Sifat Surat</option>
                 <option value="Penting" {{ old('sifat_surat') == 'Penting' ? ' selected' : '' }}>Penting</option>
                 <option value="Rahasia" {{ old('sifat_surat') == 'Rahasia' ? ' selected' : '' }}>Rahasia
                 </option>

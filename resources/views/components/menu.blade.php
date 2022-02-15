@@ -37,6 +37,16 @@
                     </a>
                 </li>
                 <!-- End Surat Keluar ---!>
+                <!-- Surat Keluar ---!>
+                <li class="{{ Request::segment(1) == 'arsip' ? 'active' : '' }}">
+                    <a href="{{ route('arsip.index') }}" class="waves-effect waves-dark">
+                        <span class="pcoded-micon">
+                            <i class="ti ti-archive"></i>
+                        </span>
+                        <span class="pcoded-mtext">Arsip</span>
+                    </a>
+                </li>
+                <!-- End Surat Keluar ---!>
             </ul>
 
             <div class="pcoded-navigation-label">Disposisi</div>

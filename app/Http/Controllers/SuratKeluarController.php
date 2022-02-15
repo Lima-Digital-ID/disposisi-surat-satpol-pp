@@ -177,4 +177,15 @@ class SuratKeluarController extends Controller
         }
         return redirect()->route('surat_keluar.index')->withStatus('Data berhasil dihapus.');
     }
+
+    public function getSuratKeluarJson()
+    {
+        $get = SuratKeluar::orderBy('id')->get();
+
+        $data = array(
+            'data' => $get,
+        );
+
+        return $data;
+    }
 }

@@ -12,7 +12,7 @@ use Illuminate\Database\QueryException;
 
 class SuratMasukController extends Controller
 {
-        public function __construct()
+    public function __construct()
     {
         $this->param['pageTitle'] = 'Surat Masuk';
         $this->param['pageIcon'] = 'fa fa-download';
@@ -157,5 +157,16 @@ class SuratMasukController extends Controller
         }
 
         return redirect()->route('surat_masuk.index')->withStatus('Data berhasil dihapus.');
+    }
+
+    public function getSuratMasukJson()
+    {
+        $get = SuratMasuk::orderBy('id')->get();
+
+        $data = array(
+            'data' => $get,
+        );
+
+        return $data;
     }
 }
