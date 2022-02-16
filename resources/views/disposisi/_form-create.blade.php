@@ -65,34 +65,13 @@
             @enderror
         </div>
     </div>
-
-    
+   
     <input type="hidden" name="id_pengirim" value="{{ auth()->user()->id }}">
-    {{-- <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Pengirim</label>
-        <div class="col-sm-10">
-            <select name="id_pengirim" id="id_pengirim" class="js-example-basic-single" style="width: 100%;" required>
-                <option value="">Pilih Pengirim</option>
-                @foreach ($allUsr as $usr)
-                    <option value="{{ $usr->id }}">{{ $usr->nama." || ".$usr->jabatan->jabatan }}</option>
-                @endforeach
-            </select>
-            @error('id_penerima')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-            @enderror
-        </div>
-    </div> --}}
 
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Penerima</label>
         <div class="col-sm-10">
             <select name="id_penerima[]" id="id_penerima" multiple class="js-example-basic-single" style="width: 100%;" required>
-                <option value="">Pilih Penerima</option>
-                @foreach ($allUsr as $usr)
-                    <option value="{{ $usr->id }}">{{ $usr->nama." || ".$usr->jabatan->jabatan }}</option>
-                @endforeach
             </select>
             @error('id_penerima')
                 <div class="invalid-feedback">

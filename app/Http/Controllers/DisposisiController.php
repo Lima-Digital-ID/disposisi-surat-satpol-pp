@@ -162,22 +162,19 @@ class DisposisiController extends Controller
         return redirect()->route('disposisi.index')->withStatus('Data berhasil dihapus.');
     }
 
-    public function getDisposisi(){
+    public function getDisposisi($id){
         $getAnggota = User::from('users as u')
-                            ->select(
-                                'u.*',
-                            );
-                            // ->where('id_surat_masuk',$tipe);
-        $getAnggota = $getAnggota->whereNotIn('u.id',function($query){
-            $query->select('dis.id_pengirim')
-                    ->from('disposisi as dis')
-                    ->where('dis.id_surat_masuk', '2');
+        ->select(
+            'u.*',
+        )->where('u.id', "!=", auth()->user()->id)
+        ->whereNotIn('u.id',function($query) use ($id){
+                $where = $_GET['tipe']==0 ? 'id_surat_keluar' : 'id_surat_masuk';
+                $query->select('id_penerima')
+                    ->from('disposisi')
+                    
+                    ->where($where,$id)
+                    ->get();
         })->get();
-        // $getAnggota = $getAnggota->get();
-        return $getAnggota;
+        echo json_encode($getAnggota);
     }
-
-    // public function getDisposisi(){
-    //     echo "halo";
-    // }
 }

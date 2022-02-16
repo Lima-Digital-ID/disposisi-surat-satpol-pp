@@ -41,14 +41,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('surat_keluar', SuratKeluarController::class);
     Route::prefix('disposisi')->group(function(){
         Route::resource('disposisi', DisposisiController::class);        
-        Route::get('get_disposisi', [DisposisiController::class, 'getDisposisi']);        
+        Route::get('get_disposisi/{id}', [DisposisiController::class, 'getDisposisi']);        
     });
     Route::resource('disposisi', DisposisiController::class);
     Route::resource('lokasi-surat', LokasiSuratController::class);
-    // Route::prefix('arsip')->group(function(){
-    //     Route::resource('arsip', ArsipSuratController::class);        
-    //     Route::get('restore_archive', [ArsipSuratController::class, 'restoreArchive']);        
-    // });
     Route::resource('arsip', ArsipSuratController::class);
     Route::get('get-surat-masuk', [SuratMasukController::class, 'getSuratMasukJson'])->name('get_surat_masuk');
     Route::get('get-surat-keluar', [SuratKeluarController::class, 'getSuratKeluarJson'])->name('get_surat_keluar');

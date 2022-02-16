@@ -24,8 +24,8 @@
               <tr class="border-bottom-primary">
                 <td class="text-center text-muted">{{ $no }}</td>
                 <td>{{ $item->sifat_surat }}</td>
-                <td>{{ $item->masuk->perihal }}</td>
-                <td>{{ $item->keluar->perihal }}</td>
+                <td>{{ $item->masuk->no_surat }}</td>
+                <td>{{ $item->keluar->no_surat }}</td>
                 <td>{{ $item->pengirim->nama }}</td>
                 <td>{{ $item->penerima->nama }}</td>
                 <td>{{ $item->tgl_disposisi }}</td>
