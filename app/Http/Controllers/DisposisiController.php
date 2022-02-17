@@ -30,16 +30,13 @@ class DisposisiController extends Controller
     {
         $this->param['btnText'] = 'Tambah';
         $this->param['btnLink'] = route('disposisi.create');
-
         try {
             $keyword = $request->get('keyword');
-            // $getDisposisi = Disposisi::orderBy('id');
             $getDisposisi = Disposisi::with('penerima','pengirim');
                                         if(auth()->user()->level=='Anggota'){
                                             $getDisposisi->where('id_penerima',auth()->user()->id)->orwhere('id_penerima',auth()->user()->id);
                                         }
                                         $getDisposisi->orderBy('id','ASC');
-            // $getDisposisi = Disposisi::with('penerima','pengirim')->orderBy('id','ASC');
 
             if ($keyword) {
                 $getDisposisi->where('disposisi', 'LIKE', "%{$keyword}%");

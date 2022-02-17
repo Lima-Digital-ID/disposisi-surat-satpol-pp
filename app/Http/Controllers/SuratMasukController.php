@@ -30,6 +30,12 @@ class SuratMasukController extends Controller
         $this->param['btnLink'] = route('surat_masuk.create');
 
         try {
+            // $masuk = \DB::table('surat_masuk')->where('status', '=', 0)->get();
+            $masuk = SuratMasuk::where('status', '=', '0')->where('id_penerima',auth()->user()->id)->update(['status' => '1']);
+            // $masuk = \DB::table('surat_masuk')->update(['status' => 1]);
+            // SuratMasuk::query()->update(['status' => 1]);
+            // $masuk->save();
+            // ddd($masuk);
             $keyword = $request->get('keyword');
             $getSuratMasuk = SuratMasuk::with('jenis_surat','penerima_masuk','pengirim_masuk');
                             if(auth()->user()->level=='Anggota'){
