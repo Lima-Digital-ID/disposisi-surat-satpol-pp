@@ -36,15 +36,16 @@
             
             $('#masuk').hide();
             $('#keluar').hide();
-
             $('#jenis').change(function() {
                 if ($(this).val() == '0') {
                     $('#masuk').show();
                     $('#keluar').hide();
+                    $('#id_surat_masuk').select2('val',1);
                 }
                 else{
                     $('#keluar').show();
                     $('#masuk').hide();
+                    $('#id_surat_keluar').select2('val','');
                 }
             })
 

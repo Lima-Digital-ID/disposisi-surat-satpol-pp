@@ -31,7 +31,11 @@ class SuratKeluarController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            $getSuratKeluar = SuratKeluar::with('jenis_surat','penerima_keluar','pengirim_keluar')->where('id_pengirim',auth()->user()->id)->orWhere('diarsipkan','0')->orderBy('id','ASC');
+            $getSuratKeluar = SuratKeluar::with('jenis_surat','penerima_keluar','pengirim_keluar');
+                            if(auth()->user()->level=='Anggota'){
+                                $getSuratKeluar->where('id_pengirim',auth()->user()->id);
+                            }
+                            $getSuratKeluar->where('diarsipkan','0')->orderBy('id','ASC');
 
             if ($keyword) {
                 $getSuratKeluar->where('surat_keluar', 'LIKE', "%{$keyword}%");

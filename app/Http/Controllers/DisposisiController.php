@@ -34,7 +34,11 @@ class DisposisiController extends Controller
         try {
             $keyword = $request->get('keyword');
             // $getDisposisi = Disposisi::orderBy('id');
-            $getDisposisi = Disposisi::with('penerima','pengirim')->where('id_pengirim',auth()->user()->id)->orwhere('id_penerima',auth()->user()->id)->orderBy('id','ASC');
+            $getDisposisi = Disposisi::with('penerima','pengirim');
+                                        if(auth()->user()->level=='Anggota'){
+                                            $getDisposisi->where('id_penerima',auth()->user()->id)->orwhere('id_penerima',auth()->user()->id);
+                                        }
+                                        $getDisposisi->orderBy('id','ASC');
             // $getDisposisi = Disposisi::with('penerima','pengirim')->orderBy('id','ASC');
 
             if ($keyword) {
