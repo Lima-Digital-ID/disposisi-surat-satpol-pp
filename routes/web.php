@@ -35,6 +35,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('golongan', GolonganController::class);
     Route::resource('jabatan', JabatanController::class);
     Route::resource('unit_kerja', UnitKerjaController::class);
+    Route::prefix('user')->group(function(){
+        Route::resource('user', UserController::class);
+        Route::get('change-password', [UserController::class, 'changePassword'])->name('change_password');
+        Route::put('change-password/{id}', [UserController::class, 'updatePassword'])->name('update_password');
+    });
     Route::resource('user', UserController::class);
     Route::resource('jenis_surat', JenisSuratController::class);
     Route::resource('surat_masuk', SuratMasukController::class);

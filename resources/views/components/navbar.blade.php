@@ -132,6 +132,12 @@
                                   Logout
                               </a>
                           </li>
+                          <li>
+                              <a class="dropdown-item" href="{{ route('change_password') }}">
+                                  <i class="fa fa-pencil-square-o"></i>
+                                  Ubah Password
+                              </a>
+                          </li>
                       </ul>
                   </div>
               </li>
