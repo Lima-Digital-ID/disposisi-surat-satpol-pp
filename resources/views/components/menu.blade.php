@@ -23,6 +23,7 @@
                         <span class="pcoded-micon">
                             <i class="fa fa-download"></i>
                         </span>
+                        <span class="pcoded-mtext">Surat Masuk</span>
                         {{-- <span class="pcoded-mtext">Surat Masuk &nbsp;<span class="badge badge-light">{{
                             \App\Models\SuratMasuk::where('status','0')->where('id_penerima',auth()->user()->id)->count();
                         }}</span></span> --}}

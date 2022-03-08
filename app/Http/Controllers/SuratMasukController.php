@@ -6,6 +6,7 @@ use App\Http\Requests\SuratMasukRequest;
 use App\Models\SuratMasuk;
 use App\Models\User;
 use App\Models\JenisSurat;
+use App\Models\Pengirim;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Database\QueryException;
@@ -31,17 +32,18 @@ class SuratMasukController extends Controller
 
         try {
             // $masuk = \DB::table('surat_masuk')->where('status', '=', 0)->get();
-            $masuk = SuratMasuk::where('status', '=', '0')->where('id_penerima',auth()->user()->id)->update(['status' => '1']);
+            // $masuk = SuratMasuk::where('status', '=', '0')->where('id_penerima',auth()->user()->id)->update(['status' => '1']);
             // $masuk = \DB::table('surat_masuk')->update(['status' => 1]);
             // SuratMasuk::query()->update(['status' => 1]);
             // $masuk->save();
             // ddd($masuk);
             $keyword = $request->get('keyword');
-            $getSuratMasuk = SuratMasuk::with('penerima_masuk','pengirim_masuk');
-                            if(auth()->user()->level=='Anggota'){
-                                $getSuratMasuk->where('id_penerima',auth()->user()->id);
-                            }
-                            $getSuratMasuk->where('diarsipkan','0')->orderBy('id','ASC');
+            // $getSuratMasuk = SuratMasuk::with('penerima_masuk','pengirim_masuk');
+            $getSuratMasuk = SuratMasuk::with('pengirim_masuk');
+            // if(auth()->user()->level=='Anggota'){
+            //     $getSuratMasuk->where('id_penerima',auth()->user()->id);
+            // }
+            $getSuratMasuk->where('diarsipkan','0')->orderBy('id','ASC');
             // $getSuratMasuk = SuratMasuk::orderBy('id');
 
             if ($keyword) {
@@ -71,6 +73,7 @@ class SuratMasukController extends Controller
         $this->param['btnLink'] = route('surat_masuk.index');
         $this->param['allUsr'] = User::get();
         $this->param['allJen'] = JenisSurat::get();
+        $this->param['allPengirim'] = Pengirim::orderBy('pengirim')->get();
 
         return \view('surat_masuk.create', $this->param);
     }
@@ -94,8 +97,11 @@ class SuratMasukController extends Controller
             $surat->no_surat = $validated['no_surat'];
             $surat->sifat_surat = $validated['sifat_surat'];
             $surat->status_tembusan = $request->get('tembusan');
-            $surat->id_penerima = $validated['id_penerima'];
-            $surat->pengirim = $validated['pengirim'];
+            // $surat->id_penerima = $validated['id_penerima'];
+            if(is_numeric($request->pengirim)) // Pengirim dari master pengirim
+                $surat->id_pengirim = $validated['pengirim'];
+            else // Pengirim baru
+                $surat->pengirim = $validated['pengirim'];
             $surat->tgl_pengirim = $validated['tgl_pengirim'];
             $surat->tgl_penerima = $validated['tgl_penerima'];
             $surat->perihal = $validated['perihal'];

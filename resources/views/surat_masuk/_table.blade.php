@@ -25,8 +25,9 @@
                 <td class="text-center text-muted">{{ $no }}</td>
                 <td>{{ $item->no_surat }}</td>
                 <td>{{ $item->sifat_surat }}</td>
-                <td>{{ $item->pengirim }}</td>
-                <td>{{ $item->penerima_masuk->nama }}</td>
+                <td>{{ isset($item->pengirim) ? $item->pengirim : $item->pengirim_masuk->pengirim }}</td>
+                {{--  <td>{{ $item->penerima_masuk->nama }}</td>  --}}
+                <td>Petugas TU</td>
                 <td>{{ $item->tgl_pengirim }}</td>
                 <td>{{ $item->tgl_penerima }}</td>
                 <td>{{ $item->perihal }}</td>

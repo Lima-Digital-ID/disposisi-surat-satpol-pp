@@ -17,7 +17,7 @@ class SuratMasuk extends Model
 
     public function pengirim_masuk()
     {
-        return $this->belongsTo('\App\Models\User', 'id_pengirim')->withDefault(['nama' => '-']);
+        return $this->belongsTo('\App\Models\Pengirim', 'id_pengirim')->withDefault(['nama' => '-']);
     }
 
     public function penerima_masuk()

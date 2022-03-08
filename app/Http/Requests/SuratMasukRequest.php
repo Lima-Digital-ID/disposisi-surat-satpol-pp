@@ -28,7 +28,7 @@ class SuratMasukRequest extends FormRequest
             'no_surat' => 'required|max:191',
             'sifat_surat' => 'required',
             'pengirim' => 'required',
-            'id_penerima' => 'required',
+            // 'id_penerima' => 'required',
             'tgl_pengirim' => 'required',
             'tgl_penerima' => 'required',
             'perihal' => 'required',
