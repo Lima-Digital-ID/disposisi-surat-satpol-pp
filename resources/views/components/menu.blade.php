@@ -98,6 +98,16 @@
                     </a>
                 </li>
                 <!-- End Jenis Surat ---!>
+                <!-- Penerima Surat ---!>
+                <li class="{{ Request::segment(1) == 'penerima' ? 'active' : '' }}">
+                    <a href="{{ route('penerima.index') }}" class="waves-effect waves-dark">
+                        <span class="pcoded-micon">
+                            <i class="ti-user"></i>
+                        </span>
+                        <span class="pcoded-mtext">Penerima Surat</span>
+                    </a>
+                </li>
+                <!-- End Penerima Surat ---!>
                 <!-- Golongan ---!>
                 <li class="{{ Request::segment(1) == 'golongan' ? 'active' : '' }}">
                     <a href="{{ route('golongan.index') }}" class="waves-effect waves-dark">

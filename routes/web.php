@@ -10,6 +10,7 @@ use App\Http\Controllers\JenisSuratController;
 use App\Http\Controllers\GolonganController;
 use App\Http\Controllers\LokasiSuratController;
 use App\Http\Controllers\LaporanSuratController;
+use App\Http\Controllers\PenerimaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -49,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('get_disposisi/{id}', [DisposisiController::class, 'getDisposisi']);        
     });
     Route::resource('disposisi', DisposisiController::class);
+    Route::resource('penerima', PenerimaController::class);
     Route::resource('lokasi-surat', LokasiSuratController::class);
     Route::resource('arsip', ArsipSuratController::class);
     Route::get('get-surat-masuk', [SuratMasukController::class, 'getSuratMasukJson'])->name('get_surat_masuk');

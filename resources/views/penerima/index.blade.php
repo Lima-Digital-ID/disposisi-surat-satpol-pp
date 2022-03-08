@@ -14,7 +14,7 @@
 
     @include('components.notification')
 
-    {{-- @include('components.button-add', ['btnText' => $btnText, 'btnLink' => $btnLink]) --}}
+    @include('components.button-add', ['btnText' => $btnText, 'btnLink' => $btnLink])
     
     <div class="card">
         <div class="card-header">
@@ -25,7 +25,7 @@
             
         </div>
         <div class="card-block table-border-style">
-            @include('disposisi._table')
+            @include('penerima._table')
         </div>
     </div>
 

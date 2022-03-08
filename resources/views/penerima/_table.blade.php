@@ -3,14 +3,7 @@
       <thead>
           <tr class="table-primary">
               <th class="text-center">#</th>
-              <th>No Surat</th>
-              <th>Jenis Surat</th>
-              <th>Pengirim Surat</th>
               <th>Penerima Surat</th>
-              <th>Tanggal Terima Surat</th>
-              <th>Tanggal Kirim Surat</th>
-              <th>Perihal Surat</th>
-              <th>Lampiran</th>
               <th>Aksi</th>
           </tr>
       </thead>
@@ -20,30 +13,17 @@
               $no = !$page || $page == 1 ? 1 : ($page - 1) * 10 + 1;
           @endphp
           @foreach ($data as $item)
-          {{-- @if (auth()->user()->id == $item->id_pengirim || auth()->user()->level == 'Administrator' || auth()->user()->level == 'Admin' || auth()->user()->level == 'Kasat') --}}
               <tr class="border-bottom-primary">
                 <td class="text-center text-muted">{{ $no }}</td>
-                <td>{{ $item->no_surat }}</td>
-                <td>{{ $item->jenis_surat->jenis_surat }}</td>
-                <td>{{ $item->pengirim }}</td>
-                <td>{{ $item->penerima_masuk->nama }}</td>
-                <td>{{ $item->tgl_pengirim }}</td>
-                <td>{{ $item->tgl_penerima }}</td>
-                <td>{{ $item->perihal }}</td>
-                <td align="center"><a href="{{ "upload/surat_masuk/".$item->file_surat }}" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
+                <td>{{ $item->penerima }}</td>
                 <td>
                     <div class="form-inline">
-                        <a href="{{ route('surat_masuk.edit', $item->id) }}" class="mr-2">
+                        <a href="{{ route('penerima.edit', $item->id) }}" class="mr-2">
                             <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm"
                                 data-toggle="tooltip" title="Edit" data-placement="top"><span
                                     class="feather icon-edit"></span></button>
                         </a>
-                        <a href="#" class="mr-2">
-                            <button type="button" id="PopoverCustomT-1" class="btn btn-warning btn-sm"
-                                data-toggle="tooltip" title="Disposisi" data-placement="top"><span
-                                    class="feather icon-mail"></span></button>
-                        </a>
-                        <form action="{{ route('surat_masuk.destroy', $item->id) }}" method="post">
+                        <form action="{{ route('penerima.destroy', $item->id) }}" method="post">
                             @csrf
                             @method('delete')
                             <button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip"
@@ -58,7 +38,6 @@
               @php
                   $no++;
               @endphp
-            {{-- @endif --}}
           @endforeach
       </tbody>
   </table>
