@@ -10,7 +10,7 @@ use App\Http\Controllers\JenisSuratController;
 use App\Http\Controllers\GolonganController;
 use App\Http\Controllers\LokasiSuratController;
 use App\Http\Controllers\LaporanSuratController;
-use App\Http\Controllers\PenerimaController;
+use App\Http\Controllers\PengirimController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,7 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('golongan', GolonganController::class);
     Route::resource('jabatan', JabatanController::class);
     Route::resource('unit_kerja', UnitKerjaController::class);
-    Route::prefix('user')->group(function(){
+    Route::prefix('user')->group(function () {
         Route::resource('user', UserController::class);
         Route::get('change-password', [UserController::class, 'changePassword'])->name('change_password');
         Route::put('change-password/{id}', [UserController::class, 'updatePassword'])->name('update_password');
@@ -45,12 +45,12 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('jenis_surat', JenisSuratController::class);
     Route::resource('surat_masuk', SuratMasukController::class);
     Route::resource('surat_keluar', SuratKeluarController::class);
-    Route::prefix('disposisi')->group(function(){
-        Route::resource('disposisi', DisposisiController::class);        
-        Route::get('get_disposisi/{id}', [DisposisiController::class, 'getDisposisi']);        
+    Route::prefix('disposisi')->group(function () {
+        Route::resource('disposisi', DisposisiController::class);
+        Route::get('get_disposisi/{id}', [DisposisiController::class, 'getDisposisi']);
     });
     Route::resource('disposisi', DisposisiController::class);
-    Route::resource('penerima', PenerimaController::class);
+    Route::resource('pengirim', PengirimController::class);
     Route::resource('lokasi-surat', LokasiSuratController::class);
     Route::resource('arsip', ArsipSuratController::class);
     Route::get('get-surat-masuk', [SuratMasukController::class, 'getSuratMasukJson'])->name('get_surat_masuk');
@@ -62,4 +62,4 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('laporan_surat', LaporanSuratController::class);
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

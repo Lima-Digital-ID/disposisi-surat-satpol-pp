@@ -2,16 +2,15 @@
 
 @section('page-header')
     @include('components.page-header', [
-    'pageTitle' => $pageTitle,
-    'pageSubtitle' => '',
-    'pageIcon' => $pageIcon,
-    'parentMenu' => $parentMenu,
-    'current' => $current
+        'pageTitle' => $pageTitle,
+        'pageSubtitle' => '',
+        'pageIcon' => $pageIcon,
+        'parentMenu' => $parentMenu,
+        'current' => $current,
     ])
 @endsection
 
 @section('content')
-
     @include('components.notification')
 
     <div class="row">
@@ -22,7 +21,7 @@
                     <h5>Edit {{ $pageTitle }}</h5>
                 </div>
                 <div class="card-block">
-                    @include('penerima._form-edit')
+                    @include('pengirim._form-edit')
                 </div>
             </div>
         </div>

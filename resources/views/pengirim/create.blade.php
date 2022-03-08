@@ -2,16 +2,15 @@
 
 @section('page-header')
     @include('components.page-header', [
-    'pageTitle' => $pageTitle,
-    'pageSubtitle' => '',
-    'pageIcon' => $pageIcon,
-    'parentMenu' => $parentMenu,
-    'current' => $current
+        'pageTitle' => $pageTitle,
+        'pageSubtitle' => '',
+        'pageIcon' => $pageIcon,
+        'parentMenu' => $parentMenu,
+        'current' => $current,
     ])
 @endsection
 
 @section('content')
-
     @include('components.notification')
 
     <div class="row">
@@ -23,7 +22,7 @@
                 </div>
                 <div class="card-block">
                     {{-- <h4 class="sub-title">Basic Inputs</h4> --}}
-                    @include('penerima._form-create')
+                    @include('pengirim._form-create')
                 </div>
             </div>
         </div>

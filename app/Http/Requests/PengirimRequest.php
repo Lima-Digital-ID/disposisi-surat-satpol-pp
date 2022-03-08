@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PenerimaRequest extends FormRequest
+class PengirimRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,15 +24,15 @@ class PenerimaRequest extends FormRequest
     public function rules()
     {
         return [
-            'penerima' => 'required|max:191'
+            'pengirim' => 'required|max:191'
         ];
     }
 
-        public function messages()
+    public function messages()
     {
         return [
-            'penerima.required' => 'Penerima surat harus diisi.',
-            'penerima.max' => 'Maksimal jumlah karakter 191.'
+            'pengirim.required' => 'Pengirim surat harus diisi.',
+            'pengirim.max' => 'Maksimal jumlah karakter 191.'
         ];
     }
 }

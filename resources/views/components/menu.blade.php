@@ -23,9 +23,9 @@
                         <span class="pcoded-micon">
                             <i class="fa fa-download"></i>
                         </span>
-                        <span class="pcoded-mtext">Surat Masuk &nbsp;<span class="badge badge-light">{{ 
+                        {{-- <span class="pcoded-mtext">Surat Masuk &nbsp;<span class="badge badge-light">{{
                             \App\Models\SuratMasuk::where('status','0')->where('id_penerima',auth()->user()->id)->count();
-                        }}</span></span>
+                        }}</span></span> --}}
                     </a>
                 </li>
                 <!-- End Surat Masuk ---!>
@@ -66,7 +66,7 @@
             </ul>
 
             @if (auth()->user()->level == 'Administrator' || auth()->user()->level == 'Admin')
-            <div class="pcoded-navigation-label">Data Master</div>
+<div class="pcoded-navigation-label">Data Master</div>
             <ul class="pcoded-item pcoded-left-item">
                 <!-- Rekap Laporan Surat ---!>
                 <li class="{{ Request::segment(1) == 'laporan_surat' ? 'active' : '' }}">
@@ -98,16 +98,16 @@
                     </a>
                 </li>
                 <!-- End Jenis Surat ---!>
-                <!-- Penerima Surat ---!>
-                <li class="{{ Request::segment(1) == 'penerima' ? 'active' : '' }}">
-                    <a href="{{ route('penerima.index') }}" class="waves-effect waves-dark">
+                <!-- Pengirim Surat ---!>
+                <li class="{{ Request::segment(1) == 'pengirim' ? 'active' : '' }}">
+                    <a href="{{ route('pengirim.index') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
                             <i class="ti-user"></i>
                         </span>
-                        <span class="pcoded-mtext">Penerima Surat</span>
+                        <span class="pcoded-mtext">Pengirim Surat</span>
                     </a>
                 </li>
-                <!-- End Penerima Surat ---!>
+                <!-- End Pengirim Surat ---!>
                 <!-- Golongan ---!>
                 <li class="{{ Request::segment(1) == 'golongan' ? 'active' : '' }}">
                     <a href="{{ route('golongan.index') }}" class="waves-effect waves-dark">
@@ -148,7 +148,7 @@
                     </a>
                 </li>
                 <!-- End User ---!>
-                @endif
+@endif
             </ul>
         </div>
     </div>

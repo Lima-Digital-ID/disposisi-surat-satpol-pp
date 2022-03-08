@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\PenerimaRequest;
-use App\Models\Penerima;
+use App\Http\Requests\PengirimRequest;
+use App\Models\Pengirim;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Database\QueryException;
 
-class PenerimaController extends Controller
+class PengirimController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,33 +17,32 @@ class PenerimaController extends Controller
      */
     public function __construct()
     {
-        $this->param['pageTitle'] = 'Penerima Surat';
+        $this->param['pageTitle'] = 'Pengirim Surat';
         $this->param['pageIcon'] = 'ti-user';
-        $this->param['parentMenu'] = '/penerima';
-        $this->param['current'] = 'Penerima Surat';
+        $this->param['parentMenu'] = '/pengirim';
+        $this->param['current'] = 'Pengirim Surat';
     }
     public function index(Request $request)
     {
         $this->param['btnText'] = 'Tambah';
-        $this->param['btnLink'] = route('penerima.create');
+        $this->param['btnLink'] = route('pengirim.create');
 
         try {
             $keyword = $request->get('keyword');
-            $get = Penerima::orderBy('id');
+            $get = pengirim::orderBy('id');
 
             if ($keyword) {
-                $get->where('lokasi', 'LIKE', "%{$keyword}%");
+                $get->where('pengirim', 'LIKE', "%{$keyword}%");
             }
 
             $this->param['data'] = $get->paginate(10);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
         }
 
-        return \view('penerima.index', $this->param);
+        return \view('pengirim.index', $this->param);
     }
 
     /**
@@ -53,10 +52,10 @@ class PenerimaController extends Controller
      */
     public function create()
     {
-        $this->param['btnText'] = 'List Penerima Surat';
-        $this->param['btnLink'] = route('penerima.index');
+        $this->param['btnText'] = 'List Pengirim Surat';
+        $this->param['btnLink'] = route('pengirim.index');
 
-        return \view('penerima.create', $this->param);
+        return \view('pengirim.create', $this->param);
     }
 
     /**
@@ -65,30 +64,30 @@ class PenerimaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(PenerimaRequest $request)
+    public function store(PengirimRequest $request)
     {
         $request = $request->validate(
             [
-                'penerima' => 'required|max:191|unique:penerima,penerima',
+                'pengirim' => 'required|max:191|unique:pengirim',
             ],
             [
-                'penerima.required' => 'Penerima Surat harus diisi.', 
-                'penerima.max' => 'Maksimal jumlah karakter 191.', 
-                'penerima.unique' => 'Nama telah digunakan.', 
+                'pengirim.required' => 'Pengirim Surat harus diisi.',
+                'pengirim.max' => 'Maksimal jumlah karakter 191.',
+                'pengirim.unique' => 'Nama telah digunakan.',
             ]
         );
         $validated = $request;
         try {
-            $penerima = new Penerima;
-            $penerima->penerima = $validated['penerima'];
-            $penerima->save();
+            $pengirim = new Pengirim;
+            $pengirim->pengirim = $validated['pengirim'];
+            $pengirim->save();
         } catch (Exception $e) {
             return back()->withError('Terjadi kesalahan.');
         } catch (QueryException $e) {
             return back()->withError('Terjadi kesalahan pada database.');
         }
 
-        return redirect()->route('penerima.index')->withStatus('Data berhasil disimpan.');
+        return redirect()->route('pengirim.index')->withStatus('Data berhasil disimpan.');
     }
 
     /**
@@ -110,11 +109,11 @@ class PenerimaController extends Controller
      */
     public function edit($id)
     {
-        $this->param['data'] = Penerima::find($id);
-        $this->param['btnText'] = 'List Penerima';
-        $this->param['btnLink'] = route('penerima.index');
+        $this->param['data'] = Pengirim::find($id);
+        $this->param['btnText'] = 'List Pengirim';
+        $this->param['btnLink'] = route('pengirim.index');
 
-        return view('penerima.edit', $this->param);
+        return view('pengirim.edit', $this->param);
     }
 
     /**
@@ -124,36 +123,36 @@ class PenerimaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PenerimaRequest $request, $id)
+    public function update(PengirimRequest $request, $id)
     {
-        $data = Penerima::findOrFail($id);
+        $data = Pengirim::findOrFail($id);
 
-        $penerimaUnique = $request['penerima'] != null && $request['penerima'] != $data->penerima ? '|unique:penerima,penerima' : '';
+        $PengirimUnique = $request['pengirim'] != null && $request['pengirim'] != $data->pengirim ? '|unique:pengirim' : '';
 
         $request = $request->validate(
             [
-                'penerima' => 'required|max:191'.$penerimaUnique,
+                'pengirim' => 'required|max:191' . $PengirimUnique,
             ],
             [
-                'penerima.required' => 'Penerima Surat harus diisi.', 
-                'penerima.max' => 'Maksimal jumlah karakter 191.', 
-                'penerima.unique' => 'Nama telah digunakan.', 
+                'pengirim.required' => 'Pengirim Surat harus diisi.',
+                'pengirim.max' => 'Maksimal jumlah karakter 191.',
+                'pengirim.unique' => 'Nama telah digunakan.',
             ]
         );
 
         $validated = $request;
 
         try {
-            $data->penerima = $validated['penerima'];
+            $data->pengirim = $validated['pengirim'];
 
             $data->save();
         } catch (\Exception $e) {
-            return redirect()->back()->withError('Terjadi kesalahan.');
+            return redirect()->back()->withError('Terjadi kesalahan.' . $e);
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect()->back()->withError('Terjadi kesalahan pada database.');
         }
 
-        return redirect()->route('penerima.index')->withStatus('Data berhasil diperbarui.');
+        return redirect()->route('pengirim.index')->withStatus('Data berhasil diperbarui.');
     }
 
     /**
@@ -165,14 +164,14 @@ class PenerimaController extends Controller
     public function destroy($id)
     {
         try {
-            $penerima = Penerima::findOrFail($id);
-            $penerima->delete();
+            $pengirim = Pengirim::findOrFail($id);
+            $pengirim->delete();
         } catch (Exception $e) {
             return back()->withError('Terjadi kesalahan.');
         } catch (QueryException $e) {
             return back()->withError('Terjadi kesalahan pada database.');
         }
 
-        return redirect()->route('penerima.index')->withStatus('Data berhasil dihapus.');
+        return redirect()->route('pengirim.index')->withStatus('Data berhasil dihapus.');
     }
 }
