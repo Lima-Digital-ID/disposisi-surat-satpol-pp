@@ -7,8 +7,8 @@
               <th>Jenis Surat</th>
               <th>Pengirim Surat</th>
               <th>Penerima Surat</th>
+              <th>Tanggal Surat</th>
               <th>Tanggal Terima Surat</th>
-              <th>Tanggal Kirim Surat</th>
               <th>Perihal Surat</th>
               <th>Lampiran</th>
               <th>Aksi</th>
@@ -24,7 +24,7 @@
               <tr class="border-bottom-primary">
                 <td class="text-center text-muted">{{ $no }}</td>
                 <td>{{ $item->no_surat }}</td>
-                <td>{{ $item->jenis_surat->jenis_surat }}</td>
+                <td>{{ $item->sifat_surat }}</td>
                 <td>{{ $item->pengirim }}</td>
                 <td>{{ $item->penerima_masuk->nama }}</td>
                 <td>{{ $item->tgl_pengirim }}</td>

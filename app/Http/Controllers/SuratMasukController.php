@@ -37,7 +37,7 @@ class SuratMasukController extends Controller
             // $masuk->save();
             // ddd($masuk);
             $keyword = $request->get('keyword');
-            $getSuratMasuk = SuratMasuk::with('jenis_surat','penerima_masuk','pengirim_masuk');
+            $getSuratMasuk = SuratMasuk::with('penerima_masuk','pengirim_masuk');
                             if(auth()->user()->level=='Anggota'){
                                 $getSuratMasuk->where('id_penerima',auth()->user()->id);
                             }
@@ -92,7 +92,8 @@ class SuratMasukController extends Controller
             $newScanSurat = time().'_'.$scanSurat->getClientOriginalName();
 
             $surat->no_surat = $validated['no_surat'];
-            $surat->id_jenis_surat = $validated['id_jenis_surat'];
+            $surat->sifat_surat = $validated['sifat_surat'];
+            $surat->status_tembusan = $request->get('tembusan');
             $surat->id_penerima = $validated['id_penerima'];
             $surat->pengirim = $validated['pengirim'];
             $surat->tgl_pengirim = $validated['tgl_pengirim'];

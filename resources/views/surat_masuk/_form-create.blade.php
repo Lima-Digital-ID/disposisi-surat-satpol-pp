@@ -13,15 +13,19 @@
     </div>
 
     <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Jenis Surat</label>
+        <label class="col-sm-2 col-form-label">Sifat Surat</label>
         <div class="col-sm-10">
-            <select name="id_jenis_surat" id="id_jenis_surat" class="js-example-basic-single" style="width: 100%;" required>
-                <option value="">Pilih Jenis Surat</option>
-                @foreach ($allJen as $jen)
-                    <option value="{{ $jen->id }}">{{ $jen->jenis_surat }}</option>
-                @endforeach
+            <select name="sifat_surat" id="sifat_surat" class="form-control @error('sifat_surat') is-invalid @enderror">
+                <option value="">Pilih Sifat Surat</option>
+                <option value="Penting" {{ old('sifat_surat') == 'Penting' ? ' selected' : '' }}>Penting</option>
+                <option value="Rahasia" {{ old('sifat_surat') == 'Rahasia' ? ' selected' : '' }}>Rahasia
+                </option>
+                <option value="Biasa" {{ old('sifat_surat') == 'Biasa' ? ' selected' : '' }}>Biasa
+                </option>
+                <option value="Pribadi" {{ old('sifat_surat') == 'Pribadi' ? ' selected' : '' }}>Pribadi
+                </option>
             </select>
-            @error('id_jenis_surat')
+            @error('sifat_surat')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>
@@ -59,9 +63,9 @@
     </div>
 
         <div class="form-group row">
-        <label class="col-sm-2 col-form-label">Tanggal Kirim</label>
+        <label class="col-sm-2 col-form-label">Tanggal Surat</label>
         <div class="col-sm-10">
-            <input type="datetime-local" name="tgl_pengirim" class="form-control @error('tgl_pengirim') is-invalid @enderror" placeholder="Tanggal Kirim" value="{{old('tgl_pengirim')}}">
+            <input type="date" name="tgl_pengirim" class="form-control @error('tgl_pengirim') is-invalid @enderror" placeholder="Tanggal Kirim" value="{{old('tgl_pengirim')}}">
             @error('tgl_pengirim')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -73,7 +77,7 @@
         <div class="form-group row">
         <label class="col-sm-2 col-form-label">Tanggal Terima</label>
         <div class="col-sm-10">
-            <input type="datetime-local" name="tgl_penerima" class="form-control @error('tgl_penerima') is-invalid @enderror" placeholder="Tanggal Kirim" value="{{old('tgl_penerima')}}">
+            <input type="date" name="tgl_penerima" class="form-control @error('tgl_penerima') is-invalid @enderror" placeholder="Tanggal Kirim" value="{{old('tgl_penerima')}}">
             @error('tgl_penerima')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -87,6 +91,23 @@
         <div class="col-sm-10">
             <input type="text" name="perihal" class="form-control @error('perihal') is-invalid @enderror" placeholder="Perihal" value="{{old('perihal')}}">
             @error('perihal')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="form-group row">
+        <label class="col-sm-2 col-form-label">Status Tembusan</label>
+        <div class="col-sm-10">
+            <select name="tembusan" id="tembusan" class="form-control @error('tembusan') is-invalid @enderror">
+                <option value="">Pilih Status Tembusan</option>
+                <option value="Langsung" {{ old('tembusan') == 'Langsung' ? ' selected' : '' }}>Langsung</option>
+                <option value="Tembusan" {{ old('tembusan') == 'Tembusan' ? ' selected' : '' }}>Tembusan
+                </option>
+            </select>
+            @error('tembusan')
                 <div class="invalid-feedback">
                     {{ $message }}
                 </div>

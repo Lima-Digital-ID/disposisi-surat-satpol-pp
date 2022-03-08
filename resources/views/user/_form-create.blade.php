@@ -133,6 +133,17 @@
                 </option>
                 <option value="Anggota" {{ old('level') == 'Anggota' ? ' selected' : '' }}>Anggota
                 </option>
+                <option value="Kabid" {{ old('level') == 'Kabid' ? ' selected' : '' }}>Kabid</option>
+                <option value="Kabag" {{ old('level') == 'Kabag' ? ' selected' : '' }}>Kabag
+                </option>
+                <option value="Kasubag" {{ old('level') == 'Kasubag' ? ' selected' : '' }}>Kasubag
+                </option>
+                <option value="Sekretaris" {{ old('level') == 'Sekretaris' ? ' selected' : '' }}>Sekretaris
+                </option>
+                <option value="Staff" {{ old('level') == 'Staff' ? ' selected' : '' }}>Staff
+                </option>
+                <option value="TU" {{ old('level') == 'TU' ? ' selected' : '' }}>TU
+                </option>
             </select>
             @error('level')
                 <div class="invalid-feedback">
