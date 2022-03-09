@@ -31,6 +31,7 @@ class SuratMasukController extends Controller
     {
         $this->param['btnText'] = 'Tambah';
         $this->param['btnLink'] = route('surat_masuk.create');
+        $this->param['allPengirim'] = Pengirim::get();
 
         try {
             // $masuk = \DB::table('surat_masuk')->where('status', '=', 0)->get();
@@ -39,7 +40,8 @@ class SuratMasukController extends Controller
             // SuratMasuk::query()->update(['status' => 1]);
             // $masuk->save();
             // ddd($masuk);
-            $keyword = $request->get('keyword');
+            $pengirim = $request->get('id_pengirim');
+            $perihal = $request->get('perihal');
             // $getSuratMasuk = SuratMasuk::with('penerima_masuk','pengirim_masuk');
             $getSuratMasuk = SuratMasuk::with('pengirim_masuk');
             // if(auth()->user()->level=='Anggota'){
@@ -48,8 +50,11 @@ class SuratMasukController extends Controller
             $getSuratMasuk->where('diarsipkan', '0')->orderBy('id', 'ASC');
             // $getSuratMasuk = SuratMasuk::orderBy('id');
 
-            if ($keyword) {
-                $getSuratMasuk->where('surat_masuk', 'LIKE', "%{$keyword}%");
+            if ($pengirim) {
+                $getSuratMasuk->where('id_pengirim', 'LIKE', "%{$pengirim}%");
+            }
+            if ($perihal) {
+                $getSuratMasuk->where('perihal', 'LIKE', "%{$perihal}%");
             }
 
             $this->param['data'] = $getSuratMasuk->paginate(10);
@@ -58,7 +63,6 @@ class SuratMasukController extends Controller
         } catch (Exception $e) {
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
         }
-        // return $this->param['data'];
 
         return \view('surat_masuk.index', $this->param);
     }

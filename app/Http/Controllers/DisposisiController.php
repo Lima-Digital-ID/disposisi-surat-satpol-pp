@@ -164,11 +164,30 @@ class DisposisiController extends Controller
     }
 
     public function getDisposisi($id){
+        if(auth()->user()->level == "TU" ){
+            $where = 'Kasat';
+        } elseif (auth()->user()->level == "Kasat"){
+            $where1 = 'Kabid';
+            $where2 = 'Sekretaris';
+        }elseif (auth()->user()->level == "Kabid"){
+            $where = 'Kasi';
+        }elseif (auth()->user()->level == "Sekretaris"){
+            $where = 'Kasubag';
+        }elseif (auth()->user()->level == "Kasubag" || auth()->user()->level == "Kasi"){
+            $where = 'Staff';
+        }
         $getAnggota = User::from('users as u')
         ->select(
             'u.*',
-        )->where('u.id', "!=", auth()->user()->id)
-        ->whereNotIn('u.id',function($query) use ($id){
+        )->where('u.id', "!=", auth()->user()->id);
+        // ->where('u.level', $where)
+        if(auth()->user()->level != "Kasat" ){
+            $getAnggota = $getAnggota->where('u.level', $where);
+        } else{
+            $getAnggota = $getAnggota->where('u.level', $where1);
+            $getAnggota = $getAnggota->orWhere('u.level', $where2);
+        }
+        $getAnggota = $getAnggota->whereNotIn('u.id',function($query) use ($id){
                 $where = $_GET['tipe']==0 ? 'id_surat_keluar' : 'id_surat_masuk';
                 $query->select('id_penerima')
                     ->from('disposisi')
