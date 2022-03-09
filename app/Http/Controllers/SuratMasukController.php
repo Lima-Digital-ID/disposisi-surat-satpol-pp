@@ -43,7 +43,7 @@ class SuratMasukController extends Controller
             // if(auth()->user()->level=='Anggota'){
             //     $getSuratMasuk->where('id_penerima',auth()->user()->id);
             // }
-            $getSuratMasuk->where('diarsipkan','0')->orderBy('id','ASC');
+            $getSuratMasuk->where('diarsipkan', '0')->orderBy('id', 'ASC');
             // $getSuratMasuk = SuratMasuk::orderBy('id');
 
             if ($keyword) {
@@ -53,8 +53,7 @@ class SuratMasukController extends Controller
             $this->param['data'] = $getSuratMasuk->paginate(10);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
         }
         // return $this->param['data'];
@@ -92,13 +91,13 @@ class SuratMasukController extends Controller
 
             $uploadPath = 'upload/surat_masuk/';
             $scanSurat = $validated['file_surat'];
-            $newScanSurat = time().'_'.$scanSurat->getClientOriginalName();
+            $newScanSurat = time() . '_' . $scanSurat->getClientOriginalName();
 
             $surat->no_surat = $validated['no_surat'];
             $surat->sifat_surat = $validated['sifat_surat'];
             $surat->status_tembusan = $request->get('tembusan');
             // $surat->id_penerima = $validated['id_penerima'];
-            if(is_numeric($request->pengirim)) // Pengirim dari master pengirim
+            if (is_numeric($request->pengirim)) // Pengirim dari master pengirim
                 $surat->id_pengirim = $validated['pengirim'];
             else // Pengirim baru
                 $surat->pengirim = $validated['pengirim'];
@@ -106,8 +105,8 @@ class SuratMasukController extends Controller
             $surat->tgl_penerima = $validated['tgl_penerima'];
             $surat->perihal = $validated['perihal'];
             $surat->file_surat = $newScanSurat;
-            if($surat->save()){
-                $scanSurat->move($uploadPath,$newScanSurat);
+            if ($surat->save()) {
+                $scanSurat->move($uploadPath, $newScanSurat);
                 return redirect()->route('surat_masuk.index')->withStatus('Data berhasil disimpan.');
             }
         } catch (Exception $e) {
@@ -137,7 +136,14 @@ class SuratMasukController extends Controller
      */
     public function edit($id)
     {
-        //
+        $this->param['data'] = SuratMasuk::find($id);
+        $this->param['btnText'] = 'List Surat Masuk';
+        $this->param['btnLink'] = route('surat_masuk.index');
+        $this->param['allUsr'] = User::get();
+        $this->param['allJen'] = JenisSurat::get();
+        $this->param['allPengirim'] = Pengirim::orderBy('pengirim')->get();
+
+        return view('surat_masuk.edit', $this->param);
     }
 
     /**
@@ -147,9 +153,54 @@ class SuratMasukController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(SuratMasukRequest $request, $id)
     {
-        //
+        $data = SuratMasuk::findOrFail($id);
+        $validated = $request->validated();
+        // $noSurat = $request['no_surat'] != null && $request['no_surat'] != $data->no_surat ? '|unique:no_surat' : '';
+
+        // $request = $request->validate(
+        //     [
+        //         'no_surat' => 'required|max:191' . $noSurat,
+        //     ],
+        //     [
+        //         'no_surat.required' => 'No Surat harus diisi.',
+        //         'no_surat.max' => 'Maksimal jumlah karakter 191.',
+        //         'no_surat.unique' => 'Nomer telah digunakan.',
+        //     ]
+        // );
+
+        // $validated = $request;
+
+        try {
+
+            $uploadPath = 'upload/surat_masuk/';
+            $scanSurat = $validated['file_surat'];
+            $newScanSurat = time() . '_' . $scanSurat->getClientOriginalName();
+
+            $data->no_surat = $validated['no_surat'];
+            $data->sifat_surat = $validated['sifat_surat'];
+            $data->status_tembusan = $request->get('tembusan');
+            // $surat->id_penerima = $validated['id_penerima'];
+            if (is_numeric($request->pengirim)) // Pengirim dari master pengirim
+                $data->id_pengirim = $validated['pengirim'];
+            else // Pengirim baru
+                $data->pengirim = $validated['pengirim'];
+            $data->tgl_pengirim = $validated['tgl_pengirim'];
+            $data->tgl_penerima = $validated['tgl_penerima'];
+            $data->perihal = $validated['perihal'];
+            $data->file_surat = $newScanSurat;
+            if ($data->save()) {
+                $scanSurat->move($uploadPath, $newScanSurat);
+                return redirect()->route('surat_masuk.index')->withStatus('Data berhasil disimpan.');
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withError('Terjadi kesalahan.' . $e);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withError('Terjadi kesalahan pada database.');
+        }
+
+        return redirect()->route('pengirim.index')->withStatus('Data berhasil diperbarui.');
     }
 
     /**
@@ -162,13 +213,13 @@ class SuratMasukController extends Controller
     {
         try {
             $data = SuratMasuk::findOrFail($id);
-            $file = 'upload/surat_masuk/'.$data->file_surat;
-            if($data->file_surat != '' && $data->file_surat != null){
+            $file = 'upload/surat_masuk/' . $data->file_surat;
+            if ($data->file_surat != '' && $data->file_surat != null) {
                 unlink($file);
                 $data->delete();
             }
         } catch (Exception $e) {
-            return back()->withError('Terjadi kesalahan.'.$e);
+            return back()->withError('Terjadi kesalahan.' . $e);
         } catch (QueryException $e) {
             return back()->withError('Terjadi kesalahan pada database.');
         }
