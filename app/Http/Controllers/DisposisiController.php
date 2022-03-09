@@ -164,7 +164,7 @@ class DisposisiController extends Controller
     }
 
     public function getDisposisi($id){
-        if(auth()->user()->level == "TU" ){
+        if(auth()->user()->level == "TU"){
             $where = 'Kasat';
         } elseif (auth()->user()->level == "Kasat"){
             $where1 = 'Kabid';

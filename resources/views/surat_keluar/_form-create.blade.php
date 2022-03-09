@@ -12,7 +12,7 @@
         </div>
     </div>
 
-    <div class="form-group row">
+    {{-- <div class="form-group row">
         <label class="col-sm-2 col-form-label">Jenis Surat</label>
         <div class="col-sm-10">
             <select name="id_jenis_surat" id="id_jenis_surat" class="js-example-basic-single" style="width: 100%;" required>
@@ -27,9 +27,9 @@
                 </div>
             @enderror
         </div>
-    </div>
+    </div> --}}
 
-    <div class="form-group row">
+    {{-- <div class="form-group row">
         <label class="col-sm-2 col-form-label">Pengirim</label>
         <div class="col-sm-10">
             <select name="id_pengirim" id="id_pengirim" class="js-example-basic-single" style="width: 100%;" required>
@@ -44,7 +44,9 @@
                 </div>
             @enderror
         </div>
-    </div>
+    </div> --}}
+
+    <input type="hidden" value="{{ auth()->user()->id }}" name="id_pengirim">
 
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Penerima</label>
@@ -61,7 +63,7 @@
         <div class="form-group row">
         <label class="col-sm-2 col-form-label">Tanggal Kirim</label>
         <div class="col-sm-10">
-            <input type="datetime-local" name="tgl_kirim" class="form-control @error('tgl_kirim') is-invalid @enderror" placeholder="Tanggal Kirim" value="{{old('tgl_kirim')}}">
+            <input type="date" name="tgl_kirim" class="form-control @error('tgl_kirim') is-invalid @enderror" placeholder="Tanggal Kirim" value="{{old('tgl_kirim')}}">
             @error('tgl_kirim')
                 <div class="invalid-feedback">
                     {{ $message }}

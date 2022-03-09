@@ -84,10 +84,10 @@ class SuratKeluarController extends Controller
             $newScanSurat = time().'_'.$scanSurat->getClientOriginalName();  
 
             $surat->no_surat = $validated['no_surat'];
-            $surat->id_jenis_surat = $validated['id_jenis_surat'];
-            $surat->penerima = $validated['penerima'];
-            $surat->id_pengirim = $validated['id_pengirim'];
-            $surat->tgl_kirim = $validated['tgl_kirim'];
+            // $surat->id_jenis_surat = $validated['id_jenis_surat'];
+            $surat->penerima = $request->get('penerima');
+            $surat->id_pengirim = $request->get('id_pengirim');
+            $surat->tgl_kirim = $request->get('tgl_kirim');
             $surat->perihal = $validated['perihal'];
             $surat->file_surat = $newScanSurat;
             if($surat->save()){

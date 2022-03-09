@@ -23,7 +23,7 @@
                     <div class="col-md-2">
                         <div class="input-group">
                             <input type="text" class="form-control" name="perihal"
-                                value="{{ Request::get('perihal') }}" placeholder="Perihal">
+                                value="{{ Request::get('perihal') }}" placeholder="Perihal" style="margin-top:5%;">
                         </div>
                     </div>
                     <div class="col-md-2">
@@ -34,11 +34,17 @@
                                     <option value="{{ $pgr->id }}">{{ $pgr->pengirim }}</option>
                                 @endforeach
                             </select> --}}
-                            <input type="text" class="form-control" name="pengirim"
-                                value="{{ Request::get('pengirim') }}" placeholder="Pengirim">
+                            <select name="pengirim" id="pengirim" class="form-control js-example-tags" multiple style="width: 100%;">
+                                <option value="">Pilih Pengirim</option>
+                                @foreach ($allPengirim as $sender)
+                                    <option value="{{ $sender->id }}">{{ $sender->pengirim }}</option>
+                                @endforeach
+                            </select>
+                            {{-- <input type="text" class="form-control" name="pengirim"
+                                value="{{ Request::get('pengirim') }}" placeholder="Pengirim"> --}}
                         </div>
                     </div>
-                    <button class="btn btn-sm btn-primary"><i class="fa fa-filter"></i>Filter</button>
+                    <button class="btn btn-sm btn-primary" style="margin-top:10px;margin-bottom:5px;"><i class="fa fa-filter"></i>Filter</button>
                 </div>
             </form>
 

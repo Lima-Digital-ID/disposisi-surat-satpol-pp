@@ -40,7 +40,7 @@ class SuratMasukController extends Controller
             // SuratMasuk::query()->update(['status' => 1]);
             // $masuk->save();
             // ddd($masuk);
-            $pengirim = $request->get('id_pengirim');
+            $pengirim = $request->get('pengirim');
             $perihal = $request->get('perihal');
             // $getSuratMasuk = SuratMasuk::with('penerima_masuk','pengirim_masuk');
             $getSuratMasuk = SuratMasuk::with('pengirim_masuk');
@@ -51,7 +51,13 @@ class SuratMasukController extends Controller
             // $getSuratMasuk = SuratMasuk::orderBy('id');
 
             if ($pengirim) {
-                $getSuratMasuk->where('id_pengirim', 'LIKE', "%{$pengirim}%");
+                if (is_numeric($request->pengirim)){
+                    $getSuratMasuk->where('id_pengirim', 'LIKE', "%{$pengirim}%");
+                    // $getSuratMasuk->orWhere('pengirim', 'LIKE', "%{$pengirim}%");
+                } // Pengirim dari master pengirim
+                else // Pengirim baru
+                    $getSuratMasuk->where('pengirim', 'LIKE', "%{$pengirim}%");
+                    // $getSuratMasuk->orWhere('id_pengirim', 'LIKE', "%{$pengirim}%");
             }
             if ($perihal) {
                 $getSuratMasuk->where('perihal', 'LIKE', "%{$perihal}%");
@@ -107,6 +113,13 @@ class SuratMasukController extends Controller
                 $surat->id_pengirim = $validated['pengirim'];
             else // Pengirim baru
                 $surat->pengirim = $validated['pengirim'];
+                // $pengirim = new Pengirim();
+                // $pengirim->pengirim = $validated['pengirim'];
+                // $pengirim->save();
+                // $pengirimMax = \DB::table('pengirim')
+                //                 ->select(\DB::raw('max(id)'))
+                //                 ->get();
+                // $surat->id_pengirim = $request->get($pengirimMax);
             $surat->tgl_pengirim = $validated['tgl_pengirim'];
             $surat->tgl_penerima = $validated['tgl_penerima'];
             $surat->perihal = $validated['perihal'];

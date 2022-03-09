@@ -42,7 +42,8 @@
                     </a>
                 </li>
                 <!-- End Surat Keluar ---!>
-                <!-- Surat Keluar ---!>
+                <!-- Arsip ---!>
+                @if(auth()->user()->level == 'Administrator' || auth()->user()->level == 'TU')
                 <li class="{{ Request::segment(1) == 'arsip' ? 'active' : '' }}">
                     <a href="{{ route('arsip.index') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
@@ -51,7 +52,8 @@
                         <span class="pcoded-mtext">Arsip</span>
                     </a>
                 </li>
-                <!-- End Surat Keluar ---!>
+                @endif
+                <!-- End Arsip ---!>
             </ul>
 
             <div class="pcoded-navigation-label">Disposisi</div>
