@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\SuratMasukRequest;
+use App\Http\Requests\DisposisiRequest;
 use App\Models\SuratMasuk;
+use App\Models\Disposisi;
 use App\Models\User;
 use App\Models\JenisSurat;
 use App\Models\Pengirim;
@@ -236,5 +238,33 @@ class SuratMasukController extends Controller
         );
 
         return $data;
+    }
+
+    public function getSuratMasuk($id)
+    {
+        $getSuratMasuk = SuratMasuk::find($id);
+        echo json_encode($getSuratMasuk);
+    }
+
+    public function storeDisposisi(DisposisiRequest $request)
+    {
+        // echo "coba";
+        $validated = $request->validated();
+        try {
+            $disposisi = new Disposisi;
+            $disposisi->id_surat_masuk = $request->get('id_surat_masuk');
+            $disposisi->sifat_surat = $validated['sifat_surat'];
+            $disposisi->id_pengirim = $request->get('id_pengirim');
+            $disposisi->id_penerima = $validated['id_penerima'];
+            $disposisi->tgl_disposisi = $validated['tgl_disposisi'];
+            $disposisi->catatan = $validated['catatan'];
+            $disposisi->save();
+        } catch (Exception $e) {
+            return back()->withError('Terjadi kesalahan.' . $e->getMessage());
+        } catch (QueryException $e) {
+            return back()->withError('Terjadi kesalahan.' . $e->getMessage());
+        }
+
+        return redirect()->route('surat_masuk.index')->withStatus('Disposisi berhasil dibuat.');
     }
 }

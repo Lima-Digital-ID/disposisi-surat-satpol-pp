@@ -49,6 +49,13 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('disposisi', DisposisiController::class);
         Route::get('get_disposisi/{id}', [DisposisiController::class, 'getDisposisi']);
     });
+    // Route::prefix('surat_masuk')->group(function () {
+    //     // Route::resource('surat_masuk', SuratMasukController::class);
+    //     Route::post('store_disposisi', [SuratMasukController::class, 'storeDisposisi'])->name('simpan-disposisi');
+    //     Route::get('get_surat_masuk/{id}', [SuratMasukController::class, 'getSuratMasuk']);
+    // });
+    Route::post('surat_masuk/store_disposisi', [SuratMasukController::class, 'storeDisposisi'])->name('simpan-disposisi');
+    Route::get('get_surat_masuk/{id}', [SuratMasukController::class, 'getSuratMasuk']);
     Route::resource('disposisi', DisposisiController::class);
     Route::resource('pengirim', PengirimController::class);
     Route::resource('lokasi-surat', LokasiSuratController::class);

@@ -5,7 +5,6 @@
               <th class="text-center">#</th>
               <th>Sifat Surat</th>
               <th>Surat Masuk</th>
-              <th>Surat Keluar</th>
               <th>Pengirim</th>
               <th>Penerima</th>
               <th>Tanggal Disposisi</th>
@@ -25,7 +24,6 @@
                 <td class="text-center text-muted">{{ $no }}</td>
                 <td>{{ $item->sifat_surat }}</td>
                 <td>{{ $item->masuk->no_surat }}</td>
-                <td>{{ $item->keluar->no_surat }}</td>
                 <td>{{ $item->pengirim->nama }}</td>
                 <td>{{ $item->penerima->nama }}</td>
                 <td>{{ $item->tgl_disposisi }}</td>

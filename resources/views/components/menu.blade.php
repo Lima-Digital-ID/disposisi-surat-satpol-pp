@@ -18,6 +18,7 @@
             <div class="pcoded-navigation-label">Surat</div>
             <ul class="pcoded-item pcoded-left-item">
                 <!-- Surat Masuk ---!>
+                @if (auth()->user()->level == 'Administrator' || auth()->user()->level == 'TU')
                 <li class="{{ Request::segment(1) == 'surat_masuk' ? 'active' : '' }}">
                     <a href="{{ route('surat_masuk.index') }}" class="waves-effect waves-dark">
                         <span class="pcoded-micon">
@@ -29,6 +30,7 @@
                         }}</span></span> --}}
                     </a>
                 </li>
+                @endif
                 <!-- End Surat Masuk ---!>
                 <!-- Surat Keluar ---!>
                 <li class="{{ Request::segment(1) == 'surat_keluar' ? 'active' : '' }}">
