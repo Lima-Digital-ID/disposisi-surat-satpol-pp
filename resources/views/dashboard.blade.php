@@ -1,6 +1,7 @@
-{{-- @push('custom-styles')
+@push('custom-styles')
     <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/morris.css">
-@endpush --}}
+    {{--  <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/c3.css">  --}}
+@endpush
 @extends('layouts.template')
 
 @section('page-header')
@@ -16,19 +17,27 @@
 @section('content')
     @include('components.notification')
 
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <h5>Surat Masuk & Surat Keluar</h5>
-                <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
-            </div>
-            <div class="card-block">
-                <div id="morris-bar-chart"></div>
+    @php
+    $totalSuratMasuk = \App\Models\SuratMasuk::count();
+    $totalSuratKeluar = \App\Models\SuratKeluar::count();
+    $totalSuratDisposisi = \App\Models\Disposisi::count();
+    $tahun = date('Y');
+    @endphp
+
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Surat Masuk & Surat Keluar & Disposisi (Tahun {{$tahun}})</h5>
+                </div>
+                <div class="card-block">
+                    <div id="line-example"></div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
+    {{--  <div class="row">
         <div class="col-md-4">
             <div class="card sale-card">
                 <div class="card-header">
@@ -74,7 +83,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div>  --}}
 
     <div class="row">
         <div class="col-md-4">
@@ -213,7 +222,65 @@
 
     </div>
 @endsection
-{{-- @push('custom-scripts')
-    <script src="{{ asset('') }}js/morris-custom-chart.js" type="ab836d322815de22d75b9415-text/javascript"></script>
-    <script src="{{ asset('') }}js/morris.js" type="ab836d322815de22d75b9415-text/javascript"></script>
-@endpush --}}
+@push('custom-scripts')
+    <script src="{{ asset('') }}js/raphael.min.js" type="text/javascript"></script>
+    <script src="{{ asset('') }}js/morris.js" type="text/javascript"></script>
+    <script>
+    setTimeout(function() {
+        $(document).ready(function() {
+            $.ajax({
+                type: "GET",
+                url: "{{ url('grafik_surat') }}",
+                success: function(response) {
+                    console.log('response : '+response);
+                    areaChart(response);
+                    $(window).on('resize', function() {
+                        //window.lineChart.redraw();
+                        window.areaChart.redraw();
+                    });
+                }
+            })
+        });
+        function lineChart(data) {
+            console.log(typeof(data));
+            window.lineChart = Morris.Line({
+                element: 'line-example',
+                data: JSON.parse(data),
+                xkey: 'y',
+                redraw: true,
+                ykeys: ['in', 'out', 'disposisi'],
+                xLabelAngle: 70,
+                xLabelFormat: function (x) {
+                    var IndexToMonth = [ "Januari", "Februari", "Maret", "April", "Mei", "Jun", "Jul", "Agustus", "September", "Oktober", "November", "Desember" ];
+                    var month = IndexToMonth[ x.getMonth() ];
+                    var year = x.getFullYear();
+                    return month;
+                },
+                hideHover: 'auto',
+                labels: ['Surat Masuk', 'Surat Keluar', 'Disposisi'],
+                lineColors: ['#B4C1D7', '#FF9F55', '#5FBEAA']
+            });
+        }
+        function areaChart(data) {
+            window.areaChart = Morris.Area({
+                element: 'line-example',
+                data: JSON.parse(data),
+                xkey: 'y',
+                resize: true,
+                redraw: true,
+                ykeys: ['in', 'out', 'disposisi'],
+                lineColors: ['#5FBEAA', '#E74C3C', '#FFB012'],
+                hideHover: 'auto',
+                labels: ['Surat Masuk', 'Surat Keluar', 'Disposisi'],
+                xLabelAngle: 70,
+                xLabelFormat: function (x) {
+                    var IndexToMonth = [ "Januari", "Februari", "Maret", "April", "Mei", "Jun", "Jul", "Agustus", "September", "Oktober", "November", "Desember" ];
+                    var month = IndexToMonth[ x.getMonth() ];
+                    var year = x.getFullYear();
+                    return month;
+                },
+            });
+        }
+    });
+    </script>
+@endpush
