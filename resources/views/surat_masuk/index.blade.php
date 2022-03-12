@@ -157,32 +157,18 @@
             })
         }
 
-        // $('.modal-body .form #sifat_surat').change(function() {
-        //     getAnggotaDis(1);
-        //     console.log('visa');
-        // })
-
         // $('#id_penerima').select2({
         //     dropdownParent: $('#disposisiModal')
         // });
 
         function getAnggotaDis(tipe) {
             $('#selectUser').empty();
-            // var masuk = $('#id_surat_masuk').val();
-            // var keluar = $('#id_surat_keluar').val();
-            // if (tipe == 0) {
-            //     var getTipe = keluar;
-            // } else {
-            //     var getTipe = masuk;
-            // }
             $.ajax({
                 type: "GET",
                 url: "{{ url('disposisi/get_disposisi') }}/" + 1 + "?tipe=" + 1,
                 dataType: "json",
                 success: function(response) {
                     $.each(response, function(k, v) {
-                        console.log(v.nama);
-                        console.log(v.id);
                         $('#id_penerima').append(
                             "<option value='" + v.id + "'>" + v.nama + "</option>"
                         )

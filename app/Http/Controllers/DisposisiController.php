@@ -179,14 +179,23 @@ class DisposisiController extends Controller
         } elseif (auth()->user()->level == "Kasubag" || auth()->user()->level == "Kasi") {
             $where = 'Staff';
         }
+        // elseif (auth()->user()->level == "Staff") {
+        //     $where1 = 'Kasubag';
+        //     $where2 = 'Kasi';
+        // }
         $getAnggota = User::from('users as u')
             ->select(
                 'u.*',
             )->where('u.id', "!=", auth()->user()->id);
         // ->where('u.level', $where)
-        if (auth()->user()->level != "Kasat") {
+        if (auth()->user()->level != "Kasat" || auth()->user()->level == "Staff") {
             $getAnggota = $getAnggota->where('u.level', $where);
-        } else {
+        }
+        //  elseif (auth()->user()->level == "Staff") {
+        //     $getAnggota = $getAnggota->where('u.level', $where1);
+        //     $getAnggota = $getAnggota->orWhere('u.level', $where2);
+        // }
+        else {
             $getAnggota = $getAnggota->where('u.level', $where1);
             $getAnggota = $getAnggota->orWhere('u.level', $where2);
         }

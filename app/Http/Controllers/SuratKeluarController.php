@@ -101,9 +101,9 @@ class SuratKeluarController extends Controller
 
             $surat->no_surat = $validated['no_surat'];
             $surat->id_jenis_surat = $validated['id_jenis_surat'];
-            $surat->penerima = $validated['penerima'];
             $surat->id_pengirim = $validated['id_pengirim'];
-            $surat->tgl_kirim = $validated['tgl_kirim'];
+            $surat->penerima = $request->get('penerima');
+            $surat->tgl_kirim = $request->get('tgl_kirim');
             $surat->perihal = $validated['perihal'];
             $surat->file_surat = $newScanSurat;
             if ($surat->save()) {
@@ -141,6 +141,9 @@ class SuratKeluarController extends Controller
         $this->param['data'] = SuratKeluar::find($id);
         $this->param['btnText'] = 'List Surat Keluar';
         $this->param['btnLink'] = route('surat_keluar.index');
+        $this->param['allUsr'] = User::get();
+        $this->param['allJen'] = JenisSurat::get();
+        // ddd(auth()->user()->level == 'Kabag');
 
         return view('surat_keluar.edit', $this->param);
     }

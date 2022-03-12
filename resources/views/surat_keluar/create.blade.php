@@ -57,4 +57,23 @@
             $("#signature64").val('');
         });
     </script>
+    <script>
+        function getAnggotaDis() {
+            console.log('bisa');
+            $.ajax({
+                type: "GET",
+                url: "{{ url('disposisi/get_disposisi') }}/" + 1 + "?tipe=" + 1,
+                dataType: "json",
+                success: function(response) {
+                    $.each(response, function(k, v) {
+                        console.log(v.nama);
+                        console.log(v.id);
+                        $('#id_penerima').append(
+                            "<option value='" + v.id + "'>" + v.nama + "</option>"
+                        )
+                    })
+                }
+            })
+        }
+    </script>
 @endpush

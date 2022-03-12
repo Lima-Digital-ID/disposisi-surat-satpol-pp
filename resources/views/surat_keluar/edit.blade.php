@@ -2,16 +2,15 @@
 
 @section('page-header')
     @include('components.page-header', [
-    'pageTitle' => $pageTitle,
-    'pageSubtitle' => '',
-    'pageIcon' => $pageIcon,
-    'parentMenu' => $parentMenu,
-    'current' => $current
+        'pageTitle' => $pageTitle,
+        'pageSubtitle' => '',
+        'pageIcon' => $pageIcon,
+        'parentMenu' => $parentMenu,
+        'current' => $current,
     ])
 @endsection
 
 @section('content')
-
     @include('components.notification')
 
     <div class="row">
@@ -28,3 +27,24 @@
         </div>
     </div>
 @endsection
+@push('custom-scripts')
+    <script>
+        function getAnggotaDis() {
+            $.ajax({
+                type: "GET",
+                url: "{{ url('disposisi/get_disposisi') }}/" + 1 + "?tipe=" + 1,
+                dataType: "json",
+                success: function(response) {
+                    $.each(response, function(k, v) {
+                        console.log(v.nama);
+                        console.log(v.id);
+                        $('#id_penerima').append(
+                            "<option value='" + v.id + "'>" + v.nama + "</option>"
+                        )
+                    })
+                    // $('#id_penerima').empty();
+                }
+            })
+        }
+    </script>
+@endpush

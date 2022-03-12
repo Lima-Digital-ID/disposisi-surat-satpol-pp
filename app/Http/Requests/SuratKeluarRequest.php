@@ -28,8 +28,8 @@ class SuratKeluarRequest extends FormRequest
             'no_surat' => 'required|max:191',
             'id_jenis_surat' => 'required',
             'id_pengirim' => 'required',
-            'penerima' => 'required',
-            'tgl_kirim' => 'required',
+            // 'penerima' => 'required',
+            // 'tgl_kirim' => 'required',
             'perihal' => 'required',
         ];
     }
@@ -41,8 +41,8 @@ class SuratKeluarRequest extends FormRequest
             'no_surat.max' => 'Maksimal jumlah karakter 191.',
             'id_jenis_surat.required' => 'Jenis surat harus diisi.',
             'id_pengirim.required' => 'Pengirim harus diisi.',
-            'penerima.required' => 'Penerima harus diisi.',
-            'tgl_kirim.required' => 'Tanggal kirim harus diisi.',
+            // 'penerima.required' => 'Penerima harus diisi.',
+            // 'tgl_kirim.required' => 'Tanggal kirim harus diisi.',
             'perihal.required' => 'Perihal harus diisi.',
         ];
     }
