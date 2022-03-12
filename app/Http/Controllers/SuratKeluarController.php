@@ -31,11 +31,11 @@ class SuratKeluarController extends Controller
 
         try {
             $keyword = $request->get('keyword');
-            $getSuratKeluar = SuratKeluar::with('jenis_surat','penerima_keluar','pengirim_keluar');
-                            if(auth()->user()->level=='Anggota'){
-                                $getSuratKeluar->where('id_pengirim',auth()->user()->id);
-                            }
-                            $getSuratKeluar->where('diarsipkan','0')->orderBy('id','ASC');
+            $getSuratKeluar = SuratKeluar::with('jenis_surat', 'penerima_keluar', 'pengirim_keluar');
+            if (auth()->user()->level == 'Anggota') {
+                $getSuratKeluar->where('id_pengirim', auth()->user()->id);
+            }
+            $getSuratKeluar->where('diarsipkan', '0')->orderBy('id', 'ASC');
 
             if ($keyword) {
                 $getSuratKeluar->where('surat_keluar', 'LIKE', "%{$keyword}%");
@@ -44,8 +44,7 @@ class SuratKeluarController extends Controller
             $this->param['data'] = $getSuratKeluar->paginate(10);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
         }
 
@@ -79,9 +78,26 @@ class SuratKeluarController extends Controller
         try {
             $surat = new SuratKeluar;
 
+            // upload surat
             $uploadPath = 'upload/surat_keluar/';
             $scanSurat = $request->file('file_surat');
-            $newScanSurat = time().'_'.$scanSurat->getClientOriginalName();  
+            $newScanSurat = time() . '_' . $scanSurat->getClientOriginalName();
+
+            // upload paraf
+            // $folderPath = public_path('upload/paraf/');
+
+            // $image_parts = explode(";base64,", $request->signed);
+
+            // $image_type_aux = explode("image/", $image_parts[0]);
+
+            // $image_type = $image_type_aux[1];
+
+            // $image_base64 = base64_decode($image_parts[1]);
+
+            // $file = $folderPath . uniqid() . '.' . $image_type;
+            // file_put_contents($file, $image_base64);
+
+            // upload tanda tangan
 
             $surat->no_surat = $validated['no_surat'];
             $surat->id_jenis_surat = $validated['id_jenis_surat'];
@@ -90,8 +106,8 @@ class SuratKeluarController extends Controller
             $surat->tgl_kirim = $validated['tgl_kirim'];
             $surat->perihal = $validated['perihal'];
             $surat->file_surat = $newScanSurat;
-            if($surat->save()){
-                $scanSurat->move($uploadPath,$newScanSurat);
+            if ($surat->save()) {
+                $scanSurat->move($uploadPath, $newScanSurat);
                 return redirect()->route('surat_keluar.index')->withStatus('Data berhasil disimpan.');
             }
         } catch (Exception $e) {
@@ -169,13 +185,13 @@ class SuratKeluarController extends Controller
     {
         try {
             $data = SuratKeluar::findOrFail($id);
-            $file = 'upload/surat_keluar/'.$data->file_surat;
-            if($data->file_surat != '' && $data->file_surat != null){
+            $file = 'upload/surat_keluar/' . $data->file_surat;
+            if ($data->file_surat != '' && $data->file_surat != null) {
                 unlink($file);
                 $data->delete();
             }
         } catch (Exception $e) {
-            return back()->withError('Terjadi kesalahan.'.$e);
+            return back()->withError('Terjadi kesalahan.' . $e);
         } catch (QueryException $e) {
             return back()->withError('Terjadi kesalahan pada database.');
         }

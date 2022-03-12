@@ -46,7 +46,9 @@
             <select name="id_golongan" id="id_golongan" class="form-control" style="width: 100%;" required>
                 <option value="">Pilih Golongan</option>
                 @foreach ($allGol as $gol)
-                    <option value="{{ $gol->id }}" {{ old('id_golongan', $data->id_golongan) == $data->id_golongan ? ' selected' : '' }}>{{ $gol->pangkat }}</option>
+                    <option value="{{ $gol->id }}"
+                        {{ old('id_golongan', $data->id_golongan) == $data->id_golongan ? ' selected' : '' }}>
+                        {{ $gol->pangkat }}</option>
                 @endforeach
             </select>
             @error('id_golongan')
@@ -63,7 +65,9 @@
             <select name="id_jabatan" id="id_jabatan" class="form-control" style="width: 100%;" required>
                 <option value="">Pilih Jabatan</option>
                 @foreach ($allJab as $jab)
-                    <option value="{{ $jab->id }}" {{ old('id_jabatan', $data->id_jabatan) == $data->id_jabatan ? ' selected' : '' }}>{{ $jab->jabatan }}</option>
+                    <option value="{{ $jab->id }}"
+                        {{ old('id_jabatan', $data->id_jabatan) == $data->id_jabatan ? ' selected' : '' }}>
+                        {{ $jab->jabatan }}</option>
                 @endforeach
             </select>
             @error('id_jabatan')
@@ -77,10 +81,13 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Jenis Pegawai</label>
         <div class="col-sm-10">
-            <select name="jenis_pegawai" id="jenis_pegawai" class="form-control @error('jenis_pegawai') is-invalid @enderror">
+            <select name="jenis_pegawai" id="jenis_pegawai"
+                class="form-control @error('jenis_pegawai') is-invalid @enderror">
                 <option value="">Pilih Jenis Pegawai</option>
-                <option value="ASN" {{ old('jenis_pegawai', $data->jenis_pegawai) == 'ASN' ? ' selected' : '' }}>ASN</option>
-                <option value="PTT-PK" {{ old('jenis_pegawai',  $data->jenis_pegawai) == 'PTT-PK' ? ' selected' : '' }}>PTT-PK
+                <option value="ASN" {{ old('jenis_pegawai', $data->jenis_pegawai) == 'ASN' ? ' selected' : '' }}>ASN
+                </option>
+                <option value="PTT-PK"
+                    {{ old('jenis_pegawai', $data->jenis_pegawai) == 'PTT-PK' ? ' selected' : '' }}>PTT-PK
                 </option>
             </select>
             @error('jenis_pegawai')
@@ -94,10 +101,12 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
         <div class="col-sm-10">
-            <select name="jenis_kelamin" id="jenis_kelamin" class="form-control @error('jenis_kelamin') is-invalid @enderror">
+            <select name="jenis_kelamin" id="jenis_kelamin"
+                class="form-control @error('jenis_kelamin') is-invalid @enderror">
                 <option value="">Pilih Jenis kelamin</option>
-                <option value="L" {{ old('jenis_kelamin', $data->jenis_kelamin) == 'L' ? ' selected' : '' }}>L</option>
-                <option value="P" {{ old('jenis_kelamin',  $data->jenis_kelamin) == 'P' ? ' selected' : '' }}>P
+                <option value="L" {{ old('jenis_kelamin', $data->jenis_kelamin) == 'L' ? ' selected' : '' }}>L
+                </option>
+                <option value="P" {{ old('jenis_kelamin', $data->jenis_kelamin) == 'P' ? ' selected' : '' }}>P
                 </option>
             </select>
             @error('jenis_kelamin')
@@ -111,8 +120,8 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">NIP</label>
         <div class="col-sm-10">
-            <input type="text" name="nip" class="form-control @error('nip') is-invalid @enderror"
-                placeholder="NIP User" value="{{ old('nip', $data->nip) }}">
+            <input type="text" name="nip" class="form-control @error('nip') is-invalid @enderror" placeholder="NIP User"
+                value="{{ old('nip', $data->nip) }}">
             @error('nip')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -126,12 +135,27 @@
         <div class="col-sm-10">
             <select name="level" id="level" class="form-control @error('level') is-invalid @enderror">
                 <option value="">Pilih Level</option>
-                <option value="Administrator" {{ old('level', $data->level) == 'Administrator' ? ' selected' : '' }}>Administrator</option>
-                <option value="Kasat" {{ old('level', $data->level) == 'Kasat' ? ' selected' : '' }}>Kasat
-                </option>
+                <option value="Administrator" {{ old('level', $data->level) == 'Administrator' ? ' selected' : '' }}>
+                    Administrator</option>
                 <option value="Admin" {{ old('level', $data->level) == 'Admin' ? ' selected' : '' }}>Admin
                 </option>
                 <option value="Anggota" {{ old('level', $data->level) == 'Anggota' ? ' selected' : '' }}>Anggota
+                </option>
+                <option value="Kasat" {{ old('level', $data->level) == 'Kasat' ? ' selected' : '' }}>Kasat
+                </option>
+                <option value="Kabid" {{ old('level', $data->level) == 'Kabid' ? ' selected' : '' }}>Kabid</option>
+                <option value="Kabag" {{ old('level', $data->level) == 'Kabag' ? ' selected' : '' }}>Kabag
+                </option>
+                <option value="Kasubag" {{ old('level', $data->level) == 'Kasubag' ? ' selected' : '' }}>Kasubag
+                </option>
+                <option value="Kasi" {{ old('level', $data->level) == 'Kasi' ? ' selected' : '' }}>Kasi
+                </option>
+                <option value="Sekretaris" {{ old('level', $data->level) == 'Sekretaris' ? ' selected' : '' }}>
+                    Sekretaris
+                </option>
+                <option value="Staff" {{ old('level', $data->level) == 'Staff' ? ' selected' : '' }}>Staff
+                </option>
+                <option value="TU" {{ old('level', $data->level) == 'TU' ? ' selected' : '' }}>TU
                 </option>
             </select>
             @error('level')

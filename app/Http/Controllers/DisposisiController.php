@@ -10,6 +10,7 @@ use App\Models\SuratKeluar;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Database\QueryException;
+
 class DisposisiController extends Controller
 {
     private $param;
@@ -32,11 +33,13 @@ class DisposisiController extends Controller
         $this->param['btnLink'] = route('disposisi.create');
         try {
             $keyword = $request->get('keyword');
-            $getDisposisi = Disposisi::with('penerima','pengirim');
-                                        if(auth()->user()->level=='Anggota'){
-                                            $getDisposisi->where('id_penerima',auth()->user()->id)->orwhere('id_penerima',auth()->user()->id);
-                                        }
-                                        $getDisposisi->orderBy('id','ASC');
+            $getDisposisi = Disposisi::with('penerima', 'pengirim')
+                // if(auth()->user()->level=='Anggota'){
+                //     $getDisposisi->where('id_penerima',auth()->user()->id)->orwhere('id_penerima',auth()->user()->id);
+                // }
+                ->where('id_penerima', auth()->user()->id)->orwhere('id_penerima', auth()->user()->id)
+                // $getDisposisi->orderBy('id','ASC');
+                ->orderBy('id', 'ASC');
 
             if ($keyword) {
                 $getDisposisi->where('disposisi', 'LIKE', "%{$keyword}%");
@@ -45,8 +48,7 @@ class DisposisiController extends Controller
             $this->param['data'] = $getDisposisi->paginate(10);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
         }
 
@@ -64,14 +66,14 @@ class DisposisiController extends Controller
         $this->param['btnLink'] = route('disposisi.index');
         // $this->param['allUsr'] = User::where('id', '!=' , auth()->user()->id)->get();
         $getAnggota = User::from('users as u')
-                            ->select(
-                                'u.*',
-                            )
-                            ->where('id', '!=' , auth()->user()->id);
-                    $getAnggota = $getAnggota->whereNotIn('u.id',function($query){
-                    $query->select('dis.id_penerima')
-                    ->from('disposisi as dis');
-                    })->get();
+            ->select(
+                'u.*',
+            )
+            ->where('id', '!=', auth()->user()->id);
+        $getAnggota = $getAnggota->whereNotIn('u.id', function ($query) {
+            $query->select('dis.id_penerima')
+                ->from('disposisi as dis');
+        })->get();
         $this->param['allUsr'] = $getAnggota;
         $this->param['allMsk'] = SuratMasuk::get();
         $this->param['allKlr'] = SuratKeluar::get();
@@ -101,7 +103,7 @@ class DisposisiController extends Controller
                 $disposisi->save();
             }
         } catch (Exception $e) {
-            return back()->withError('Terjadi kesalahan.'.$e);
+            return back()->withError('Terjadi kesalahan.' . $e);
         } catch (QueryException $e) {
             return back()->withError('Terjadi kesalahan pada database.');
         }
@@ -163,37 +165,38 @@ class DisposisiController extends Controller
         return redirect()->route('disposisi.index')->withStatus('Data berhasil dihapus.');
     }
 
-    public function getDisposisi($id){
-        if(auth()->user()->level == "TU" ){
+    public function getDisposisi($id)
+    {
+        if (auth()->user()->level == "TU") {
             $where = 'Kasat';
-        } elseif (auth()->user()->level == "Kasat"){
+        } elseif (auth()->user()->level == "Kasat") {
             $where1 = 'Kabid';
             $where2 = 'Sekretaris';
-        }elseif (auth()->user()->level == "Kabid"){
+        } elseif (auth()->user()->level == "Kabid") {
             $where = 'Kasi';
-        }elseif (auth()->user()->level == "Sekretaris"){
+        } elseif (auth()->user()->level == "Sekretaris") {
             $where = 'Kasubag';
-        }elseif (auth()->user()->level == "Kasubag" || auth()->user()->level == "Kasi"){
+        } elseif (auth()->user()->level == "Kasubag" || auth()->user()->level == "Kasi") {
             $where = 'Staff';
         }
         $getAnggota = User::from('users as u')
-        ->select(
-            'u.*',
-        )->where('u.id', "!=", auth()->user()->id);
+            ->select(
+                'u.*',
+            )->where('u.id', "!=", auth()->user()->id);
         // ->where('u.level', $where)
-        if(auth()->user()->level != "Kasat" ){
+        if (auth()->user()->level != "Kasat") {
             $getAnggota = $getAnggota->where('u.level', $where);
-        } else{
+        } else {
             $getAnggota = $getAnggota->where('u.level', $where1);
             $getAnggota = $getAnggota->orWhere('u.level', $where2);
         }
-        $getAnggota = $getAnggota->whereNotIn('u.id',function($query) use ($id){
-                $where = $_GET['tipe']==0 ? 'id_surat_keluar' : 'id_surat_masuk';
-                $query->select('id_penerima')
-                    ->from('disposisi')
-                    
-                    ->where($where,$id)
-                    ->get();
+        $getAnggota = $getAnggota->whereNotIn('u.id', function ($query) use ($id) {
+            $where = $_GET['tipe'] == 0 ? 'id_surat_keluar' : 'id_surat_masuk';
+            $query->select('id_penerima')
+                ->from('disposisi')
+
+                ->where($where, $id)
+                ->get();
         })->get();
         echo json_encode($getAnggota);
     }

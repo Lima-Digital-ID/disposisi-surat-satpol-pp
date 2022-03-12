@@ -1,17 +1,33 @@
+@push('custom-styles')
+    <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
+    <style>
+        .kbw-signature {
+            width: 100%;
+            height: 200px;
+        }
+
+        #sig canvas {
+            width: 100% !important;
+            height: auto;
+        }
+
+    </style>
+@endpush
 @extends('layouts.template')
 
 @section('page-header')
     @include('components.page-header', [
-    'pageTitle' => $pageTitle,
-    'pageSubtitle' => '',
-    'pageIcon' => $pageIcon,
-    'parentMenu' => $parentMenu,
-    'current' => $current
+        'pageTitle' => $pageTitle,
+        'pageSubtitle' => '',
+        'pageIcon' => $pageIcon,
+        'parentMenu' => $parentMenu,
+        'current' => $current,
     ])
 @endsection
 
 @section('content')
-
     @include('components.notification')
 
     <div class="row">
@@ -28,3 +44,17 @@
         </div>
     </div>
 @endsection
+@push('custom-scripts')
+    <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
+    <script type="text/javascript">
+        var sig = $('#sig').signature({
+            syncField: '#signature64',
+            syncFormat: 'PNG'
+        });
+        $('#clear').click(function(e) {
+            e.preventDefault();
+            sig.signature('clear');
+            $("#signature64").val('');
+        });
+    </script>
+@endpush

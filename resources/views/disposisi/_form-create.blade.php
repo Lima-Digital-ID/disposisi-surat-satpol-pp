@@ -38,7 +38,7 @@
             <select name="id_surat_masuk" id="id_surat_masuk" class="js-example-basic-single" style="width: 100%;">
                 <option value="">Pilih Surat Masuk</option>
                 @foreach ($allMsk as $msk)
-                    <option value="{{ $msk->id }}">{{ $msk->no_surat ." || ". $msk->perihal }}</option>
+                    <option value="{{ $msk->id }}">{{ $msk->no_surat . ' || ' . $msk->perihal }}</option>
                 @endforeach
             </select>
             @error('id_penerima')
@@ -55,7 +55,7 @@
             <select name="id_surat_keluar" id="id_surat_keluar" class="js-example-basic-single" style="width: 100%;">
                 <option value="">Pilih Surat Keluar</option>
                 @foreach ($allKlr as $klr)
-                    <option value="{{ $klr->id }}">{{ $klr->no_surat ." || ". $klr->perihal }}</option>
+                    <option value="{{ $klr->id }}">{{ $klr->no_surat . ' || ' . $klr->perihal }}</option>
                 @endforeach
             </select>
             @error('id_penerima')
@@ -65,13 +65,14 @@
             @enderror
         </div>
     </div>
-   
+
     <input type="hidden" name="id_pengirim" value="{{ auth()->user()->id }}">
 
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Penerima</label>
         <div class="col-sm-10">
-            <select name="id_penerima[]" id="id_penerima" multiple class="js-example-basic-single" style="width: 100%;" required>
+            <select name="id_penerima[]" id="id_penerima" multiple class="js-example-basic-single" style="width: 100%;"
+                required>
             </select>
             @error('id_penerima')
                 <div class="invalid-feedback">
@@ -84,7 +85,8 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Tanggal Disposisi</label>
         <div class="col-sm-10">
-            <input type="datetime-local" name="tgl_disposisi" class="form-control @error('tgl_disposisi') is-invalid @enderror" value="{{old('tgl_disposisi')}}">
+            <input type="datetime-local" name="tgl_disposisi"
+                class="form-control @error('tgl_disposisi') is-invalid @enderror" value="{{ old('tgl_disposisi') }}">
             @error('tgl_pengirim')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -96,7 +98,8 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Catatan</label>
         <div class="col-sm-10">
-            <input type="text" name="catatan" class="form-control @error('catatan') is-invalid @enderror" placeholder="Catatan" value="{{old('catatan')}}">
+            <input type="text" name="catatan" class="form-control @error('catatan') is-invalid @enderror"
+                placeholder="Catatan" value="{{ old('catatan') }}">
             @error('catatan')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -104,6 +107,6 @@
             @enderror
         </div>
     </div>
-    
+
     <button type="submit" class="btn btn-sm btn-primary"><i class="feather icon-save"></i>Simpan</button>
 </form>
