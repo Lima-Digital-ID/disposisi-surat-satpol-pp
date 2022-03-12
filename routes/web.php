@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('store_disposisi', [SuratMasukController::class, 'storeDisposisi'])->name('simpan-disposisi');
     Route::get('get_surat_masuk/{id}', [SuratMasukController::class, 'getSuratMasuk']);
     Route::resource('disposisi', DisposisiController::class);
+    Route::get('cetak_disposisi/{id}', [DisposisiController::class, 'cetakDisposisi']);
     Route::resource('pengirim', PengirimController::class);
     Route::resource('lokasi-surat', LokasiSuratController::class);
     Route::resource('arsip', ArsipSuratController::class);

@@ -42,6 +42,11 @@
                                 data-toggle="tooltip" title="Edit" data-placement="top"><span
                                     class="feather icon-edit"></span></button>
                         </a> --}}
+                            <a href="{{ url('cetak_disposisi', $item->id) }}" class="mr-2" target="_blank">
+                                <button type="button" id="PopoverCustomT-1" class="btn btn-success btn-sm"
+                                    data-toggle="tooltip" title="Cetak Disposisi" data-placement="top"><span
+                                        class="feather icon-printer"></span></button>
+                            </a>
                             <a href="#" class="mr-2" id="PopoverCustomT-1" data-toggle="tooltip"
                                 title="Disposisi" data-placement="top">
                                 <button onClick='javasciprt: getSuratMasuk({{ $item->id_surat_masuk }})'' type="button" id="PopoverCustomT-1" class="btn btn-warning btn-sm"

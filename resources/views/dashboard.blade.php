@@ -1,3 +1,6 @@
+{{-- @push('custom-styles')
+    <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/morris.css">
+@endpush --}}
 @extends('layouts.template')
 
 @section('page-header')
@@ -6,13 +9,26 @@
         'pageSubtitle' => '',
         'pageIcon' => 'feather icon-home',
         'parentMenu' => '',
-        'current' => 'Dashboard'
+        'current' => 'Dashboard',
     ])
 @endsection
 
 @section('content')
     @include('components.notification')
-        <div class="row">
+
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5>Surat Masuk & Surat Keluar</h5>
+                <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
+            </div>
+            <div class="card-block">
+                <div id="morris-bar-chart"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-md-4">
             <div class="card sale-card">
                 <div class="card-header">
@@ -24,7 +40,7 @@
                         <p class="highcharts-description">
                             Jumlah Surat Masuk : {{ \App\Models\SuratMasuk::count() }}
                         </p>
-                    </figure>                    
+                    </figure>
                 </div>
             </div>
         </div>
@@ -39,7 +55,7 @@
                         <p class="highcharts-description">
                             Jumlah Surat Keluar : {{ \App\Models\SuratKeluar::count() }}
                         </p>
-                    </figure>                    
+                    </figure>
                 </div>
             </div>
         </div>
@@ -54,7 +70,7 @@
                         <p class="highcharts-description">
                             Jumlah Disposisi : {{ \App\Models\Disposisi::count() }}
                         </p>
-                    </figure>                    
+                    </figure>
                 </div>
             </div>
         </div>
@@ -72,7 +88,7 @@
                         <p class="highcharts-description">
                             Jumlah Golongan : {{ \App\Models\Golongan::count() }}
                         </p>
-                    </figure>                    
+                    </figure>
                 </div>
             </div>
         </div>
@@ -87,7 +103,7 @@
                         <p class="highcharts-description">
                             Jumlah Jabatan : {{ \App\Models\Jabatan::count() }}
                         </p>
-                    </figure>                    
+                    </figure>
                 </div>
             </div>
         </div>
@@ -102,7 +118,7 @@
                         <p class="highcharts-description">
                             Jumlah User : {{ \App\Models\User::count() }}
                         </p>
-                    </figure>                    
+                    </figure>
                 </div>
             </div>
         </div>
@@ -111,12 +127,11 @@
     @php
     $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
 
-    $disposisi = \App\Models\Disposisi::with('penerima','pengirim');
-                            if(auth()->user()->level=='Anggota'){
-                                $disposisi->where('id_pengirim',auth()->user()->id)
-                                            ->orwhere('id_penerima',auth()->user()->id);
-                            }
-                            $disposisi->orderBy('id','ASC');
+    $disposisi = \App\Models\Disposisi::with('penerima', 'pengirim');
+    if (auth()->user()->level == 'Anggota') {
+        $disposisi->where('id_pengirim', auth()->user()->id)->orwhere('id_penerima', auth()->user()->id);
+    }
+    $disposisi->orderBy('id', 'ASC');
 
     if ($keyword) {
         $disposisi->where('disposisi', 'LIKE', "%{$keyword}%");
@@ -157,39 +172,48 @@
                                         $no = !$page || $page == 1 ? 1 : ($page - 1) * 10 + 1;
                                     @endphp
                                     @foreach ($data as $item)
-                                    <!-- {{-- @if (auth()->user()->id == $item->id_pengirim || auth()->user()->level == 'Administrator' || auth()->user()->level == 'Admin' || auth()->user()->id == $item->id_penerima ) --}} -->
+                                        <!-- {{-- @if (auth()->user()->id == $item->id_pengirim || auth()->user()->level == 'Administrator' || auth()->user()->level == 'Admin' || auth()->user()->id == $item->id_penerima) --}} -->
                                         <tr class="border-bottom-primary">
-                                          <td class="text-center text-muted">{{ $no }}</td>
-                                          <td>{{ $item->sifat_surat }}</td>
-                                          <td>{{ $item->masuk->perihal }}</td>
-                                          <td>{{ $item->keluar->perihal }}</td>
-                                          <td>{{ $item->pengirim->nama }}</td>
-                                          <td>{{ $item->penerima->nama }}</td>
-                                          <td>{{ $item->tgl_disposisi }}</td>
-                                          <td>{{ $item->catatan }}</td>
-                                          @if ($item->id_surat_masuk != null || $item->id_surat_masuk != '')
-                                          <td align="center"><a href="{{ "upload/surat_masuk/".$item->masuk->file_surat }}" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
-                                          @elseif($item->id_surat_keluar != null || $item->id_surat_keluar != '')
-                                          <td align="center"><a href="{{ "upload/surat_keluar/".$item->keluar->file_surat }}" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
-                                          @endif
+                                            <td class="text-center text-muted">{{ $no }}</td>
+                                            <td>{{ $item->sifat_surat }}</td>
+                                            <td>{{ $item->masuk->perihal }}</td>
+                                            <td>{{ $item->keluar->perihal }}</td>
+                                            <td>{{ $item->pengirim->nama }}</td>
+                                            <td>{{ $item->penerima->nama }}</td>
+                                            <td>{{ $item->tgl_disposisi }}</td>
+                                            <td>{{ $item->catatan }}</td>
+                                            @if ($item->id_surat_masuk != null || $item->id_surat_masuk != '')
+                                                <td align="center"><a
+                                                        href="{{ 'upload/surat_masuk/' . $item->masuk->file_surat }}"
+                                                        target="_blank" class="btn btn-info btn-sm mr-2"><i
+                                                            class="fa fa-file"></i></a></td>
+                                            @elseif($item->id_surat_keluar != null || $item->id_surat_keluar != '')
+                                                <td align="center"><a
+                                                        href="{{ 'upload/surat_keluar/' . $item->keluar->file_surat }}"
+                                                        target="_blank" class="btn btn-info btn-sm mr-2"><i
+                                                            class="fa fa-file"></i></a></td>
+                                            @endif
                                         </tr>
                                         @php
                                             $no++;
                                         @endphp
-                                      <!-- {{-- @endif --}} -->
+                                        <!-- {{-- @endif --}} -->
                                     @endforeach
                                 </tbody>
                             </table>
                             <div class="pull-right">
-                            {{$data->appends(Request::all())->links('vendor.pagination.custom')}}
+                                {{ $data->appends(Request::all())->links('vendor.pagination.custom') }}
                             </div>
                         </div>
-                    </figure>                    
+                    </figure>
                 </div>
             </div>
         </div>
     </div>
 
     </div>
-
 @endsection
+{{-- @push('custom-scripts')
+    <script src="{{ asset('') }}js/morris-custom-chart.js" type="ab836d322815de22d75b9415-text/javascript"></script>
+    <script src="{{ asset('') }}js/morris.js" type="ab836d322815de22d75b9415-text/javascript"></script>
+@endpush --}}

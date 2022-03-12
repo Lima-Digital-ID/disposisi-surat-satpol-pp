@@ -167,6 +167,7 @@ class DisposisiController extends Controller
 
     public function getDisposisi($id)
     {
+        echo auth()->user()->level;
         if (auth()->user()->level == "TU") {
             $where = 'Kasat';
         } elseif (auth()->user()->level == "Kasat") {
@@ -178,17 +179,16 @@ class DisposisiController extends Controller
             $where = 'Kasubag';
         } elseif (auth()->user()->level == "Kasubag" || auth()->user()->level == "Kasi") {
             $where = 'Staff';
+        } elseif (auth()->user()->level == "Staff") {
+            $where1 = 'Kasubag';
+            $where2 = 'Kasi';
         }
-        // elseif (auth()->user()->level == "Staff") {
-        //     $where1 = 'Kasubag';
-        //     $where2 = 'Kasi';
-        // }
         $getAnggota = User::from('users as u')
             ->select(
                 'u.*',
             )->where('u.id', "!=", auth()->user()->id);
         // ->where('u.level', $where)
-        if (auth()->user()->level != "Kasat" || auth()->user()->level == "Staff") {
+        if (auth()->user()->level != "Kasat" && auth()->user()->level != "Staff") {
             $getAnggota = $getAnggota->where('u.level', $where);
         }
         //  elseif (auth()->user()->level == "Staff") {
@@ -208,5 +208,13 @@ class DisposisiController extends Controller
                 ->get();
         })->get();
         echo json_encode($getAnggota);
+    }
+
+    public function cetakDisposisi($id)
+    {
+        $this->param['data'] = Disposisi::with('pengirim', 'masuk')->find($id);
+        // ddd($this->param['data']->masuk->id_pengirim);
+        return \view('disposisi.cetak_lembar_disposisi', $this->param);
+        // return redirect()->route('disposisi.index');
     }
 }

@@ -30,6 +30,7 @@
 @push('custom-scripts')
     <script>
         function getAnggotaDis() {
+            $('#id_penerima').empty();
             $.ajax({
                 type: "GET",
                 url: "{{ url('disposisi/get_disposisi') }}/" + 1 + "?tipe=" + 1,
@@ -39,10 +40,10 @@
                         console.log(v.nama);
                         console.log(v.id);
                         $('#id_penerima').append(
+                            "<option value=''>Pilih Penerima</option>"+
                             "<option value='" + v.id + "'>" + v.nama + "</option>"
                         )
                     })
-                    // $('#id_penerima').empty();
                 }
             })
         }
