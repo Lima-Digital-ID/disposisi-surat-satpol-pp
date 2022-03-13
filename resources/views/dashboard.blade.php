@@ -16,19 +16,32 @@
 @section('content')
     @include('components.notification')
 
-    <div class="col-md-12">
-        <div class="card">
-            <div class="card-header">
-                <h5>Surat Masuk & Surat Keluar</h5>
-                <span>lorem ipsum dolor sit amet, consectetur adipisicing elit</span>
+    <div class="row col-md-12">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Surat Masuk</h5>
+                    <span>Jumlah Surat Masuk</span>
+                </div>
+                <div class="card-block">
+                    <canvas id="suratMasukChart" width="400" height="400"></canvas>
+                </div>
             </div>
-            <div class="card-block">
-                <div id="morris-bar-chart"></div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Surat Keluar</h5>
+                    <span>Jumlah Surat Keluar</span>
+                </div>
+                <div class="card-block">
+                    <canvas id="suratKeluarChart" width="400" height="400"></canvas>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-4">
             <div class="card sale-card">
                 <div class="card-header">
@@ -122,7 +135,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
     @php
     $keyword = isset($_GET['keyword']) ? $_GET['keyword'] : '';
@@ -140,6 +153,43 @@
     $disposisi->limit(5);
 
     $data = $disposisi->paginate(10);
+
+    // Chart Surat Masuk
+    $suratMasuk = \App\Models\SuratMasuk::select('id', 'created_at')
+        ->orderBy('created_at', 'ASC')
+        ->get()
+        ->groupBy(function ($suratMasuk) {
+            return \Carbon\Carbon::parse($suratMasuk->created_at)->format('F');
+        });
+
+    $monthsMasuk = [];
+    $monthMasukCount = [];
+    foreach ($suratMasuk as $key => $value) {
+        $monthsMasuk[] = $key;
+        $monthMasukCount[] = count($value);
+    }
+    $monthMasuk = json_encode($monthsMasuk);
+    $countMasuk = json_encode($monthMasukCount);
+
+    // Chart Surat Keluar
+    $suratKeluar = \App\Models\SuratKeluar::select('id', 'created_at')
+        ->orderBy('created_at', 'ASC')
+        ->get()
+        ->groupBy(function ($suratKeluar) {
+            return \Carbon\Carbon::parse($suratKeluar->created_at)->format('F');
+        });
+
+    // ddd($suratMasuk);
+    // echo $suratKeluar;
+    // echo $suratMasuk;
+    $monthsKeluar = [];
+    $monthKeluarCount = [];
+    foreach ($suratKeluar as $key => $value) {
+        $monthsKeluar[] = $key;
+        $monthKeluarCount[] = count($value);
+    }
+    $monthKeluar = json_encode($monthsKeluar);
+    $countKeluar = json_encode($monthKeluarCount);
     @endphp
 
     <div class="row">
@@ -213,7 +263,62 @@
 
     </div>
 @endsection
-{{-- @push('custom-scripts')
-    <script src="{{ asset('') }}js/morris-custom-chart.js" type="ab836d322815de22d75b9415-text/javascript"></script>
-    <script src="{{ asset('') }}js/morris.js" type="ab836d322815de22d75b9415-text/javascript"></script>
-@endpush --}}
+@push('custom-scripts')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <script>
+        const suratMasuk = document.getElementById('suratMasukChart');
+        const suratMasukChart = new Chart(suratMasuk, {
+            type: 'bar',
+            data: {
+                labels: {!! $monthMasuk !!},
+                datasets: [{
+                    label: ['Surat Masuk'],
+                    data: {!! $countMasuk !!},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    <script>
+        const suratKeluar = document.getElementById('suratKeluarChart');
+        const suratKeluarChart = new Chart(suratKeluar, {
+            type: 'bar',
+            data: {
+                labels: {!! $monthKeluar !!},
+                datasets: [{
+                    label: ['Surat Keluar'],
+                    data: {!! $countKeluar !!},
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                    ],
+                    borderColor: [
+                        'rgba(255, 99, 132, 1)',
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+    {{-- <script src="{{ asset('') }}js/morris-custom-chart.js" type="ab836d322815de22d75b9415-text/javascript"></script> --}}
+    {{-- <script src="{{ asset('') }}js/morris.js" type="ab836d322815de22d75b9415-text/javascript"></script> --}}
+@endpush
