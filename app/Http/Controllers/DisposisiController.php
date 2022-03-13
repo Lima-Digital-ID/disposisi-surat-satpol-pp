@@ -167,7 +167,10 @@ class DisposisiController extends Controller
 
     public function getDisposisi($id)
     {
-        echo auth()->user()->level;
+        // echo auth()->user()->level;
+        $where = '';
+        $where1 = '';
+        $where2 = '';
         if (auth()->user()->level == "TU") {
             $where = 'Kasat';
         } elseif (auth()->user()->level == "Kasat") {
@@ -189,7 +192,7 @@ class DisposisiController extends Controller
             )->where('u.id', "!=", auth()->user()->id);
         // ->where('u.level', $where)
         if (auth()->user()->level != "Kasat" && auth()->user()->level != "Staff") {
-            $getAnggota = $getAnggota->where('u.level', $where);
+            // $getAnggota = $getAnggota->where('u.level', $where);
         }
         //  elseif (auth()->user()->level == "Staff") {
         //     $getAnggota = $getAnggota->where('u.level', $where1);

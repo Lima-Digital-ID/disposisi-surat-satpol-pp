@@ -79,7 +79,7 @@
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Penerima</label>
                             <div class="col-sm-10">
-                                <select name="id_penerima[]" id="id_penerima" class="js-example-basic-single" style="width: 100%;" required>
+                                <select name="id_penerima[]" id="id_penerima" class="form-control" style="width: 100%;" required>
                                     <option value="">Pilih Penerima</option>
                                 </select>
                                 @error('id_penerima')
@@ -128,11 +128,13 @@
         }
 
         function getAnggotaDis(tipe) {
+            console.log('getAnggotaDis()')
             $.ajax({
                 type: "GET",
                 url: "{{ url('disposisi/get_disposisi') }}/" + 1 + "?tipe=" + 1,
                 dataType: "json",
                 success: function(response) {
+                    console.log('asd');
                     $.each(response, function(k, v) {
                         console.log(v.nama);
                         console.log(v.id);

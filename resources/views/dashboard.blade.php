@@ -1,6 +1,7 @@
-{{-- @push('custom-styles')
+@push('custom-styles')
     <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/morris.css">
-@endpush --}}
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/c3.css"> --}}
+@endpush
 @extends('layouts.template')
 
 @section('page-header')
@@ -16,26 +17,21 @@
 @section('content')
     @include('components.notification')
 
-    <div class="row col-md-12">
-        <div class="col-md-6">
+    @php
+    $totalSuratMasuk = \App\Models\SuratMasuk::count();
+    $totalSuratKeluar = \App\Models\SuratKeluar::count();
+    $totalSuratDisposisi = \App\Models\Disposisi::count();
+    $tahun = date('Y');
+    @endphp
+
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
             <div class="card">
                 <div class="card-header">
-                    <h5>Surat Masuk</h5>
-                    <span>Jumlah Surat Masuk</span>
+                    <h5>Surat Masuk & Surat Keluar & Disposisi (Tahun {{ $tahun }})</h5>
                 </div>
                 <div class="card-block">
-                    <canvas id="suratMasukChart" width="400" height="400"></canvas>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Surat Keluar</h5>
-                    <span>Jumlah Surat Keluar</span>
-                </div>
-                <div class="card-block">
-                    <canvas id="suratKeluarChart" width="400" height="400"></canvas>
+                    <div id="line-example"></div>
                 </div>
             </div>
         </div>
@@ -87,9 +83,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-md-4">
             <div class="card sale-card">
                 <div class="card-header">
@@ -264,61 +260,70 @@
     </div>
 @endsection
 @push('custom-scripts')
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.1/chart.min.js"></script>
+    <script src="{{ asset('') }}js/raphael.min.js" type="text/javascript"></script>
+    <script src="{{ asset('') }}js/morris.js" type="text/javascript"></script>
     <script>
-        const suratMasuk = document.getElementById('suratMasukChart');
-        const suratMasukChart = new Chart(suratMasuk, {
-            type: 'bar',
-            data: {
-                labels: {!! $monthMasuk !!},
-                datasets: [{
-                    label: ['Surat Masuk'],
-                    data: {!! $countMasuk !!},
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+        setTimeout(function() {
+            $(document).ready(function() {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('grafik_surat') }}",
+                    success: function(response) {
+                        console.log('response : ' + response);
+                        areaChart(response);
+                        $(window).on('resize', function() {
+                            //window.lineChart.redraw();
+                            window.areaChart.redraw();
+                        });
                     }
-                }
+                })
+            });
+
+            function lineChart(data) {
+                console.log(typeof(data));
+                window.lineChart = Morris.Line({
+                    element: 'line-example',
+                    data: JSON.parse(data),
+                    xkey: 'y',
+                    redraw: true,
+                    ykeys: ['in', 'out', 'disposisi'],
+                    xLabelAngle: 70,
+                    xLabelFormat: function(x) {
+                        var IndexToMonth = ["Januari", "Februari", "Maret", "April", "Mei", "Jun",
+                            "Jul", "Agustus", "September", "Oktober", "November", "Desember"
+                        ];
+                        var month = IndexToMonth[x.getMonth()];
+                        var year = x.getFullYear();
+                        return month;
+                    },
+                    hideHover: 'auto',
+                    labels: ['Surat Masuk', 'Surat Keluar', 'Disposisi'],
+                    lineColors: ['#B4C1D7', '#FF9F55', '#5FBEAA']
+                });
+            }
+
+            function areaChart(data) {
+                window.areaChart = Morris.Area({
+                    element: 'line-example',
+                    data: JSON.parse(data),
+                    xkey: 'y',
+                    resize: true,
+                    redraw: true,
+                    ykeys: ['in', 'out', 'disposisi'],
+                    lineColors: ['#5FBEAA', '#E74C3C', '#FFB012'],
+                    hideHover: 'auto',
+                    labels: ['Surat Masuk', 'Surat Keluar', 'Disposisi'],
+                    xLabelAngle: 70,
+                    xLabelFormat: function(x) {
+                        var IndexToMonth = ["Januari", "Februari", "Maret", "April", "Mei", "Jun",
+                            "Jul", "Agustus", "September", "Oktober", "November", "Desember"
+                        ];
+                        var month = IndexToMonth[x.getMonth()];
+                        var year = x.getFullYear();
+                        return month;
+                    },
+                });
             }
         });
     </script>
-    <script>
-        const suratKeluar = document.getElementById('suratKeluarChart');
-        const suratKeluarChart = new Chart(suratKeluar, {
-            type: 'bar',
-            data: {
-                labels: {!! $monthKeluar !!},
-                datasets: [{
-                    label: ['Surat Keluar'],
-                    data: {!! $countKeluar !!},
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
-                    }
-                }
-            }
-        });
-    </script>
-    {{-- <script src="{{ asset('') }}js/morris-custom-chart.js" type="ab836d322815de22d75b9415-text/javascript"></script> --}}
-    {{-- <script src="{{ asset('') }}js/morris.js" type="ab836d322815de22d75b9415-text/javascript"></script> --}}
 @endpush

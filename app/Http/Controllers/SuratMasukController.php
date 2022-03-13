@@ -34,24 +34,19 @@ class SuratMasukController extends Controller
         $this->param['allPengirim'] = Pengirim::get();
 
         try {
-            // $masuk = \DB::table('surat_masuk')->where('status', '=', 0)->get();
-            // $masuk = SuratMasuk::where('status', '=', '0')->where('id_penerima',auth()->user()->id)->update(['status' => '1']);
-            // $masuk = \DB::table('surat_masuk')->update(['status' => 1]);
-            // SuratMasuk::query()->update(['status' => 1]);
-            // $masuk->save();
-            // ddd($masuk);
-            $pengirim = $request->get('id_pengirim');
+            $pengirim = $request->get('pengirim');
             $perihal = $request->get('perihal');
-            // $getSuratMasuk = SuratMasuk::with('penerima_masuk','pengirim_masuk');
+
             $getSuratMasuk = SuratMasuk::with('pengirim_masuk');
-            // if(auth()->user()->level=='Anggota'){
-            //     $getSuratMasuk->where('id_penerima',auth()->user()->id);
-            // }
+
             $getSuratMasuk->where('diarsipkan', '0')->orderBy('id', 'ASC');
-            // $getSuratMasuk = SuratMasuk::orderBy('id');
 
             if ($pengirim) {
-                $getSuratMasuk->where('id_pengirim', 'LIKE', "%{$pengirim}%");
+                $getSuratMasuk = SuratMasuk::with(['pengirim_masuk'])
+                                            ->whereHas('pengirim_masuk', function($q) use($pengirim) {
+                                                $q->where('pengirim', 'LIKE', "%{$pengirim}%");
+                                            })
+                                            ->orWhere('pengirim', 'LIKE', "%{$pengirim}%");
             }
             if ($perihal) {
                 $getSuratMasuk->where('perihal', 'LIKE', "%{$perihal}%");
