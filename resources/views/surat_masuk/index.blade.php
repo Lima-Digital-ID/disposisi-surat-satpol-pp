@@ -57,14 +57,14 @@
 @endsection
 @push('custom-scripts')
     <script>
-        function getSuratMasuk(id){
+        function getSuratMasuk(id) {
             $('.modal-header').empty();
             $('.modal-body .form').empty();
             $.ajax({
                 type: "GET",
-                url:"{{ url('get_surat_masuk') }}/"+id,
-                dataType : "json",
-                success : function(response){
+                url: "{{ url('get_surat_masuk') }}/" + id,
+                dataType: "json",
+                success: function(response) {
                     data = response;
                     $('.modal-header').append(`
                         <h5 class="modal-title" id="exampleModalLabel">Disposisi No Surat : ${data.no_surat}</h5>
@@ -78,7 +78,7 @@
                             <label class="col-sm-2 col-form-label">Sifat Surat</label>
                             <div class="col-sm-10">
                                 <select name="sifat_surat" id="sifat_surat"
-                                    class="form-control @error('sifat_surat') is-invalid @enderror">
+                                    class="form-control @error('sifat_surat') is-invalid @enderror" onChange="getAnggotaDis(1)">
                                     <option value="">Pilih Sifat Surat</option>
                                     <option value="Penting">
                                         Penting</option>
@@ -103,7 +103,19 @@
                         <input type="hidden" name="id_surat_masuk" value=" ${data.id}">
                         <input type="hidden" name="id_penerima" value=" ${data.id}">
 
-                        
+                        <div class="form-group row">
+                            <label class="col-sm-2 col-form-label">Penerima</label>
+                            <div class="col-sm-10">
+                                <select name="id_penerima[]" id="id_penerima" class="js-example-basic-single" style="width: 100%;" required>
+                                    <option value="">Pilih Penerima</option>
+                                </select>
+                                @error('id_penerima')
+                                    <div class="invalid-feedback">
+                                        {{ $message }}
+                                    </div>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Tanggal Disposisi</label>
@@ -133,11 +145,11 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
-                        class="feather icon-x"></i>Tutup</button>
-                <button type="submit" class="btn btn-primary"><i class="feather icon-save"></i>Simpan</button>
-                {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
-            </div>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i
+                                class="feather icon-x"></i>Tutup</button>
+                        <button type="submit" class="btn btn-primary"><i class="feather icon-save"></i>Simpan</button>
+                        {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
+                    </div>
                     `);
                     // $.each(response,function(k,v){
                     //     console.log(v.nama);
@@ -146,6 +158,27 @@
                     //         "<option value='"+v.id+"'>"+v.nama+"</option>"
                     //     )
                     // })
+                    $('.js-example-basic-single').select2();
+                }
+            })
+        }
+
+        // $('#id_penerima').select2({
+        //     dropdownParent: $('#disposisiModal')
+        // });
+
+        function getAnggotaDis(tipe) {
+            $('#selectUser').empty();
+            $.ajax({
+                type: "GET",
+                url: "{{ url('disposisi/get_disposisi') }}/" + 1 + "?tipe=" + 1,
+                dataType: "json",
+                success: function(response) {
+                    $.each(response, function(k, v) {
+                        $('#id_penerima').append(
+                            "<option value='" + v.id + "'>" + v.nama + "</option>"
+                        )
+                    })
                 }
             })
         }

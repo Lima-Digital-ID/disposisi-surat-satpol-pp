@@ -39,7 +39,7 @@
         </div>
     </div>
 
-        <div class="form-group row">
+    <div class="form-group row">
         <label class="col-sm-2 col-form-label">Golongan</label>
         <div class="col-sm-10">
             <select name="id_golongan" id="id_golongan" class="form-control" style="width: 100%;" required>
@@ -56,7 +56,7 @@
         </div>
     </div>
 
-        <div class="form-group row">
+    <div class="form-group row">
         <label class="col-sm-2 col-form-label">Jabatan</label>
         <div class="col-sm-10">
             <select name="id_jabatan" id="id_jabatan" class="form-control" style="width: 100%;" required>
@@ -77,7 +77,8 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Jenis Pegawai</label>
         <div class="col-sm-10">
-            <select name="jenis_pegawai" id="jenis_pegawai" class="form-control @error('jenis_pegawai') is-invalid @enderror">
+            <select name="jenis_pegawai" id="jenis_pegawai"
+                class="form-control @error('jenis_pegawai') is-invalid @enderror">
                 <option value="">Pilih Jenis Pegawai</option>
                 <option value="ASN" {{ old('jenis_pegawai') == 'ASN' ? ' selected' : '' }}>ASN</option>
                 <option value="PTT-PK" {{ old('jenis_pegawai') == 'PTT-PK' ? ' selected' : '' }}>PTT-PK
@@ -94,7 +95,8 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Jenis Kelamin</label>
         <div class="col-sm-10">
-            <select name="jenis_kelamin" id="jenis_kelamin" class="form-control @error('jenis_kelamin') is-invalid @enderror">
+            <select name="jenis_kelamin" id="jenis_kelamin"
+                class="form-control @error('jenis_kelamin') is-invalid @enderror">
                 <option value="">Pilih Jenis kelamin</option>
                 <option value="L" {{ old('jenis_kelamin') == 'L' ? ' selected' : '' }}>L</option>
                 <option value="P" {{ old('jenis_kelamin') == 'P' ? ' selected' : '' }}>P
@@ -111,8 +113,8 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">NIP</label>
         <div class="col-sm-10">
-            <input type="nip" name="nip" class="form-control @error('nip') is-invalid @enderror"
-                placeholder="NIP User" value="{{ old('nip') }}">
+            <input type="nip" name="nip" class="form-control @error('nip') is-invalid @enderror" placeholder="NIP User"
+                value="{{ old('nip') }}">
             @error('nip')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -126,17 +128,20 @@
         <div class="col-sm-10">
             <select name="level" id="level" class="form-control @error('level') is-invalid @enderror">
                 <option value="">Pilih Level</option>
-                <option value="Administrator" {{ old('level') == 'Administrator' ? ' selected' : '' }}>Administrator</option>
-                <option value="Kasat" {{ old('level') == 'Kasat' ? ' selected' : '' }}>Kasat
+                <option value="Administrator" {{ old('level') == 'Administrator' ? ' selected' : '' }}>Administrator
                 </option>
                 <option value="Admin" {{ old('level') == 'Admin' ? ' selected' : '' }}>Admin
                 </option>
                 <option value="Anggota" {{ old('level') == 'Anggota' ? ' selected' : '' }}>Anggota
                 </option>
+                <option value="Kasat" {{ old('level') == 'Kasat' ? ' selected' : '' }}>Kasat
+                </option>
                 <option value="Kabid" {{ old('level') == 'Kabid' ? ' selected' : '' }}>Kabid</option>
                 <option value="Kabag" {{ old('level') == 'Kabag' ? ' selected' : '' }}>Kabag
                 </option>
                 <option value="Kasubag" {{ old('level') == 'Kasubag' ? ' selected' : '' }}>Kasubag
+                </option>
+                <option value="Kasi" {{ old('level') == 'Kasi' ? ' selected' : '' }}>Kasi
                 </option>
                 <option value="Sekretaris" {{ old('level') == 'Sekretaris' ? ' selected' : '' }}>Sekretaris
                 </option>

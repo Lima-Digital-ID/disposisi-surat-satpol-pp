@@ -27,8 +27,9 @@
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet">
-    
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
+        integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
 
     <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/bootstrap.min.css">
 
@@ -40,6 +41,9 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/multi-select.css" />
     <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/style.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/custom.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/icofont.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/pages.css">
+    <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/morris.css">
 
     @stack('custom-styles')
 </head>
@@ -148,12 +152,12 @@
         let database = firebase.database();
 
         let data = {
-                msg : "Surat Masuk dari David",
-                id_user : '1'
+            msg: "Surat Masuk dari David",
+            id_user: '1'
         }
         // database.ref('disposisi').push(data)
 
-        database.ref().child('disposisi').orderByChild('id_user').equalTo('1').on('value',function(res){
+        database.ref().child('disposisi').orderByChild('id_user').equalTo('1').on('value', function(res) {
             let countNotif = 0
             res.forEach((data) => {
                 countNotif++
@@ -161,7 +165,7 @@
             document.getElementById("count-notif").innerHTML = countNotif
         })
     </script>
-    
+
 </body>
 
 <!-- Mirrored from colorlib.com/polygon/admindek/default/sample-page.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 12 Dec 2019 16:10:10 GMT -->

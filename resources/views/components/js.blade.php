@@ -31,7 +31,8 @@
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
 <script src="https://code.highcharts.com/modules/export-data.js"></script>
 <script src="https://code.highcharts.com/modules/accessibility.js"></script>
-
+<script src="{{ asset('') }}js/morris-custom-chart.js" type="ab836d322815de22d75b9415-text/javascript"></script>
+<script src="{{ asset('') }}js/morris.js" type="ab836d322815de22d75b9415-text/javascript"></script>
 <script src="{{ asset('') }}js/pcoded.min.js" type="d2d1d6e2f87cbebdf4013b26-text/javascript"></script>
 <script src="{{ asset('') }}js/vertical-layout.min.js" type="d2d1d6e2f87cbebdf4013b26-text/javascript"></script>
 <script type="d2d1d6e2f87cbebdf4013b26-text/javascript" src="{{ asset('') }}js/custom-dashboard.min.js"></script>

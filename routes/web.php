@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ArsipSuratController;
 use App\Http\Controllers\SuratMasukController;
 use App\Http\Controllers\SuratKeluarController;
@@ -29,9 +30,9 @@ Route::get('/', function () {
     return view('auth.login');
 });
 Route::middleware(['auth'])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->middleware(['auth'])->name('dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth'])->name('dashboard');
+
+    Route::get('grafik_surat', [DashboardController::class, 'grafikSurat'])->middleware(['auth']);
 
     Route::resource('golongan', GolonganController::class);
     Route::resource('jabatan', JabatanController::class);
@@ -52,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('store_disposisi', [SuratMasukController::class, 'storeDisposisi'])->name('simpan-disposisi');
     Route::get('get_surat_masuk/{id}', [SuratMasukController::class, 'getSuratMasuk']);
     Route::resource('disposisi', DisposisiController::class);
+    Route::get('cetak_disposisi/{id}', [DisposisiController::class, 'cetakDisposisi']);
     Route::resource('pengirim', PengirimController::class);
     Route::resource('lokasi-surat', LokasiSuratController::class);
     Route::resource('arsip', ArsipSuratController::class);

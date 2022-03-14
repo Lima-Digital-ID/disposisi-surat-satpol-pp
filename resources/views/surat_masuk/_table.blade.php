@@ -48,13 +48,12 @@
                             </a>
                             <form action="{{ route('surat_masuk.destroy', $item->id) }}" method="post">
                                 @csrf
-                                @method('delete')
-                                <button type="button" class="btn btn-danger btn-sm" data-toggle="tooltip" title="Hapus"
-                                    data-placement="top"
+                                @method(' delete') <button type="button" class="btn btn-danger btn-sm"
+                                    data-toggle="tooltip" title="Hapus" data-placement="top"
                                     onclick="confirm('{{ __('Apakah anda yakin ingin menghapus?') }}') ? this.parentElement.submit() : ''">
                                     <span class="feather icon-trash"></span>
                                 </button>
-                            </form>
+                                </form>
                         </div>
                     </td>
                 </tr>
@@ -71,21 +70,21 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="disposisiModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-    aria-hidden="true">
+<div class="modal fade" id="disposisiModal" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                
+
             </div>
             <div class="modal-body">
-                <form class="form" action="{{ route('simpan-disposisi') }}" method="POST" enctype="multipart/form-data">
-                    
+                <form class="form" action="{{ route('simpan-disposisi') }}" method="POST"
+                    enctype="multipart/form-data">
 
-                    
+
+
                 </form>
             </div>
-            
+
         </div>
     </div>
 </div>

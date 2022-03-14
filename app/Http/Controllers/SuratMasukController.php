@@ -42,13 +42,10 @@ class SuratMasukController extends Controller
             // ddd($masuk);
             $pengirim = $request->get('pengirim');
             $perihal = $request->get('perihal');
-            // $getSuratMasuk = SuratMasuk::with('penerima_masuk','pengirim_masuk');
+
             $getSuratMasuk = SuratMasuk::with('pengirim_masuk');
-            // if(auth()->user()->level=='Anggota'){
-            //     $getSuratMasuk->where('id_penerima',auth()->user()->id);
-            // }
+
             $getSuratMasuk->where('diarsipkan', '0')->orderBy('id', 'ASC');
-            // $getSuratMasuk = SuratMasuk::orderBy('id');
 
             if ($pengirim) {
                 if (is_numeric($request->pengirim)){
@@ -268,14 +265,17 @@ class SuratMasukController extends Controller
         // echo "coba";
         $validated = $request->validated();
         try {
-            $disposisi = new Disposisi;
-            $disposisi->id_surat_masuk = $request->get('id_surat_masuk');
-            $disposisi->sifat_surat = $validated['sifat_surat'];
-            $disposisi->id_pengirim = $request->get('id_pengirim');
-            $disposisi->id_penerima = $validated['id_penerima'];
-            $disposisi->tgl_disposisi = $validated['tgl_disposisi'];
-            $disposisi->catatan = $validated['catatan'];
-            $disposisi->save();
+            foreach ($validated['id_penerima'] as $key => $value) {
+                $disposisi = new Disposisi;
+                $disposisi->id_surat_masuk = $request->get('id_surat_masuk');
+                $disposisi->sifat_surat = $validated['sifat_surat'];
+                $disposisi->id_surat_keluar = $request->get('id_surat_keluar');
+                $disposisi->id_pengirim = $request->get('id_pengirim');
+                $disposisi->id_penerima = $value;
+                $disposisi->tgl_disposisi = $validated['tgl_disposisi'];
+                $disposisi->catatan = $validated['catatan'];
+                $disposisi->save();
+            }
         } catch (Exception $e) {
             return back()->withError('Terjadi kesalahan.' . $e->getMessage());
         } catch (QueryException $e) {
