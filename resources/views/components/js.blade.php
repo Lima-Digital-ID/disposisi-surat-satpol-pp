@@ -55,11 +55,3 @@ type="d2d1d6e2f87cbebdf4013b26-text/javascript"></script>
 </script>
 <script src="{{ asset('') }}js/rocket-loader.min.js" data-cf-settings="d2d1d6e2f87cbebdf4013b26-|49" defer="">
 </script>
-<script type="text/javascript">
-    var signaturePad = $('#signaturePad').signature({syncField: '#signature64', syncFormat: 'PNG'});
-    $('#clear').click(function(e) {
-    e.preventDefault();
-    signaturePad.signature('clear');
-    $("#signature64").val('');
-    });
-</script>

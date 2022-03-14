@@ -1,18 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<!-- Mirrored from colorlib.com/polygon/admindek/default/sample-page.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 12 Dec 2019 16:10:10 GMT -->
-<!-- Added by HTTrack -->
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <head>
     <title>DISPOSISI | SATPOLPP</title>
 
 
-    <!--[if lt IE 10]>
-  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-  <![endif]-->
+    {{-- <!--[if lt IE 10]> --}}
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    {{-- <![endif]--> --}}
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
@@ -44,14 +43,20 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/icofont.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/pages.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/morris.css">
-    <link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet">
+    <link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"
+        rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
     <style>
-        .kbw-signature { width: 100%; height: 180px;}
-        #signaturePad canvas{
-        width: 100% !important;
-        height: auto;
+        .kbw-signature {
+            width: 100%;
+            height: 180px;
         }
+
+        #signaturePad canvas {
+            width: 100% !important;
+            height: auto;
+        }
+
     </style>
 
     @stack('custom-styles')
@@ -102,7 +107,7 @@
     <div class="ie-warning">
         <h1>Warning!!</h1>
         <p>You are using an outdated version of Internet Explorer, please upgrade
-            <br/>to any of the following web browsers to access this website.
+            <br />to any of the following web browsers to access this website.
         </p>
         <div class="iew-container">
             <ul class="iew-download">

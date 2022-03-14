@@ -53,7 +53,8 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Penerima</label>
         <div class="col-sm-10">
-            <input type="text" name="penerima" class="form-control @error('penerima') is-invalid @enderror" placeholder="Nama Penerima" value="{{old('penerima')}}">
+            <input type="text" name="penerima" class="form-control @error('penerima') is-invalid @enderror"
+                placeholder="Nama Penerima" value="{{ old('penerima') }}">
             @error('pengirim')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -62,10 +63,11 @@
         </div>
     </div>
 
-        <div class="form-group row">
+    <div class="form-group row">
         <label class="col-sm-2 col-form-label">Tanggal Kirim</label>
         <div class="col-sm-10">
-            <input type="date" name="tgl_kirim" class="form-control @error('tgl_kirim') is-invalid @enderror" placeholder="Tanggal Kirim" value="{{old('tgl_kirim')}}">
+            <input type="date" name="tgl_kirim" class="form-control @error('tgl_kirim') is-invalid @enderror"
+                placeholder="Tanggal Kirim" value="{{ old('tgl_kirim') }}">
             @error('tgl_kirim')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -89,13 +91,44 @@
 
     <div class="form-group row">
         <div class="col-sm-2 col-form-label">Paraf</div>
-        <div class="col-sm-10">
-            <br/>
-            <div id="signaturePad" ></div>
-            <br/>
+        <div class="col-sm-6">
+            {{-- <button type="button" class="btn btn-info btn-sm waves-effect" data-toggle="modal"
+                data-target="#default-Modal">Tambah TTD</button>
+
+            <div class="modal fade" id="default-Modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Tempat Untuk Paraf </h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+
+
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default waves-effect "
+                                data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary waves-effect waves-light ">Save
+                                changes</button>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
+            <br />
+            <div id="sig"></div>
+            <br />
+            <button id="clear" class="btn btn-danger btn-sm">Clear Signature</button>
+            <textarea id="signature64" name="signed" style="display: none"></textarea>
+            {{-- <br />
+            <div id="signaturePad"></div>
+            <br />
             <button id="clear" class="btn btn-danger btn-sm"><i class="feather icon-trash"></i>Hapus Paraf</button>
             <textarea id="signature64" name="signed" style="display: none"></textarea>
-            <br/>
+            <br /> --}}
+
         </div>
     </div>
 

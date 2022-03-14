@@ -12,16 +12,14 @@
             width: 100% !important;
             height: auto;
         }
-
+    
     </style> --}}
-    <link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet"> 
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <style>
-        .kbw-signature { width: 100%; height: 180px;}
-        #signaturePad canvas{
-        width: 100% !important;
-        height: auto;
+        #sig canvas {
+            width: 80% !important;
+
         }
+
     </style>
 @endpush
 @extends('layouts.template')
@@ -66,18 +64,36 @@
             $("#signature64").val('');
         });
     </script> --}}
+    {{-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> --}}
+    {{-- <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.css"> --}}
+
+    <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"
+        rel="stylesheet">
+    {{-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jsquery.min.js"></script> --}}
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
     <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
-
-    <script type="text/javascript">
+    {{-- <script type="text/javascript">
         var signaturePad = $('#signaturePad').signature({syncField: '#signature64', syncFormat: 'PNG'});
         $('#clear').click(function(e) {
         e.preventDefault();
         signaturePad.signature('clear');
         $("#signature64").val('');
         });
-    </script>
+    </script> --}}
+
     <script>
+        var sig = $('#sig').signature({
+            syncField: '#signature64',
+            syncFormat: 'PNG'
+        });
+        $('#clear').click(function(e) {
+            e.preventDefault();
+            sig.signature('clear');
+            $("#signature64").val('');
+        });
+
         function getAnggotaDis() {
             console.log('bisa');
             $.ajax({
