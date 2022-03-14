@@ -88,6 +88,18 @@
     </div>
 
     <div class="form-group row">
+        <div class="col-sm-2 col-form-label">Paraf</div>
+        <div class="col-sm-10">
+            <br/>
+            <div id="signaturePad" ></div>
+            <br/>
+            <button id="clear" class="btn btn-danger btn-sm"><i class="feather icon-trash"></i>Hapus Paraf</button>
+            <textarea id="signature64" name="signed" style="display: none"></textarea>
+            <br/>
+        </div>
+    </div>
+
+    <div class="form-group row">
         <label class="col-sm-2 col-form-label">File Surat</label>
         <div class="col-sm-10">
             <input type="file" name="file_surat" class="form-control" id="file_surat" />

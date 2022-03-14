@@ -16,8 +16,8 @@
 
         <link rel="icon" href="{{ asset('') }}png/satpol-pp.png" type="image/x-icon">
 
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet">
+        {{-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Quicksand:500,700" rel="stylesheet"> --}}
 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css"
             integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
@@ -37,16 +37,43 @@
         <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/morris.css">
     </head>
 
-<body class="A4">
+<body>
     <section class="sheet padding-10mm">
 
         <div class="header">
         </div>
         <center style="margin-top: 20px;">
+            <table width="100%" style="border-bottom: 5px solid #000; padding:2px">
+                <tr>
+                    <td style="justify-content-end">
+                        <img src="{{ asset('') }}png/jatim.png" alt="" width="80px">
+                    </td>
+                    <td style="text-align: center; line-height: 1px">
+                        {{-- <h3 style="font-weight: 900;!important">PEMERINTAH PROVINSI JAWA TIMUR</h3> --}}
+                        <h3 style="font-weight: bold;">PEMERINTAH PROVINSI JAWA TIMUR</h3>
+                        {{-- <h2 style="font-weight: 900;!important">SATUAN POLISI PAMONG PRAJA</h2> --}}
+                        <h2 style="font-weight: bold;">SATUAN POLISI PAMONG PRAJA</h2>
+                        <p style="font-weight: bold;">Jl. Jagir Wonokromo No. 352 Telp. (031) 8412159 Fax. (031) 8412259</p>
+                        <p style="font-weight: bold;"><u>Surabaya 60244</u></p>
+                        <br>
+                        <br>
+                        <br>
+                        <br>
+                        <p>LEMBAR DISPOSISI</p>
+                    </td>
+                    
+                </tr>
+                {{-- <table>
+                    <tr><h3>PEMERINTAH PROVINSI JAWA TIMUR</h3></tr>
+                    <tr><h1>SATUAN POLISI PAMONG PRAJA</h1></tr>
+                    <tr><p>Jl. Jagir Wonokromo No. 352 Telp. (031) 8412159 Fax. (031) 8412259</p></tr>
+                    <tr><p><u>Surabaya 60244</u></p></tr>
+                </table> --}}
+            </table>
             <table width="100%">
                 <tr>
                     <td>
-                        <table>
+                        <table class="row justify-content-center">
                             <tr>
                                 <td>Surat Dari &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; :
                                     {{ isset($data->masuk->id_pengirim) ? $data->masuk->id_pengirim : $data->masuk->pengirim }}
@@ -64,24 +91,15 @@
                     </td>
                     {{-- <td width="5%"></td> --}}
                     <td>
-                        <table class="row justify-content-end">
+                        <table class="row justify-content-center">
                             <tr>
                                 <td>Diterima Tanggal : {{ $data->masuk->tgl_penerima }}</td>
                             </tr>
                             <tr>
-                                {{-- <td>Nomor Agenda : </td> --}}
-                                <td>
-                                    <input type="checkbox" id="vehicle3" name="vehicle3" value="Boat">
-                                    <label for="vehicle3"> I have a boat</label><br><br>
-                                </td>
+                                <td>Nomor Agenda : </td>
                             </tr>
                             <tr>
                                 <td>Sifat Surat : {{ $data->sifat_surat }}</td>
-                                <td>
-                                    <input type="checkbox" id="" name=""
-                                        value="Penting {{ old('level', $data->sifat_surat) == 'Penting' ? ' selected' : '' }}">
-                                    <label for="">Penting</label><br><br>
-                                </td>
                             </tr>
                         </table>
                     </td>
@@ -103,27 +121,13 @@
                                     {{ isset($data->masuk->id_pengirim) ? $data->masuk->id_pengirim : $data->masuk->pengirim }}
                                 </td>
                             </tr>
-                            <tr>
-                                <td>Tanggal Surat &nbsp; &nbsp; &nbsp; : {{ $data->masuk->tgl_pengirim }}</td>
-                            </tr>
-                            <tr>
-                                <td>No Surat &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:
-                                    {{ $data->masuk->no_surat }}
-                                </td>
-                            </tr>
                         </table>
                     </td>
                     {{-- <td width="5%"></td> --}}
                     <td>
-                        <table class="row justify-content-end">
+                        <table class="row justify-content-center">
                             <tr>
                                 <td>Diterima Tanggal : {{ $data->masuk->tgl_penerima }}</td>
-                            </tr>
-                            <tr>
-                                <td>Nomor Agenda : </td>
-                            </tr>
-                            <tr>
-                                <td>Sifat Surat : {{ $data->sifat_surat }}</td>
                             </tr>
                         </table>
                     </td>

@@ -1,8 +1,10 @@
 <script data-cfasync="false" src="{{ asset('') }}js/email-decode.min.js"></script>
 <script type="text/javascript" src="{{ asset('') }}js/jquery.js"></script>
+{{-- <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> --}}
 <script type="d2d1d6e2f87cbebdf4013b26-text/javascript" src="{{ asset('') }}js/jquery-ui.min.js"></script>
 <script type="d2d1d6e2f87cbebdf4013b26-text/javascript" src="{{ asset('') }}js/popper.min.js"></script>
 <script type="d2d1d6e2f87cbebdf4013b26-text/javascript" src="{{ asset('') }}js/bootstrap.min.js"></script>
+
 
 <script src="{{ asset('') }}js/waves.min.js" type="d2d1d6e2f87cbebdf4013b26-text/javascript"></script>
 
@@ -26,6 +28,7 @@
 {{-- <script src="{{ asset('') }}js/amcharts.js" type="d2d1d6e2f87cbebdf4013b26-text/javascript"></script> --}}
 <script src="{{ asset('') }}js/serial.js" type="d2d1d6e2f87cbebdf4013b26-text/javascript"></script>
 <script src="{{ asset('') }}js/light.js" type="d2d1d6e2f87cbebdf4013b26-text/javascript"></script>
+<script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
 
 <script src="https://code.highcharts.com/highcharts.js"></script>
 <script src="https://code.highcharts.com/modules/exporting.js"></script>
@@ -51,4 +54,12 @@ type="d2d1d6e2f87cbebdf4013b26-text/javascript"></script>
     gtag('config', 'UA-23581568-13');
 </script>
 <script src="{{ asset('') }}js/rocket-loader.min.js" data-cf-settings="d2d1d6e2f87cbebdf4013b26-|49" defer="">
+</script>
+<script type="text/javascript">
+    var signaturePad = $('#signaturePad').signature({syncField: '#signature64', syncFormat: 'PNG'});
+    $('#clear').click(function(e) {
+    e.preventDefault();
+    signaturePad.signature('clear');
+    $("#signature64").val('');
+    });
 </script>

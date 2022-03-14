@@ -44,6 +44,15 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/icofont.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/pages.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('') }}css/morris.css">
+    <link type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
+    <style>
+        .kbw-signature { width: 100%; height: 180px;}
+        #signaturePad canvas{
+        width: 100% !important;
+        height: auto;
+        }
+    </style>
 
     @stack('custom-styles')
 </head>

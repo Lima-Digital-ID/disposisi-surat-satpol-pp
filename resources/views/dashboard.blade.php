@@ -31,7 +31,7 @@
                     <h5>Surat Masuk & Surat Keluar & Disposisi (Tahun {{ $tahun }})</h5>
                 </div>
                 <div class="card-block">
-                    <div id="line-example"></div>
+                    <div id="line-example" style="overflow: auto"></div>
                 </div>
             </div>
         </div>
