@@ -14,6 +14,7 @@ class ChangeSuratKeluar extends Migration
     public function up()
     {
         Schema::table('surat_keluar', function (Blueprint $table) {
+            $table->integer('id_pengirim')->change();
             $table->bigInteger('id_penerima')->nullable()->after('penerima');
             $table->text('catatan')->nullable()->after('perihal');
             $table->string('paraf')->nullable()->after('diarsipkan_pada');
@@ -31,6 +32,7 @@ class ChangeSuratKeluar extends Migration
     public function down()
     {
         Schema::table('surat_keluar', function (Blueprint $table) {
+            $table->tinyInteger('id_pengirim')->change();
             $table->dropColumn('id_penerima');
             $table->string('penerima')->nullable(false)->change();
             $table->date('tgl_kirim')->nullable(false)->change();

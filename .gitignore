@@ -5,6 +5,7 @@
 /vendor
 /public/upload/surat_masuk/
 /public/upload/surat_keluar/
+/public/upload/paraf/
 .env
 .env.backup
 .phpunit.result.cache

@@ -21,6 +21,11 @@ class User extends Authenticatable
         return $this->belongsTo('\App\Models\Jabatan', 'id_jabatan')->withDefault(['jabatan' => '-']);
     }
 
+    public function unit_kerja()
+    {
+        return $this->belongsTo('\App\Models\UnitKerja', 'id_unit_kerja')->withDefault(['unit_kerja' => '-']);
+    }
+
     public function penerima_masuk()
     {
         return $this->belongsTo('\App\Models\SuratMasuk', 'id_penerima')->withDefault(['nama' => '-']);

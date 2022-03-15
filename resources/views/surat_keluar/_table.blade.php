@@ -9,6 +9,8 @@
                 <th>Penerima Surat</th>
                 <th>Tanggal Kirim Surat</th>
                 <th>Perihal Surat</th>
+                <th>Paraf</th>
+                <th>Tanda Tangan</th>
                 <th>Lampiran Surat</th>
                 <th>Aksi</th>
             </tr>
@@ -25,9 +27,14 @@
                     <td>{{ $item->no_surat }}</td>
                     <td>{{ $item->jenis_surat->jenis_surat }}</td>
                     <td>{{ $item->pengirim_keluar->nama }}</td>
-                    <td>{{ $item->penerima }}</td>
+                    <td>{{ isset($item->penerima) ? $item->penerima : $item->penerima_keluar->nama }}</td>
                     <td>{{ $item->tgl_kirim }}</td>
                     <td>{{ $item->perihal }}</td>
+                    {{-- <td><img src="{{ url($item->paraf) }}" alt=""></td>
+                    <img src="{{ url($item->paraf) }}" alt="" style="width: 100px"> --}}
+                    <td style="text-transform: lowercase;">{{ ($item->paraf != null) ?  url($item->paraf) : '-' }}</td>
+                    {{-- <td style="text-transform: lowercase;"><img src="{{ ($item->paraf != null) ? url($item->ttd) : "-" }}" alt="" style="width: 100px"></td> --}}
+                    <td style="text-transform: lowercase;">{{ ($item->ttd != null) ? url($item->ttd) : "-" }}</td>
                     <td align="center"><a href="{{ 'upload/surat_keluar/' . $item->file_surat }}" target="_blank"
                             class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
                     <td>
