@@ -59,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('arsip', ArsipSuratController::class);
     Route::get('get-surat-masuk', [SuratMasukController::class, 'getSuratMasukJson'])->name('get_surat_masuk');
     Route::get('get-surat-keluar', [SuratKeluarController::class, 'getSuratKeluarJson'])->name('get_surat_keluar');
+    Route::post('save-surat', [SuratKeluarController::class, 'save_surat_keluar'])->name('save_surat');
     Route::prefix('laporan_surat')->group(function () {
         Route::resource('laporan_surat', LaporanSuratController::class);
         Route::get('get_laporan', [LaporanSuratController::class, 'getLaporan']);

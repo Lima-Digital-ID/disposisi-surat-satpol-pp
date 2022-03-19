@@ -27,7 +27,7 @@
         </div>
     </div>
 @endsection
-@push('custom-scripts')
+{{-- @push('custom-scripts')
     <script>
         function getAnggotaDis() {
             $('#id_penerima').empty();
@@ -48,4 +48,4 @@
             })
         }
     </script>
-@endpush
+@endpush --}}

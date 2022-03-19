@@ -1,6 +1,6 @@
-<form action="{{ route('surat_keluar.update', $data->id) }}" method="POST">
+<form action="{{ route('save_surat') }}" method="POST">
     @csrf
-    @method('PUT')
+    {{-- @method('PUT') --}}
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">No Surat</label>
         <div class="col-sm-10">
@@ -13,6 +13,12 @@
             @enderror
         </div>
     </div>
+
+    <input type="hidden" value="{{ auth()->user()->id }}" name="id_pengirim">
+
+    <input type="hidden" value="{{ $data->file_surat }}" name="file_surat">
+
+    <input type="hidden" value="{{ $data->perihal }}" name="perihal">
 
     @if (auth()->user()->level == 'TU')
         <div class="form-group row">
@@ -34,7 +40,7 @@
             <div class="col-sm-10">
                 <input type="text" name="penerima" class="form-control @error('penerima') is-invalid @enderror"
                     placeholder="Nama Penerima" value="{{ old('penerima', $data->penerima) }}">
-                @error('pengirim')
+                @error('penerima')
                     <div class="invalid-feedback">
                         {{ $message }}
                     </div>
@@ -47,13 +53,13 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label">Penerima</label>
             <div class="col-sm-10">
-                <select name="id_penerima" id="id_penerima" class="js-example-basic-single"
+                <select name="penerima" id="penerima" class="js-example-basic-single"
                     style="width: 100%;" required>
                     <option value="">Pilih Penerima</option>
-                    {{-- @foreach ($allUsr as $usr)
+                    @foreach ($allUsr as $usr)
                         <option value="{{ $usr->id }}">{{ $usr->nama . ' || ' . $usr->jabatan->jabatan }}
                         </option>
-                    @endforeach --}}
+                    @endforeach
                 </select>
                 @error('id_penerima')
                     <div class="invalid-feedback">
@@ -69,7 +75,7 @@
             <label class="col-sm-2 col-form-label">Catatan</label>
             <div class="col-sm-10">
                 <input type="text" name="catatan" class="form-control @error('catatan') is-invalid @enderror"
-                    placeholder="Catatan" value="{{ old('catatan', $data->catatan) }}">
+                    placeholder="catatan" value="{{ old('catatan', $data->catatan) }}">
                 @error('pengirim')
                     <div class="invalid-feedback">
                         {{ $message }}

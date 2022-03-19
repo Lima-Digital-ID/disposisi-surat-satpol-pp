@@ -33,6 +33,7 @@ class SuratKeluarController extends Controller
             $keyword = $request->get('keyword');
             $getSuratKeluar = SuratKeluar::with('jenis_surat', 'penerima_keluar', 'pengirim_keluar')
                                         ->where('id_pengirim', auth()->user()->id)
+                                        ->orWhere('id_penerima', auth()->user()->id)
                                         ->where('diarsipkan', '0')->orderBy('id', 'ASC');
             // if (auth()->user()->level == 'staff') {
             //     $getSuratKeluar->where('id_pengirim', auth()->user()->id);
@@ -135,9 +136,18 @@ class SuratKeluarController extends Controller
         $this->param['data'] = SuratKeluar::find($id);
         $this->param['btnText'] = 'List Surat Keluar';
         $this->param['btnLink'] = route('surat_keluar.index');
-        $this->param['allUsr'] = User::get();
+        // $this->param['allUsr'] = User::get();
+        if (auth()->user()->level == 'Kasubag')
+        {
+            $getUser = User::with('golongan', 'jabatan','unit_kerja')->where('level','Kabag')->get();
+        } elseif (auth()->user()->level == 'Kabag')
+        {
+            $getUser = User::with('golongan', 'jabatan','unit_kerja')->where('level','Kasat')->get();
+        }
         $this->param['allJen'] = JenisSurat::get();
         // ddd(auth()->user()->level == 'Kabag');
+        $this->param['allUsr'] = $getUser;
+        // ddd($this->param['allUsr']);
 
         return view('surat_keluar.edit', $this->param);
     }
@@ -149,12 +159,13 @@ class SuratKeluarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SuratKeluarRequest $request, $id)
+    public function update(SuratKeluarRequest $request)
     {
-        $surat = SuratKeluar::findOrFail($id);
+        // $surat = SuratKeluar::findOrFail($id);
         $validated = $request->validated();
 
         try {
+            $surat = new SuratKeluar;
             // upload paraf
             // $folderPath = public_path('upload/paraf/');
             $folderPath = 'upload/paraf/';
@@ -173,7 +184,7 @@ class SuratKeluarController extends Controller
                 $surat->id_penerima = $request->get('penerima');
             else // Penerima baru
                 $surat->penerima = $request->get('penerima');
-            
+
             $surat->tgl_kirim = $request->get('tgl_kirim');
             $surat->paraf = $newParaf;
             $surat->perihal = $validated['perihal'];
@@ -223,5 +234,40 @@ class SuratKeluarController extends Controller
         );
 
         return $data;
+    }
+
+    public function save_surat_keluar(Request $request)
+    {
+        try {
+            $surat = new SuratKeluar;
+
+            // upload surat
+            // $uploadPath = 'upload/surat_keluar/';
+            // $scanSurat = $request->file('file_surat');
+            // $newScanSurat = time() . '_' . $scanSurat->getClientOriginalName();
+
+            $surat->no_surat = $request->get('no_surat');
+            $surat->id_pengirim = $request->get('id_pengirim');
+
+            if (is_numeric($request->penerima)) // Penerima dari master
+                $surat->id_penerima = $request->get('penerima');
+            else // Penerima baru
+                $surat->penerima = $request->get('penerima');
+
+            $surat->tgl_kirim = $request->get('tgl_kirim');
+            $surat->perihal = $request->get('perihal');
+            $surat->file_surat = '1'.$request->get('file_surat');
+            if ($surat->save()) {
+                // $scanSurat->move($uploadPath, $newScanSurat);
+                // $paraf($paraf, $image_base64);
+                return redirect()->route('surat_keluar.index')->withStatus('Data berhasil disimpan.');
+            }
+        } catch (Exception $e) {
+            return back()->withError('Terjadi kesalahan.' . $e->getMessage());
+        } catch (QueryException $e) {
+            return back()->withError('Terjadi kesalahan.' . $e->getMessage());
+        }
+
+        return redirect()->route('surat_keluar.index')->withStatus('Data berhasil disimpan.');
     }
 }
