@@ -72,37 +72,43 @@
             </table>
             <table width="100%">
                 <tr>
-                    <td width="50%" style="border-right: solid;">
-                        <table style="margin-bottom:65px;">
+                    <td>
+                        <table class="row justify-content-center">
                             <tr>
-                                <td>Surat dari : {{ isset($data->masuk->id_pengirim) ? $data->masuk->id_pengirim : $data->masuk->pengirim }}</td>
+                                <td>Surat Dari &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; :
+                                    {{ isset($data->masuk->id_pengirim) ? $data->masuk->id_pengirim : $data->masuk->pengirim }}
+                                </td>
                             </tr>
                             <tr>
-                                <td>Tanggal surat : {{ date("d-m-Y",strtotime($data->masuk->tgl_pengirim)) }}</td>
+                                <td>Tanggal Surat &nbsp; &nbsp; &nbsp; : {{ $data->masuk->tgl_pengirim }}</td>
                             </tr>
                             <tr>
-                                <td>Nomor : {{ $data->masuk->no_surat }}</td>
+                                <td>No Surat &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:
+                                    {{ $data->masuk->no_surat }}
+                                </td>
                             </tr>
                         </table>
                     </td>
-                    <td width="50%">
-                        <table>
+                    {{-- <td width="5%"></td> --}}
+                    <td>
+                        <table class="row justify-content-center">
                             <tr>
-                                <td>Diterima tanggal : {{ date("d-m-Y",strtotime($data->masuk->tgl_penerima)) }}</td>
+                                <td>Diterima Tanggal : {{ $data->masuk->tgl_penerima }}</td>
                             </tr>
                             <tr>
-                                <td>Nomor agenda :</td>
+                                <td>Nomor Agenda : </td>
                             </tr>
                             <tr>
                                 <td>Sifat Surat :
+                                    <br>
                                     <table>
                                         <tr>
                                             <td>
-                                                <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
+                                                <input type="checkbox">
                                                 <label for="">Sangat Segera</label>
                                             </td>
                                             <td>
-                                                <input type="checkbox" {{ $data->sifat_surat == 'Segera' ? "checked" : ""}}>
+                                                <input type="checkbox">
                                                 <label for="">Segera</label>
                                             </td>
                                         </tr>
@@ -110,106 +116,56 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                <input type="checkbox" {{ $data->sifat_surat == 'Penting' ? "checked" : ""}}>
+                                                <input type="checkbox">
                                                 <label for="">Penting</label>
                                             </td>
                                             <td>
-                                                <input type="checkbox" {{ $data->sifat_surat == 'Biasa' ? "checked" : ""}}>
+                                                <input type="checkbox">
                                                 <label for="">Biasa</label>
                                             </td>
                                         </tr>
                                     </table>
                                 </td>
+                                {{-- <td>Sifat Surat : {{ $data->sifat_surat }}</td> --}}
                             </tr>
                         </table>
                     </td>
                 </tr>
             </table>
-            <table class="row justify-content-start" style="border-top: solid;border-bottom: solid;" width="100%">
+        </center>
+        <center class="center">
+            <hr style="border-bottom:1px solid black; border-top:1px solid black">
+            <h4 style="margin-top: 5px; margin-bottom: 5px;">Perihal : {{ $data->catatan }}</h4>
+            <hr style="border-bottom:1px solid black; border-top:1px solid black">
+        </center>
+        <center>
+            <table width="100%">
                 <tr>
-                    <td>Perihal : {{ $data->masuk->perihal }}</td>
-                </tr>
-            </table>
-            <table width="100%" style="border-bottom:solid;">
-                <tr>
-                    <td width="50%" style="border-right: solid">
+                    <td>
                         <table>
                             <tr>
-                                <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
-                                    <label for="">Bp. Kepala Satuan</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
-                                    <label for="">Sekretaris</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
-                                    <label for="">Kabid Penegakan Peraturan Daerah</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
-                                    <label for="">Kabid Ketentraman dan Ketertiban Umum</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
-                                    <label for="">Kabid Pemadam Kebakaran dan Penyelamatan</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
-                                    <label for="">Kabid Perlindungan Masyarakat</label>
+                                <td>Surat Dari &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; :
+                                    {{ isset($data->masuk->id_pengirim) ? $data->masuk->id_pengirim : $data->masuk->pengirim }}
                                 </td>
                             </tr>
                         </table>
                     </td>
-                    <td width="50%">
-                        <table style="margin-bottom: 65px;">
+                    {{-- <td width="5%"></td> --}}
+                    <td>
+                        <table class="row justify-content-center">
                             <tr>
-                                <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
-                                    <label for="">Tanggapan dan Saran</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
-                                    <label for="">Proses Lebih Lanjut</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
-                                    <label for="">Koordinasi/konfirmasi</label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
-                                    <label for="">..............</label>
-                                </td>
+                                <td>Diterima Tanggal : {{ $data->masuk->tgl_penerima }}</td>
                             </tr>
                         </table>
                     </td>
                 </tr>
             </table>
-            <table class="row justify-content-center" style="margin-top:20px;" width="100%">
-                <tr>
-                    <td><h4><b><u>ISI DISPOSISI</u></b></h4></td>
-                </tr>
-                <tr>
-                    <td><center>{{ $data->catatan }}</center></td>
-                </tr>
-            </table>
+        </center>
+        <center class="center">
+            <hr style="border-bottom:1px solid black; border-top:1px solid black">
+            <h4 style="margin-top: 5px; margin-bottom: 5px;">Isi Disposisi : {{ $data->catatan }}</h4>
+            <hr style="border-bottom:1px solid black; border-top:1px solid black">
+        </center>
         </div>
     </section>
 
