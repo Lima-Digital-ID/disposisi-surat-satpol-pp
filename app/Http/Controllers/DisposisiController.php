@@ -37,7 +37,7 @@ class DisposisiController extends Controller
                 // if(auth()->user()->level=='Anggota'){
                 //     $getDisposisi->where('id_penerima',auth()->user()->id)->orwhere('id_penerima',auth()->user()->id);
                 // }
-                ->where('id_penerima', auth()->user()->id)->orwhere('id_penerima', auth()->user()->id)
+                ->where('id_pengirim', auth()->user()->id)->orwhere('id_penerima', auth()->user()->id)
                 // $getDisposisi->orderBy('id','ASC');
                 ->orderBy('id', 'ASC');
 
@@ -91,17 +91,15 @@ class DisposisiController extends Controller
     {
         $validated = $request->validated();
         try {
-            foreach ($validated['id_penerima'] as $key => $value) {
-                $disposisi = new Disposisi;
-                $disposisi->id_surat_masuk = $request->get('id_surat_masuk');
-                $disposisi->sifat_surat = $validated['sifat_surat'];
-                $disposisi->id_surat_keluar = $request->get('id_surat_keluar');
-                $disposisi->id_pengirim = $request->get('id_pengirim');
-                $disposisi->id_penerima = $value;
-                $disposisi->tgl_disposisi = $validated['tgl_disposisi'];
-                $disposisi->catatan = $validated['catatan'];
-                $disposisi->save();
-            }
+            $disposisi = new Disposisi;
+            $disposisi->id_surat_masuk = $request->get('id_surat_masuk');
+            $disposisi->sifat_surat = $validated['sifat_surat'];
+            $disposisi->id_surat_keluar = $request->get('id_surat_keluar');
+            $disposisi->id_pengirim = $request->get('id_pengirim');
+            $disposisi->id_penerima = $validated['id_penerima'];
+            $disposisi->tgl_disposisi = $validated['tgl_disposisi'];
+            $disposisi->catatan = $validated['catatan'];
+            $disposisi->save();
         } catch (Exception $e) {
             return back()->withError('Terjadi kesalahan.' . $e);
         } catch (QueryException $e) {

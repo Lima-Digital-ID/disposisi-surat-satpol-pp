@@ -1,3 +1,17 @@
+@push('custom-styles')
+    <style>
+        .kbw-signature {
+            width: 50%;
+            height: 200px;
+        }
+
+        #sig canvas {
+            width: 100% !important;
+
+        }
+
+    </style>
+@endpush
 @extends('layouts.template')
 
 @section('page-header')
@@ -27,25 +41,21 @@
         </div>
     </div>
 @endsection
-{{-- @push('custom-scripts')
+@push('custom-scripts')
+    <link type="text/css" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/south-street/jquery-ui.css"
+        rel="stylesheet">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="http://keith-wood.name/js/jquery.signature.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://keith-wood.name/css/jquery.signature.css">
     <script>
-        function getAnggotaDis() {
-            $('#id_penerima').empty();
-            $.ajax({
-                type: "GET",
-                url: "{{ url('disposisi/get_disposisi') }}/" + 1 + "?tipe=" + 1,
-                dataType: "json",
-                success: function(response) {
-                    $.each(response, function(k, v) {
-                        console.log(v.nama);
-                        console.log(v.id);
-                        $('#id_penerima').append(
-                            "<option value=''>Pilih Penerima</option>"+
-                            "<option value='" + v.id + "'>" + v.nama + "</option>"
-                        )
-                    })
-                }
-            })
-        }
+        var sig = $('#sig').signature({
+            syncField: '#signature64',
+            syncFormat: 'PNG'
+        });
+        $('#clear').click(function(e) {
+            e.preventDefault();
+            sig.signature('clear');
+            $("#signature64").val('');
+        });
     </script>
-@endpush --}}
+@endpush

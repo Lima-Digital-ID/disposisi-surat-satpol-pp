@@ -82,13 +82,13 @@
                                     <option value="">Pilih Sifat Surat</option>
                                     <option value="Penting">
                                         Penting</option>
-                                    <option value="Rahasia">
-                                        Rahasia
+                                    <option value="Sangat Segera">
+                                        Sangat Segera
+                                    </option>
+                                    <option value="Segera">
+                                        Segera
                                     </option>
                                     <option value="Biasa">Biasa
-                                    </option>
-                                    <option value="Pribadi">
-                                        Pribadi
                                     </option>
                                 </select>
                                 @error('sifat_surat')
