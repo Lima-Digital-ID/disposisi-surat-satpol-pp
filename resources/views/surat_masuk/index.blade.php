@@ -101,12 +101,11 @@
 
                         <input type="hidden" name="id_pengirim" value="{{ auth()->user()->id }}">
                         <input type="hidden" name="id_surat_masuk" value=" ${data.id}">
-                        <input type="hidden" name="id_penerima" value=" ${data.id}">
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Penerima</label>
                             <div class="col-sm-10">
-                                <select name="id_penerima[]" id="id_penerima" class="js-example-basic-single" style="width: 100%;" required>
+                                <select name="id_penerima" id="id_penerima" class="js-example-basic-single" style="width: 100%;" required>
                                     <option value="">Pilih Penerima</option>
                                 </select>
                                 @error('id_penerima')
@@ -151,21 +150,10 @@
                         {{-- <button type="button" class="btn btn-primary">Save changes</button> --}}
                     </div>
                     `);
-                    // $.each(response,function(k,v){
-                    //     console.log(v.nama);
-                    //     console.log(v.id);
-                    //     $('#id_penerima').append(
-                    //         "<option value='"+v.id+"'>"+v.nama+"</option>"
-                    //     )
-                    // })
                     $('.js-example-basic-single').select2();
                 }
             })
         }
-
-        // $('#id_penerima').select2({
-        //     dropdownParent: $('#disposisiModal')
-        // });
 
         function getAnggotaDis(tipe) {
             $('#selectUser').empty();
@@ -176,7 +164,7 @@
                 success: function(response) {
                     $.each(response, function(k, v) {
                         $('#id_penerima').append(
-                            "<option value='" + v.id + "'>" + v.nama + "</option>"
+                            "<option value='" + v.id + "'>"+v.level+" || " + v.nama + "</option>"
                         )
                     })
                 }
