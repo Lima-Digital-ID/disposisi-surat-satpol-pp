@@ -43,7 +43,7 @@ class SuratMasukController extends Controller
             $pengirim = $request->get('pengirim');
             $perihal = $request->get('perihal');
 
-            $getSuratMasuk = SuratMasuk::with('pengirim_masuk');
+            $getSuratMasuk = SuratMasuk::with('pengirim_masuk','jenis_surat');
 
             $getSuratMasuk->where('diarsipkan', '0')->orderBy('id', 'ASC');
 
@@ -105,6 +105,7 @@ class SuratMasukController extends Controller
             $surat->no_surat = $validated['no_surat'];
             $surat->sifat_surat = $validated['sifat_surat'];
             $surat->status_tembusan = $request->get('tembusan');
+            $surat->id_jenis_surat = $request->get('jenis_surat');
             // $surat->id_penerima = $validated['id_penerima'];
             if (is_numeric($request->pengirim)) // Pengirim dari master pengirim
                 $surat->id_pengirim = $validated['pengirim'];
@@ -196,7 +197,7 @@ class SuratMasukController extends Controller
 
             $data->no_surat = $validated['no_surat'];
             $data->sifat_surat = $validated['sifat_surat'];
-            $data->status_tembusan = $request->get('tembusan');
+            $data->id_jenis_surat = $request->get('jenis_surat');
             // $surat->id_penerima = $validated['id_penerima'];
             if (is_numeric($request->pengirim)) // Pengirim dari master pengirim
                 $data->id_pengirim = $validated['pengirim'];

@@ -10,10 +10,10 @@ class SuratMasuk extends Model
     use HasFactory;
     protected $table = 'surat_masuk';
 
-    // public function jenis_surat()
-    // {
-    //     return $this->belongsTo('\App\Models\JenisSurat', 'id_jenis_surat')->withDefault(['jenis_surat' => '-']);
-    // }
+    public function jenis_surat()
+    {
+        return $this->belongsTo('\App\Models\JenisSurat', 'id_jenis_surat')->withDefault(['jenis_surat' => '-']);
+    }
 
     public function pengirim_masuk()
     {

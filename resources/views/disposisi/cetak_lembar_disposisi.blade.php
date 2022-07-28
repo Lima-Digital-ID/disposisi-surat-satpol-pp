@@ -53,7 +53,8 @@
                         <h3 style="font-weight: bold;">PEMERINTAH PROVINSI JAWA TIMUR</h3>
                         {{-- <h2 style="font-weight: 900;!important">SATUAN POLISI PAMONG PRAJA</h2> --}}
                         <h2 style="font-weight: bold;">SATUAN POLISI PAMONG PRAJA</h2>
-                        <p style="font-weight: bold;">Jl. Jagir Wonokromo No. 352 Telp. (031) 8412159 Fax. (031) 8412259</p>
+                        <p style="font-weight: bold;">Jl. Jagir Wonokromo No. 352 Telp. (031) 8412159 Fax. (031) 8412259
+                        </p>
                         <p style="font-weight: bold;"><u>Surabaya 60244</u></p>
                         <br>
                         <br>
@@ -75,10 +76,12 @@
                     <td width="50%" style="border-right: solid;">
                         <table style="margin-bottom:65px;">
                             <tr>
-                                <td>Surat dari : {{ isset($data->masuk->id_pengirim) ? $data->masuk->id_pengirim : $data->masuk->pengirim }}</td>
+                                <td>Surat dari :
+                                    {{ isset($data->masuk->id_pengirim) ? $data->masuk->id_pengirim : $data->masuk->pengirim }}
+                                </td>
                             </tr>
                             <tr>
-                                <td>Tanggal surat : {{ date("d-m-Y",strtotime($data->masuk->tgl_pengirim)) }}</td>
+                                <td>Tanggal surat : {{ date('d-m-Y', strtotime($data->masuk->tgl_pengirim)) }}</td>
                             </tr>
                             <tr>
                                 <td>Nomor : {{ $data->masuk->no_surat }}</td>
@@ -88,7 +91,7 @@
                     <td width="50%">
                         <table>
                             <tr>
-                                <td>Diterima tanggal : {{ date("d-m-Y",strtotime($data->masuk->tgl_penerima)) }}</td>
+                                <td>Diterima tanggal : {{ date('d-m-Y', strtotime($data->masuk->tgl_penerima)) }}</td>
                             </tr>
                             <tr>
                                 <td>Nomor agenda :</td>
@@ -98,11 +101,13 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
+                                                <input type="checkbox"
+                                                    {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
                                                 <label for="">Sangat Segera</label>
                                             </td>
                                             <td>
-                                                <input type="checkbox" {{ $data->sifat_surat == 'Segera' ? "checked" : ""}}>
+                                                <input type="checkbox"
+                                                    {{ $data->sifat_surat == 'Segera' ? 'checked' : '' }}>
                                                 <label for="">Segera</label>
                                             </td>
                                         </tr>
@@ -110,11 +115,13 @@
                                     <table>
                                         <tr>
                                             <td>
-                                                <input type="checkbox" {{ $data->sifat_surat == 'Penting' ? "checked" : ""}}>
+                                                <input type="checkbox"
+                                                    {{ $data->sifat_surat == 'Penting' ? 'checked' : '' }}>
                                                 <label for="">Penting</label>
                                             </td>
                                             <td>
-                                                <input type="checkbox" {{ $data->sifat_surat == 'Biasa' ? "checked" : ""}}>
+                                                <input type="checkbox"
+                                                    {{ $data->sifat_surat == 'Biasa' ? 'checked' : '' }}>
                                                 <label for="">Biasa</label>
                                             </td>
                                         </tr>
@@ -127,7 +134,8 @@
             </table>
             <table class="row justify-content-start" style="border-top: solid;border-bottom: solid;" width="100%">
                 <tr>
-                    <td>Perihal : {{ $data->masuk->perihal }}</td>
+                    <td>Perihal : <b style="font-weight: bold;">{{ $data->masuk->jenis_surat->jenis_surat }} :</b>
+                        {{ $data->masuk->perihal }}</td>
                 </tr>
             </table>
             <table width="100%" style="border-bottom:solid;">
@@ -136,37 +144,43 @@
                         <table>
                             <tr>
                                 <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
+                                    <input type="checkbox"
+                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
                                     <label for="">Bp. Kepala Satuan</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
+                                    <input type="checkbox"
+                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
                                     <label for="">Sekretaris</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
+                                    <input type="checkbox"
+                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
                                     <label for="">Kabid Penegakan Peraturan Daerah</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
+                                    <input type="checkbox"
+                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
                                     <label for="">Kabid Ketentraman dan Ketertiban Umum</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
+                                    <input type="checkbox"
+                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
                                     <label for="">Kabid Pemadam Kebakaran dan Penyelamatan</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
+                                    <input type="checkbox"
+                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
                                     <label for="">Kabid Perlindungan Masyarakat</label>
                                 </td>
                             </tr>
@@ -176,25 +190,29 @@
                         <table style="margin-bottom: 65px;">
                             <tr>
                                 <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
+                                    <input type="checkbox"
+                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
                                     <label for="">Tanggapan dan Saran</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
+                                    <input type="checkbox"
+                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
                                     <label for="">Proses Lebih Lanjut</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
+                                    <input type="checkbox"
+                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
                                     <label for="">Koordinasi/konfirmasi</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox" {{ $data->sifat_surat == 'Sangat Seegera' ? "checked" : ""}}>
+                                    <input type="checkbox"
+                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
                                     <label for="">..............</label>
                                 </td>
                             </tr>
@@ -204,13 +222,17 @@
             </table>
             <table class="row justify-content-center" style="margin-top:20px;" width="100%">
                 <tr>
-                    <td><h4><b><u>ISI DISPOSISI</u></b></h4></td>
+                    <td>
+                        <h4><b><u>ISI DISPOSISI</u></b></h4>
+                    </td>
                 </tr>
                 <tr>
-                    <td><center>{{ $data->catatan }}</center></td>
+                    <td>
+                        <center>{{ $data->catatan }}</center>
+                    </td>
                 </tr>
             </table>
-        </div>
+            </div>
     </section>
 
 </body>

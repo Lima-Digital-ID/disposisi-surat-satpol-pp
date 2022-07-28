@@ -4,6 +4,7 @@
             <tr class="table-primary">
                 <th class="text-center">#</th>
                 <th>No Surat</th>
+                <th>Sifat Surat</th>
                 <th>Jenis Surat</th>
                 <th>Pengirim Surat</th>
                 <th>Penerima Surat</th>
@@ -25,6 +26,7 @@
                     <td class="text-center text-muted">{{ $no }}</td>
                     <td>{{ $item->no_surat }}</td>
                     <td>{{ $item->sifat_surat }}</td>
+                    <td>{{ $item->jenis_surat->jenis_surat }}</td>
                     <td>{{ isset($item->pengirim) ? $item->pengirim : $item->pengirim_masuk->pengirim }}</td>
                     {{-- <td>{{ $item->penerima_masuk->nama }}</td> --}}
                     <td>Petugas TU</td>
@@ -42,9 +44,10 @@
                             </a>
                             <a href="#" class="mr-2" id="PopoverCustomT-1" data-toggle="tooltip"
                                 title="Disposisi" data-placement="top">
-                                <button onClick='javasciprt: getSuratMasuk({{ $item->id }})'' type="button" id="PopoverCustomT-1" class="btn btn-warning btn-sm"
-                                    data-toggle="modal" data-target="#disposisiModal" title="Disposisi"
-                                    data-placement="top"><span class="feather icon-mail" ja></span></button>
+                                <button onClick='javasciprt: getSuratMasuk({{ $item->id }})'' type="button"
+                                    id="PopoverCustomT-1" class="btn btn-warning btn-sm" data-toggle="modal"
+                                    data-target="#disposisiModal" title="Disposisi" data-placement="top"><span
+                                        class="feather icon-mail" ja></span></button>
                             </a>
                             <form action="{{ route('surat_masuk.destroy', $item->id) }}" method="post">
                                 @csrf
@@ -53,7 +56,7 @@
                                     onclick="confirm('{{ __('Apakah anda yakin ingin menghapus?') }}') ? this.parentElement.submit() : ''">
                                     <span class="feather icon-trash"></span>
                                 </button>
-                                </form>
+                            </form>
                         </div>
                     </td>
                 </tr>

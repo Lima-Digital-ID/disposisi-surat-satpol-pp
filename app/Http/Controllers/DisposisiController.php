@@ -213,7 +213,7 @@ class DisposisiController extends Controller
 
     public function cetakDisposisi($id)
     {
-        $this->param['data'] = Disposisi::with('pengirim', 'masuk')->find($id);
+        $this->param['data'] = Disposisi::with('pengirim', 'masuk', 'masuk.jenis_surat')->find($id);
         // ddd($this->param['data']->masuk->id_pengirim);
         return \view('disposisi.cetak_lembar_disposisi', $this->param);
         // return redirect()->route('disposisi.index');
