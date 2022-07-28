@@ -52,6 +52,7 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::post('store_disposisi', [SuratMasukController::class, 'storeDisposisi'])->name('simpan-disposisi');
     Route::get('get_surat_masuk/{id}', [SuratMasukController::class, 'getSuratMasuk']);
+    Route::get('get_surat_keluar/{id}', [SuratKeluarController::class, 'getSuratKeluar']);
     Route::resource('disposisi', DisposisiController::class);
     Route::get('cetak_disposisi/{id}', [DisposisiController::class, 'cetakDisposisi']);
     Route::resource('pengirim', PengirimController::class);
@@ -60,6 +61,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('get-surat-masuk', [SuratMasukController::class, 'getSuratMasukJson'])->name('get_surat_masuk');
     Route::get('get-surat-keluar', [SuratKeluarController::class, 'getSuratKeluarJson'])->name('get_surat_keluar');
     Route::post('save-surat', [SuratKeluarController::class, 'save_surat_keluar'])->name('save_surat');
+    Route::post('store-surat-keluar', [SuratKeluarController::class, 'storeSuratKeluar']);
     Route::prefix('laporan_surat')->group(function () {
         Route::resource('laporan_surat', LaporanSuratController::class);
         Route::get('get_laporan', [LaporanSuratController::class, 'getLaporan']);

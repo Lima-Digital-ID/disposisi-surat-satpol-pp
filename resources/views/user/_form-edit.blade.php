@@ -86,8 +86,8 @@
                 <option value="">Pilih Jenis Pegawai</option>
                 <option value="ASN" {{ old('jenis_pegawai', $data->jenis_pegawai) == 'ASN' ? ' selected' : '' }}>ASN
                 </option>
-                <option value="PTT-PK"
-                    {{ old('jenis_pegawai', $data->jenis_pegawai) == 'PTT-PK' ? ' selected' : '' }}>PTT-PK
+                <option value="PTT-PK" {{ old('jenis_pegawai', $data->jenis_pegawai) == 'PTT-PK' ? ' selected' : '' }}>
+                    PTT-PK
                 </option>
             </select>
             @error('jenis_pegawai')
@@ -120,8 +120,8 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">NIP</label>
         <div class="col-sm-10">
-            <input type="text" name="nip" class="form-control @error('nip') is-invalid @enderror" placeholder="NIP User"
-                value="{{ old('nip', $data->nip) }}">
+            <input type="text" name="nip" class="form-control @error('nip') is-invalid @enderror"
+                placeholder="NIP User" value="{{ old('nip', $data->nip) }}">
             @error('nip')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -138,8 +138,6 @@
                 <option value="Administrator" {{ old('level', $data->level) == 'Administrator' ? ' selected' : '' }}>
                     Administrator</option>
                 <option value="Admin" {{ old('level', $data->level) == 'Admin' ? ' selected' : '' }}>Admin
-                </option>
-                <option value="Anggota" {{ old('level', $data->level) == 'Anggota' ? ' selected' : '' }}>Anggota
                 </option>
                 <option value="Kasat" {{ old('level', $data->level) == 'Kasat' ? ' selected' : '' }}>Kasat
                 </option>

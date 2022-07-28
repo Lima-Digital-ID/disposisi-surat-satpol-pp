@@ -31,6 +31,45 @@ class SuratKeluarController extends Controller
 
         try {
             $keyword = $request->get('keyword');
+            $where = '';
+            $where1 = '';
+            $where2 = '';
+            if (auth()->user()->level == "TU" || auth()->user()->level == 'Administrator') {
+                $where = 'Kasat';
+            } elseif (auth()->user()->level == "Kasat") {
+                $where1 = 'TU';
+                $where2 = 'Administrator';
+            } elseif (auth()->user()->level == "Kabid") {
+                $where = 'Kasat';
+            } elseif (auth()->user()->level == "Sekretaris") {
+                $where = 'Kasat';
+            } elseif (auth()->user()->level == "Kasubag") {
+                $where = 'Sekretaris';
+            } elseif (auth()->user()->level == "Kasi") {
+                $where = 'Kabid';
+            } elseif (auth()->user()->level == "Staff") {
+                $where1 = 'Kasubag';
+                $where2 = 'Kasi';
+            }
+            $getAnggota = User::from('users as u')
+                ->select(
+                    'u.*',
+                )->where('u.id', "!=", auth()->user()->id);
+            if (auth()->user()->level != "Kasat" && auth()->user()->level != "Staff") {
+                $getAnggota = $getAnggota->where('u.level', $where);
+            }
+            else {
+                $getAnggota = $getAnggota->where('u.level', $where1);
+                $getAnggota = $getAnggota->orWhere('u.level', $where2);
+            }
+            // $getAnggota = $getAnggota->whereNotIn('u.id', function ($query) use ($id) {
+            //     $where = $_GET['tipe'] == 0 ? 'id_surat_keluar' : 'id_surat_masuk';
+            //     $query->select('id_penerima')
+            //         ->from('disposisi')
+
+            //         ->where($where, $id)
+            //         ->get();
+            // })->get();
             $getSuratKeluar = SuratKeluar::with('jenis_surat', 'penerima_keluar', 'pengirim_keluar')
                                         ->where('id_pengirim', auth()->user()->id)
                                         ->orWhere('id_penerima', auth()->user()->id)
@@ -45,6 +84,7 @@ class SuratKeluarController extends Controller
             }
 
             $this->param['data'] = $getSuratKeluar->paginate(10);
+            $this->param['user'] = $getAnggota->get();
             // ddd($this->param['data']);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
@@ -140,9 +180,10 @@ class SuratKeluarController extends Controller
         if (auth()->user()->level == 'Kasubag')
         {
             $getUser = User::with('golongan', 'jabatan','unit_kerja')->where('level','Kabag')->get();
-        } elseif (auth()->user()->level == 'Kabag')
-        {
+        } elseif (auth()->user()->level == 'Kabag') {
             $getUser = User::with('golongan', 'jabatan','unit_kerja')->where('level','Kasat')->get();
+        } elseif (auth()->user()->level == 'Anggota'){
+            $getUser = User::with('golongan', 'jabatan','unit_kerja')->where('level','Kasi')->orWhere('level', 'Kasubag')->get();
         }
         $this->param['allJen'] = JenisSurat::get();
         // ddd(auth()->user()->level == 'Kabag');
@@ -159,7 +200,7 @@ class SuratKeluarController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(SuratKeluarRequest $request)
+    public function update(SuratKeluarRequest $request, $id)
     {
         // $surat = SuratKeluar::findOrFail($id);
         $validated = $request->validated();
@@ -269,5 +310,32 @@ class SuratKeluarController extends Controller
         }
 
         return redirect()->route('surat_keluar.index')->withStatus('Data berhasil disimpan.');
+    }
+
+    public function getSuratKeluar($id)
+    {
+        $getSuratKeluar = SuratKeluar::find($id);
+        echo json_encode($getSuratKeluar);
+    }
+
+    public function storeSuratKeluar(Request $request)
+    {
+        try{
+            $surat = new SuratKeluar;
+            $surat->no_surat = $request->get('no_surat');
+            $surat->id_pengirim = $request->get('id_pengirim');
+            $surat->id_penerima = $request->get('penerima');
+            $surat->tgl_kirim = $request->get('tgl_kirim');
+            $surat->perihal = $request->get('perihal');
+            $surat->file_surat = $request->get('file_surat');
+            $surat->catatan = $request->get('catatan');
+            $surat->save();
+        } catch (\Exception $e) {
+            return redirect()->back()->withError('Terjadi kesalahan.');
+        } catch (\Illuminate\Database\QueryException $e) {
+            return redirect()->back()->withError('Terjadi kesalahan pada database.');
+        }
+
+        return back()->withStatus('Data berhasil diperbarui.');
     }
 }

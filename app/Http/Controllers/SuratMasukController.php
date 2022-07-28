@@ -281,6 +281,6 @@ class SuratMasukController extends Controller
             return back()->withError('Terjadi kesalahan.' . $e->getMessage());
         }
 
-        return redirect()->route('surat_masuk.index')->withStatus('Disposisi berhasil dibuat.');
+        return back()->withStatus('Disposisi berhasil dibuat.');
     }
 }

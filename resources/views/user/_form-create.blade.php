@@ -113,8 +113,8 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">NIP</label>
         <div class="col-sm-10">
-            <input type="nip" name="nip" class="form-control @error('nip') is-invalid @enderror" placeholder="NIP User"
-                value="{{ old('nip') }}">
+            <input type="nip" name="nip" class="form-control @error('nip') is-invalid @enderror"
+                placeholder="NIP User" value="{{ old('nip') }}">
             @error('nip')
                 <div class="invalid-feedback">
                     {{ $message }}
@@ -131,8 +131,6 @@
                 <option value="Administrator" {{ old('level') == 'Administrator' ? ' selected' : '' }}>Administrator
                 </option>
                 <option value="Admin" {{ old('level') == 'Admin' ? ' selected' : '' }}>Admin
-                </option>
-                <option value="Anggota" {{ old('level') == 'Anggota' ? ' selected' : '' }}>Anggota
                 </option>
                 <option value="Kasat" {{ old('level') == 'Kasat' ? ' selected' : '' }}>Kasat
                 </option>

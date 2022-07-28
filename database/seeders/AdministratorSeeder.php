@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class AdministratorSeeder extends Seeder
@@ -15,6 +16,8 @@ class AdministratorSeeder extends Seeder
      */
     public function run()
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         User::truncate();
         $admin = new User();
         $admin->nama = 'Administrator';
@@ -30,6 +33,7 @@ class AdministratorSeeder extends Seeder
         $admin = new User();
         $admin->nama = 'Kasat';
         $admin->email = 'kasat@gmail.com';
+        $admin->id_jabatan = 2;
         $admin->username = 'kasat';
         $admin->password = Hash::make('password');
         $admin->jenis_pegawai = 'ASN';
@@ -39,30 +43,10 @@ class AdministratorSeeder extends Seeder
         $admin->save();
 
         $admin = new User();
-        $admin->nama = 'Admin';
-        $admin->email = 'admin@gmail.com';
-        $admin->username = 'admin';
-        $admin->password = Hash::make('password');
-        $admin->jenis_pegawai = 'ASN';
-        $admin->jenis_kelamin = 'L';
-        $admin->nip = rand ( 10000 , 99999 );
-        $admin->level = 'Admin';
-        $admin->save();
-
-        $admin = new User();
-        $admin->nama = 'Anggota';
-        $admin->email = 'anggota@gmail.com';
-        $admin->username = 'anggota';
-        $admin->password = Hash::make('password');
-        $admin->jenis_pegawai = 'ASN';
-        $admin->jenis_kelamin = 'L';
-        $admin->nip = rand ( 10000 , 99999 );
-        $admin->level = 'Anggota';
-        $admin->save();
-
-        $admin = new User();
         $admin->nama = 'Kabid';
         $admin->email = 'kabid@gmail.com';
+        $admin->id_golongan = 1;
+        $admin->id_jabatan = 4;
         $admin->username = 'kabid';
         $admin->password = Hash::make('password');
         $admin->jenis_pegawai = 'ASN';
@@ -136,5 +120,7 @@ class AdministratorSeeder extends Seeder
         $admin->nip = rand ( 10000 , 99999 );
         $admin->level = 'Kasi';
         $admin->save();
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

@@ -94,7 +94,7 @@
                                 <td>Diterima tanggal : {{ date('d-m-Y', strtotime($data->masuk->tgl_penerima)) }}</td>
                             </tr>
                             <tr>
-                                <td>Nomor agenda :</td>
+                                <td>Nomor agenda : {{ $data->penerima->level }}</td>
                             </tr>
                             <tr>
                                 <td>Sifat Surat :
@@ -102,7 +102,7 @@
                                         <tr>
                                             <td>
                                                 <input type="checkbox"
-                                                    {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
+                                                    {{ $data->sifat_surat == 'Sangat Segera' ? 'checked' : '' }}>
                                                 <label for="">Sangat Segera</label>
                                             </td>
                                             <td>
@@ -144,43 +144,42 @@
                         <table>
                             <tr>
                                 <td>
-                                    <input type="checkbox"
-                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
+                                    <input type="checkbox" {{ $data->penerima->level == 'Kasat' ? 'checked' : '' }}>
                                     <label for="">Bp. Kepala Satuan</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <input type="checkbox"
-                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
+                                        {{ $data->penerima->level == 'Sekretaris' ? 'checked' : '' }}>
                                     <label for="">Sekretaris</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <input type="checkbox"
-                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
+                                        {{ $data->penerima->level == 'Kabid' && $data->penerima->id_golongan == 1 ? 'checked' : '' }}>
                                     <label for="">Kabid Penegakan Peraturan Daerah</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <input type="checkbox"
-                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
+                                        {{ $data->penerima->level == 'Kabid' && $data->penerima->id_golongan == 2 ? 'checked' : '' }}>
                                     <label for="">Kabid Ketentraman dan Ketertiban Umum</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <input type="checkbox"
-                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
+                                        {{ $data->penerima->level == 'Kabid' && $data->penerima->id_golongan == 3 ? 'checked' : '' }}>
                                     <label for="">Kabid Pemadam Kebakaran dan Penyelamatan</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
                                     <input type="checkbox"
-                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
+                                        {{ $data->penerima->level == 'Kabid' && $data->penerima->id_golongan == 4 ? 'checked' : '' }}>
                                     <label for="">Kabid Perlindungan Masyarakat</label>
                                 </td>
                             </tr>
@@ -190,29 +189,25 @@
                         <table style="margin-bottom: 65px;">
                             <tr>
                                 <td>
-                                    <input type="checkbox"
-                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
+                                    <input type="checkbox">
                                     <label for="">Tanggapan dan Saran</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox"
-                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
+                                    <input type="checkbox">
                                     <label for="">Proses Lebih Lanjut</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox"
-                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
+                                    <input type="checkbox">
                                     <label for="">Koordinasi/konfirmasi</label>
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <input type="checkbox"
-                                        {{ $data->sifat_surat == 'Sangat Seegera' ? 'checked' : '' }}>
+                                    <input type="checkbox">
                                     <label for="">..............</label>
                                 </td>
                             </tr>
