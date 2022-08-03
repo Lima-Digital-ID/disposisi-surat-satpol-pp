@@ -37,12 +37,13 @@ class DisposisiController extends Controller
                 // if(auth()->user()->level=='Anggota'){
                 //     $getDisposisi->where('id_penerima',auth()->user()->id)->orwhere('id_penerima',auth()->user()->id);
                 // }
-                ->where('id_pengirim', auth()->user()->id)->orwhere('id_penerima', auth()->user()->id)
+                ->where('id_pengirim', auth()->user()->id)
+                ->orwhere('id_penerima', auth()->user()->id)
                 // $getDisposisi->orderBy('id','ASC');
                 ->orderBy('id', 'ASC');
 
             if ($keyword) {
-                $getDisposisi->where('disposisi', 'LIKE', "%{$keyword}%");
+                $getDisposisi->orWhere('disposisi.catatan', 'LIKE', "%{$keyword}%");
             }
 
             $this->param['data'] = $getDisposisi->paginate(10);

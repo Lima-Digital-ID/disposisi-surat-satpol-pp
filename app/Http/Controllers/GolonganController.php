@@ -34,7 +34,7 @@ class GolonganController extends Controller
             $getGolongan = Golongan::orderBy('id');
 
             if ($keyword) {
-                $getGolongan->where('golongan', 'LIKE', "%{$keyword}%");
+                $getGolongan->where('golongan.pangkat', 'LIKE', "%{$keyword}%");
             }
 
             $this->param['data'] = $getGolongan->paginate(10);
