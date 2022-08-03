@@ -66,7 +66,7 @@
                 <option value="">Pilih Jabatan</option>
                 @foreach ($allJab as $jab)
                     <option value="{{ $jab->id }}"
-                        {{ old('id_jabatan', $data->id_jabatan) == $data->id_jabatan ? ' selected' : '' }}>
+                        {{ old('id_jabatan', $jab->id) == $data->id_jabatan ? ' selected' : '' }}>
                         {{ $jab->jabatan }}</option>
                 @endforeach
             </select>
