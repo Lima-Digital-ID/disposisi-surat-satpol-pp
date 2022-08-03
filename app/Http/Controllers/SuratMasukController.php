@@ -103,6 +103,7 @@ class SuratMasukController extends Controller
             $newScanSurat = time() . '_' . $scanSurat->getClientOriginalName();
 
             $surat->no_surat = $validated['no_surat'];
+            $surat->no_agenda = $validated['no_agenda'];
             $surat->sifat_surat = $validated['sifat_surat'];
             $surat->status_tembusan = $request->get('tembusan');
             $surat->id_jenis_surat = $request->get('jenis_surat');
@@ -196,6 +197,7 @@ class SuratMasukController extends Controller
             $newScanSurat = time() . '_' . $scanSurat->getClientOriginalName();
 
             $data->no_surat = $validated['no_surat'];
+            $data->no_agenda = $validated['no_agenda'];
             $data->sifat_surat = $validated['sifat_surat'];
             $data->id_jenis_surat = $request->get('jenis_surat');
             // $surat->id_penerima = $validated['id_penerima'];
