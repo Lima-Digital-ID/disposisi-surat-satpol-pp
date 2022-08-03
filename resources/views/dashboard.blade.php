@@ -31,7 +31,7 @@
                     <h5>Surat Masuk & Surat Keluar & Disposisi (Tahun {{ $tahun }})</h5>
                 </div>
                 <div class="card-block">
-                    <div id="line-example" style="overflow: auto"></div>
+                    <div id="chart-surat" style="overflow: auto"></div>
                 </div>
             </div>
         </div>
@@ -269,11 +269,13 @@
                     type: "GET",
                     url: "{{ url('grafik_surat') }}",
                     success: function(response) {
-                        console.log('response : ' + response);
-                        areaChart(response);
+                        var data = JSON.stringify(response)
+                        console.log('response : ' + data);
+                        // areaChart(data);
+                        lineChart(data)
                         $(window).on('resize', function() {
-                            //window.lineChart.redraw();
-                            window.areaChart.redraw();
+                            window.lineChart.redraw();
+                            // window.areaChart.redraw();
                         });
                     }
                 })
@@ -282,11 +284,15 @@
             function lineChart(data) {
                 console.log(typeof(data));
                 window.lineChart = Morris.Line({
-                    element: 'line-example',
+                    element: 'chart-surat',
                     data: JSON.parse(data),
                     xkey: 'y',
-                    redraw: true,
                     ykeys: ['in', 'out', 'disposisi'],
+                    redraw: true,
+                    // yLabelFormat: function(y) {
+                    //     return y != Math.round(y) ? '1' :y;
+                    // },
+                    gridInteger: true,
                     xLabelAngle: 70,
                     xLabelFormat: function(x) {
                         var IndexToMonth = ["Januari", "Februari", "Maret", "April", "Mei", "Jun",
@@ -298,18 +304,18 @@
                     },
                     hideHover: 'auto',
                     labels: ['Surat Masuk', 'Surat Keluar', 'Disposisi'],
-                    lineColors: ['#B4C1D7', '#FF9F55', '#5FBEAA']
+                    lineColors: ['#5FBEAA', '#E74C3C', '#FFB012'],
                 });
             }
 
             function areaChart(data) {
+                console.log('area chart')
                 window.areaChart = Morris.Area({
-                    element: 'line-example',
+                    element: 'chart-surat',
                     data: JSON.parse(data),
                     xkey: 'y',
-                    resize: true,
-                    redraw: true,
                     ykeys: ['in', 'out', 'disposisi'],
+                    redraw: true,
                     lineColors: ['#5FBEAA', '#E74C3C', '#FFB012'],
                     hideHover: 'auto',
                     labels: ['Surat Masuk', 'Surat Keluar', 'Disposisi'],

@@ -100,7 +100,7 @@
                         </div>
 
                         <input type="hidden" name="id_pengirim" value="{{ auth()->user()->id }}">
-                        <input type="hidden" name="id_surat_masuk" value=" ${data.id}">
+                        <input type="hidden" name="id_surat_masuk" id="id_surat_masuk" value=" ${data.id}">
 
                         <div class="form-group row">
                             <label class="col-sm-2 col-form-label">Penerima</label>
@@ -156,10 +156,13 @@
         }
 
         function getAnggotaDis(tipe) {
+            var idSurat = $('#id_surat_masuk').val();
+            console.log('id surat : '+idSurat)
+            console.log("{{ url('disposisi/get_disposisi') }}/" + idSurat + "?tipe=" + 1)
             $('#selectUser').empty();
             $.ajax({
                 type: "GET",
-                url: "{{ url('disposisi/get_disposisi') }}/" + 1 + "?tipe=" + 1,
+                url: "{{ url('disposisi/get_disposisi') }}/" + idSurat + "?tipe=" + 1,
                 dataType: "json",
                 success: function(response) {
                     $.each(response, function(k, v) {

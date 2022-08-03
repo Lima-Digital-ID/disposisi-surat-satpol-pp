@@ -79,6 +79,6 @@ class DashboardController extends Controller
             array_push($data, $arr);
         }
 
-        return json_encode($data);
+        return response()->json($data);
     }
 }
