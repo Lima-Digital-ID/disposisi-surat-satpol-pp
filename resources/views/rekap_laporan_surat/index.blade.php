@@ -72,8 +72,8 @@
                                     <td class="text-center text-muted">${no++}</td>
                                     <td>${v.no_surat}</td>
                                     <td>${v.jenis_surat.jenis_surat}</td>
-                                    <td>${v.pengirim_keluar.nama}</td>
-                                    <td>${v.penerima}</td>
+                                    <td>${v.pengirim_keluar.nama != null ? v.pengirim_keluar.nama : '-'}</td>
+                                    <td>${v.penerima != null ? v.penerima : '-'}</td>
                                     <td>${v.tgl_kirim}</td>
                                     <td>${v.perihal}</td>
                                     <td align="center"><a href="{{ "upload/surat_keluar/" }}${v.file_surat}"  data-toggle="tooltip" title="Lihat lampiran" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
@@ -101,8 +101,8 @@
                                     <td class="text-center text-muted">${no++}</td>
                                     <td>${v.no_surat}</td>
                                     <td>${v.jenis_surat.jenis_surat}</td>
-                                    <td>${v.pengirim}</td>
-                                    <td>${v.penerima_masuk.nama}</td>
+                                    <td>${v.pengirim != null ? v.pengirim : '-'}</td>
+                                    <td>${v.penerima_masuk.nama != null ? v.penerima_masuk.nama : '-'}</td>
                                     <td>${v.tgl_penerima}</td>
                                     <td>${v.tgl_pengirim}</td>
                                     <td>${v.perihal}</td>
