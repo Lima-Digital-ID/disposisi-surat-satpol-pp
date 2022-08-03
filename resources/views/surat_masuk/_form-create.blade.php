@@ -1,6 +1,18 @@
 <form action="{{ route('surat_masuk.store') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <div class="form-group row">
+        <label class="col-sm-2 col-form-label">No Agenda</label>
+        <div class="col-sm-10">
+            <input type="number" name="no_agenda" class="form-control @error('no_agenda') is-invalid @enderror"
+                placeholder="No Agenda" value="{{ old('no_agenda') }}">
+            @error('no_agenda')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+            @enderror
+        </div>
+    </div>
+    <div class="form-group row">
         <label class="col-sm-2 col-form-label">No Surat</label>
         <div class="col-sm-10">
             <input type="text" name="no_surat" class="form-control @error('no_surat') is-invalid @enderror"

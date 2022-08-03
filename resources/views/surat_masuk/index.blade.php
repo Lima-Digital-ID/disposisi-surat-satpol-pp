@@ -156,6 +156,7 @@
         }
 
         function getAnggotaDis(tipe) {
+            console.log('asd');
             $('#selectUser').empty();
             $.ajax({
                 type: "GET",

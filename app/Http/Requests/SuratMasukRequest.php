@@ -26,6 +26,7 @@ class SuratMasukRequest extends FormRequest
     {
         return [
             'no_surat' => 'required|max:191',
+            'no_agenda' => 'required|max:191',
             'sifat_surat' => 'required',
             'pengirim' => 'required',
             // 'id_penerima' => 'required',

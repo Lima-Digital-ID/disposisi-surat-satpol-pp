@@ -94,7 +94,7 @@
                                 <td>Diterima tanggal : {{ date('d-m-Y', strtotime($data->masuk->tgl_penerima)) }}</td>
                             </tr>
                             <tr>
-                                <td>Nomor agenda : {{ $data->penerima->level }}</td>
+                                <td>Nomor agenda : {{ $data->masuk->no_agenda }}</td>
                             </tr>
                             <tr>
                                 <td>Sifat Surat :
