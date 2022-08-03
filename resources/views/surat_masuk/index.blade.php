@@ -78,7 +78,7 @@
                             <label class="col-sm-2 col-form-label">Sifat Surat</label>
                             <div class="col-sm-10">
                                 <select name="sifat_surat" id="sifat_surat"
-                                    class="form-control @error('sifat_surat') is-invalid @enderror" onChange="getAnggotaDis(1)">
+                                    class="form-control @error('sifat_surat') is-invalid @enderror" onChange="getAnggotaDis(${data.id})">
                                     <option value="">Pilih Sifat Surat</option>
                                     <option value="Penting">
                                         Penting</option>
@@ -156,11 +156,10 @@
         }
 
         function getAnggotaDis(tipe) {
-            console.log('asd');
             $('#selectUser').empty();
             $.ajax({
                 type: "GET",
-                url: "{{ url('disposisi/get_disposisi') }}/" + 1 + "?tipe=" + 1,
+                url: "{{ url('disposisi/get_disposisi') }}/" + tipe + "?tipe=" + 1,
                 dataType: "json",
                 success: function(response) {
                     $.each(response, function(k, v) {
