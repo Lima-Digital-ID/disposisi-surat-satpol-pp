@@ -45,8 +45,8 @@ class ArsipSuratController extends Controller
             ->leftJoin('surat_masuk as sm', 'sm.id', 'arsip_surat.id_surat_masuk')
             ->leftJoin('surat_keluar as sk', 'sk.id', 'arsip_surat.id_surat_keluar')
             ->join('lokasi_surat as lk', 'lk.id', 'arsip_surat.id_lokasi_surat')
-            // ->leftJoin('jenis_surat as jm', 'jm.id', 'sm.id_jenis_surat')
-            // ->leftJoin('jenis_surat as jk', 'jk.id', 'sk.id_jenis_surat')
+            ->leftJoin('jenis_surat as jm', 'jm.id', 'sm.id_jenis_surat')
+            ->leftJoin('jenis_surat as jk', 'jk.id', 'sk.id_jenis_surat')
             ->orderBy('arsip_surat.id');
 
             if ($keyword) {
