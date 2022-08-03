@@ -80,13 +80,14 @@ class SuratKeluarController extends Controller
             // $getSuratKeluar->where('diarsipkan', '0')->orderBy('id', 'ASC');
 
             if ($keyword) {
-                $getSuratKeluar->where('surat_keluar', 'LIKE', "%{$keyword}%");
+                $getSuratKeluar->where('perihal', 'LIKE', "%{$keyword}%");
             }
 
             $this->param['data'] = $getSuratKeluar->paginate(10);
             $this->param['user'] = $getAnggota->get();
             // ddd($this->param['data']);
         } catch (\Illuminate\Database\QueryException $e) {
+            return $e->getMessage();
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
         } catch (Exception $e) {
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
