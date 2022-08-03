@@ -34,7 +34,7 @@
                                     <option value="{{ $pgr->id }}">{{ $pgr->pengirim }}</option>
                                 @endforeach
                             </select> --}}
-                            <select name="pengirim" id="pengirim" class="form-control js-example-tags" multiple style="width: 100%;">
+                            <select name="pengirim" id="pengirim" class="form-control js-example-tags" style="width: 100%;">
                                 <option value="">Pilih Pengirim</option>
                                 @foreach ($allPengirim as $sender)
                                     <option value="{{ $sender->id }}">{{ $sender->pengirim }}</option>
