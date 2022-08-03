@@ -20,7 +20,7 @@
                 $page = Request::get('page');
                 $no = !$page || $page == 1 ? 1 : ($page - 1) * 10 + 1;
             @endphp
-            @foreach ($data as $item)
+            @forelse ($data as $item)
                 {{-- @if (auth()->user()->id == $item->id_pengirim || auth()->user()->level == 'Administrator' || auth()->user()->level == 'Admin' || auth()->user()->level == 'Kasat') --}}
                 <tr class="border-bottom-primary">
                     <td class="text-center text-muted">{{ $no }}</td>
@@ -33,7 +33,7 @@
                     <td>{{ $item->tgl_pengirim }}</td>
                     <td>{{ $item->tgl_penerima }}</td>
                     <td>{{ $item->perihal }}</td>
-                    <td align="center"><a href="{{ 'upload/surat_masuk/' . $item->file_surat }}" target="_blank"
+                    <td align="center"><a href="{{ 'upload/surat_masuk/' . $item->file_surat }}" data-toggle="tooltip" title="Lihat lampiran" target="_blank"
                             class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
                     <td>
                         <div class="form-inline">
@@ -64,7 +64,11 @@
                     $no++;
                 @endphp
                 {{-- @endif --}}
-            @endforeach
+            @empty
+            <tr class="border-bottom-primary">
+                <th colspan="11" class="text-center">Data kosong.</th>
+            </tr>
+            @endforelse
         </tbody>
     </table>
     <div class="pull-right">

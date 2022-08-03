@@ -20,13 +20,13 @@
             <h5>List {{ $pageTitle }}</h5>
             <form action="" method="get">
                 <div class="form-group row justify-content-end">
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="input-group">
                             <input type="text" class="form-control" name="perihal"
                                 value="{{ Request::get('perihal') }}" placeholder="Perihal" style="margin-top:5%;">
                         </div>
                     </div>
-                    <div class="col-md-2">
+                    <div class="col-md-4">
                         <div class="input-group">
                             {{-- <select name="id_pengirim" id="" class="js-example-basic-single" style="width: 100%">
                                 <option value="">Pilih Pengirim</option>

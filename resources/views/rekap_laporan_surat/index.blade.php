@@ -13,7 +13,7 @@
 @section('content')
 
     @include('components.notification')
-    
+
     <div class="card">
         <div class="card-header">
             <h5>List {{ $pageTitle }}</h5>
@@ -76,7 +76,7 @@
                                     <td>${v.penerima}</td>
                                     <td>${v.tgl_kirim}</td>
                                     <td>${v.perihal}</td>
-                                    <td align="center"><a href="{{ "upload/surat_keluar/" }}${v.file_surat}" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
+                                    <td align="center"><a href="{{ "upload/surat_keluar/" }}${v.file_surat}"  data-toggle="tooltip" title="Lihat lampiran" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
                                 </tr>
                             `)
                         })
@@ -106,7 +106,7 @@
                                     <td>${v.tgl_penerima}</td>
                                     <td>${v.tgl_pengirim}</td>
                                     <td>${v.perihal}</td>
-                                    <td align="center"><a href="{{ "upload/surat_masuk/" }}${v.file_surat}" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
+                                    <td align="center"><a href="{{ "upload/surat_masuk/" }}${v.file_surat}"  data-toggle="tooltip" title="Lihat lampiran" target="_blank" class="btn btn-info btn-sm mr-2"><i class="fa fa-file"></i></a></td>
                                 </tr>
                             `)
                         })
