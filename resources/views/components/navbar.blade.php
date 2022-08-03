@@ -36,7 +36,7 @@
               </li>
           </ul>
           <ul class="nav-right">
-              <li class="header-notification">
+              {{--  <li class="header-notification">
                   <div class="dropdown-primary dropdown">
                       <div class="dropdown-toggle" data-toggle="dropdown">
                           <i class="feather icon-bell"></i>
@@ -86,7 +86,7 @@
                           </li>
                       </ul>
                   </div>
-              </li>
+              </li>  --}}
               {{-- <li class="header-notification">
                   <div class="dropdown-primary dropdown">
                       <div class="displayChatbox dropdown-toggle" data-toggle="dropdown">
