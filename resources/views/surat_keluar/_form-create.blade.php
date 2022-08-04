@@ -66,10 +66,11 @@
     <div class="form-group row">
         <label class="col-sm-2 col-form-label">Penerima</label>
         <div class="col-sm-10">
-            <select name="penerima" id="penerima" class="js-example-tags" style="width: 100%;" required>
+            <select name="penerima" id="penerima" class="js-example-basic-single" style="width: 100%;" required>
                 <option value="">Pilih Penerima</option>
                 @foreach ($allUsr as $user)
-                    <option value="{{ $user->id }}">{{ $user->nama .'||'. $user->level .'||'. $user->unit_kerja->unit_kerja}}</option>
+                    <option value="{{ $user->id }}">
+                        {{ $user->nama . '||' . $user->level . '||' . $user->unit_kerja->unit_kerja }}</option>
                 @endforeach
             </select>
             @error('penerima')

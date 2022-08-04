@@ -5,14 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SuratKeluar extends Model
+class Terusan extends Model
 {
     use HasFactory;
-    protected $table = 'surat_keluar';
 
-    public function jenis_surat()
+    public function surat_keluar()
     {
-        return $this->belongsTo('\App\Models\JenisSurat', 'id_jenis_surat')->withDefault(['jenis_surat' => '-']);
+        return $this->belongsTo('\App\Models\SuratKeluar', 'id_surat_keluar');
     }
 
     public function pengirim_keluar()
@@ -23,10 +22,5 @@ class SuratKeluar extends Model
     public function penerima_keluar()
     {
         return $this->belongsTo('\App\Models\User', 'id_penerima')->withDefault(['nama' => '-']);
-    }
-
-    public function terusan()
-    {
-        return $this->hasMany('\App\Models\Terusan', 'id_surat_keluar');
     }
 }

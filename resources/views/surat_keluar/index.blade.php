@@ -13,7 +13,9 @@
 @section('content')
     @include('components.notification')
 
-    @include('components.button-add', ['btnText' => $btnText, 'btnLink' => $btnLink])
+    @if (Auth::user()->level == 'Staff')
+        @include('components.button-add', ['btnText' => $btnText, 'btnLink' => $btnLink])
+    @endif
 
     <div class="card">
         <div class="card-header">
@@ -24,7 +26,11 @@
 
         </div>
         <div class="card-block table-border-style">
-            @include('surat_keluar._table')
+            @if (Auth::user()->level == 'Staff')
+                @include('surat_keluar._table-staff')
+            @else
+                @include('surat_keluar._table-non-staff')
+            @endif
         </div>
     </div>
 @endsection
@@ -44,11 +50,7 @@
                     `);
                     $('.modal-body .form').append(`
                     @csrf
-                        <input type="hidden" name="no_surat" value=" ${data.no_surat}">
-                        <input type="hidden" name="tgl_kirim" value=" ${data.tgl_kirim}">
-                        <input type="hidden" name="perihal" value=" ${data.perihal}">
-                        <input type="hidden" name="id_pengirim" value="${data.id_penerima}">
-                        <input type="hidden" name="file_surat" value="${data.file_surat}">
+                        <input type="hidden" name="id_surat_keluar" value="${data.id}">
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">Teruskan Kepada :</label>
                             <div class="col-sm-8">

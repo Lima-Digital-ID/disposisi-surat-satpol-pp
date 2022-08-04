@@ -6,9 +6,11 @@ use App\Http\Requests\SuratKeluarRequest;
 use App\Models\SuratKeluar;
 use App\Models\User;
 use App\Models\JenisSurat;
+use App\Models\Terusan;
 use Illuminate\Http\Request;
 use Exception;
 use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class SuratKeluarController extends Controller
 {
@@ -85,7 +87,10 @@ class SuratKeluarController extends Controller
 
             $this->param['data'] = $getSuratKeluar->paginate(10);
             $this->param['user'] = $getAnggota->get();
-            // ddd($this->param['data']);
+            $this->param['terusan'] = Terusan::with('surat_keluar','pengirim_keluar', 'penerima_keluar')
+                                ->where('id_pengirim', auth()->user()->id)
+                                ->orWhere('id_penerima', auth()->user()->id)->get();
+                                // ddd($this->param['terusan']);
         } catch (\Illuminate\Database\QueryException $e) {
             return $e->getMessage();
             return back()->withError('Terjadi Kesalahan : ' . $e->getMessage());
@@ -144,6 +149,12 @@ class SuratKeluarController extends Controller
             if ($surat->save()) {
                 $scanSurat->move($uploadPath, $newScanSurat);
                 // $paraf($paraf, $image_base64);
+                $terusan = new Terusan;
+                $terusan->id_pengirim = Auth::user()->id;
+                $terusan->id_penerima = $request->get('penerima');
+                $terusan->id_surat_keluar = $surat->id;
+                $terusan->catatan = $request->get('catatan');
+                $terusan->save();
                 return redirect()->route('surat_keluar.index')->withStatus('Data berhasil disimpan.');
             }
         } catch (Exception $e) {
@@ -322,13 +333,13 @@ class SuratKeluarController extends Controller
     public function storeSuratKeluar(Request $request)
     {
         try{
-            $surat = new SuratKeluar;
-            $surat->no_surat = $request->get('no_surat');
-            $surat->id_pengirim = $request->get('id_pengirim');
-            $surat->id_penerima = $request->get('penerima');
-            $surat->tgl_kirim = $request->get('tgl_kirim');
-            $surat->perihal = $request->get('perihal');
-            $surat->file_surat = $request->get('file_surat');
+            $surat = new Terusan;
+            $surat->id_pengirim = Auth::user()->id;
+            if (is_numeric($request->penerima)) // Penerima dari master
+                $surat->id_penerima = $request->get('penerima');
+            else // Penerima baru
+                $surat->penerima = $request->get('penerima');
+            $surat->id_surat_keluar = $request->get('id_surat_keluar');
             $surat->catatan = $request->get('catatan');
             $surat->save();
         } catch (\Exception $e) {
