@@ -108,7 +108,7 @@
                             <img src="{{ asset('') }}png/jatim.png" alt="logo.png" style="height:100px;margin-right:28px" class="mb-2">
                             <br>
                             {{-- <br>  --}}
-                            <h3><strong>SATUAN POLISI PAMONG PRAJA</strong></h3>
+                            <h3><strong>SATUAN POLISI PAMONG PRAJAA</strong></h3>
                             <h3><strong>JAWA TIMUR</strong></h3>
                             <h4><strong>SISTEM INFORMASI DISPOSISI SURAT</strong></h4>
                         </div>
